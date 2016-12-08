@@ -1,8 +1,8 @@
 {
-  "manifest_version": 2, // TODO need to confirm this is the correct version
+  "manifest_version": 2,
   "name": "Your Story",
   "description": "Visualize Your Browsing History",
-  "version": "0.0.0.1", // TODO: need to confirm this is the correct version
+  "version": "0.0.0.1",
   "permissions": [
     "history", "tabs", "http://*/",  "identity", "storage", "background", "alarms"
   ],
@@ -12,7 +12,6 @@
   },
   "content_scripts": [
     {
-      // "matches": ["*://*.google.com/_/chrome/newtab*"],
       "matches": ["<all_urls>"],
       "css": [],
       "js": ["content.js"]
@@ -25,12 +24,9 @@
     "16": "./assets/logos/logo-16.png",
     "48": "./assets/logos/logo-48.png",
     "128": "./assets/logos/logo-128.png"
-  }
+  },
   "oauth2": {
-    // "client_id": "799894733477-pept7gm20n0gj8n9ul98nmago3s2fpk9.apps.googleusercontent.com",
-    // "client_id": "1053327019332-2pj5i4bvha46bfbstc2e5asqjqikrafq.apps.googleusercontent.com", // Natasha
-    // "client_id": "162214619816-c45naiqomm4cscb7dlp53urkuo1hdk16.apps.googleusercontent.com", // bruna
-    "client_id": "290557892275-f55p4vmd6msl7lp6hmj2d3m111hr29q0.apps.googleusercontent.com", //melba
+     "client_id": "799894733477-pept7gm20n0gj8n9ul98nmago3s2fpk9.apps.googleusercontent.com",
     "scopes": [
                 "https://www.googleapis.com/auth/userinfo.email"
         ]

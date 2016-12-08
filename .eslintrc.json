@@ -1,0 +1,26 @@
+{
+ "extends": "airbnb",
+ "parser": "babel-eslint",
+ "env": {
+   "browser": true,
+   "node": true,
+   "es6": true,
+   "mocha": true
+ },
+ "rules": {
+   "valid-jsdoc": ["error", {
+     "requireReturn": false,
+     "requireReturnType": false,
+     "requireParamDescription": false,
+     "requireReturnDescription": false
+   }],
+   "func-names": ["error", "never"],
+   "require-jsdoc": ["error", {
+       "require": {
+           "FunctionDeclaration": false,
+           "MethodDefinition": false,
+           "ClassDeclaration": false
+       }
+   }]
+ }
+}

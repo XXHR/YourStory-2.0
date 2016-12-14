@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
-//require database setup from config
+// require database setup from config
 const db = require('./config');
 
-//establish connection 
+// establish connection
 db
   .authenticate()
   .then(() => {
@@ -51,13 +51,18 @@ const Category = db.define('category', {
 });
 
 const UserDomain = db.define('users_domains', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
   count: Sequelize.INTEGER,
-  date_added: Sequelize.DATEONLY
+  date_added: Sequelize.DATEONLY,
 });
 
-Domain.belongsToMany(User, { through: UserDomain, foreignKey: 'domainId' });
+Domain.belongsToMany(User, { through: { model: UserDomain, unique: false } });
 
-User.belongsToMany(Domain, { through: UserDomain, foreignKey: 'userId' });
+User.belongsToMany(Domain, { through: { model: UserDomain, unique: false } });
 
 
 Category.hasMany(Domain, { as: 'Sites' });
@@ -67,59 +72,15 @@ Domain.belongsTo(Category);
 db
   .sync({ force: false })
   .then(() => {
-
-    // User.findOrCreate({ where: { username: 'Natasha' } })
-    //     .spread((user, created) => {
-    //       if(user) {
-    //         Domain.findOrCreate({ where: { domain: 'goodbye.com' } })
-    //               .spread((domain, created) => {
-    //                 console.log(domain.get({
-    //                   plain: true
-    //                 }))
-    //                 user.addDomain(domain, { count: 100, date_added: new Date() });
-    //               })
-    //       }
-    //     })
-
-
-
-    let today = new Date();
-    let year = today.getFullYear().toString();
-    let month = (today.getMonth() + 1).toString();
-    let day = today.getDate().toString();
-
-    let date = year + '-' + month + '-' + day;
-
-    User.findOne({ where: { username: 'Natasha' } })
-        .then((user) => {
-          user.getDomains()
-              .then((domains) => {
-                console.log('hulu date added', domains[0].dataValues.users_domains.dataValues.date_added);
-
-                console.log('javascript date: ', date, ' sequelize date: ', domains[0].dataValues.users_domains.dataValues.date_added)
-
-                if(date === domains[0].dataValues.users_domains.dataValues.date_added) {
-                  console.log('added today');
-                } else {
-                  console.log('not a match')
-                }
-
-              })
-        })
-    
-
-
-  })
-  .then(() => {
     console.log('All tables created');
   })
   .catch((err) => {
-    console.log("error creating tables");
-  })
+    console.log('error creating tables', err);
+  });
 
 module.exports = {
   User: User,
   Domain: Domain,
   Category: Category,
-  UserDomain: UserDomain
+  UserDomain: UserDomain,
 }

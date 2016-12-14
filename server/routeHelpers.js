@@ -1,4 +1,4 @@
-const postUser = require('./routes/postUser');
+const postUser = require('./routeHandlers/postUser');
 
 const db = require('../db/config');
 

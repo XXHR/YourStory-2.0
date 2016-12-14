@@ -67,12 +67,11 @@ Domain.belongsTo(Category);
 db
   .sync({ force: false })
   .then(() => {
-    console.log('All tables created');
 
     // User.findOrCreate({ where: { username: 'Natasha' } })
     //     .spread((user, created) => {
     //       if(user) {
-    //         Domain.findOrCreate({ where: { domain: 'hulu.com' } })
+    //         Domain.findOrCreate({ where: { domain: 'goodbye.com' } })
     //               .spread((domain, created) => {
     //                 console.log(domain.get({
     //                   plain: true
@@ -110,6 +109,9 @@ db
     
 
 
+  })
+  .then(() => {
+    console.log('All tables created');
   })
   .catch((err) => {
     console.log("error creating tables");

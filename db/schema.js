@@ -71,7 +71,7 @@ db
     // User.findOrCreate({ where: { username: 'Natasha' } })
     //     .spread((user, created) => {
     //       if(user) {
-    //         Domain.findOrCreate({ where: { domain: 'yahoo.com' } })
+    //         Domain.findOrCreate({ where: { domain: 'goodbye.com' } })
     //               .spread((domain, created) => {
     //                 console.log(domain.get({
     //                   plain: true

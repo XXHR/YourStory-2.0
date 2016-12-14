@@ -8,6 +8,7 @@ const db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/yours
   define: {
     timestamps: false,
   },
+  timezone: 'America/Los_Angeles',
 });
 
 module.exports = db;

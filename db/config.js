@@ -1,5 +1,6 @@
-//  instantiate new sequelize database
+'use strict';
 
+//  instantiate new sequelize database
 const pg = require('pg');
 const Sequelize = require('sequelize');
 

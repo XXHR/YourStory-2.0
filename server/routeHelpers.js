@@ -1,4 +1,6 @@
 const postUser = require('./routeHandlers/postUser');
+const postHistory = require('./routeHandlers/postHistory');
+
 
 const db = require('../db/config');
 
@@ -10,4 +12,6 @@ db.authenticate().then(() => {
 
 module.exports = {
   postUser: postUser,
+
+  postHistory: postHistory,
 }

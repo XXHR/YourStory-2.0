@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Your Story",
   "description": "Visualize Your Browsing History",
-  "version": "0.0.0.1",
+  "version": "0.0.0.2",
   "permissions": [
     "history", "tabs", "http://*/",  "identity", "storage", "background", "alarms"
   ],
@@ -26,7 +26,8 @@
     "128": "./assets/logos/logo-128.png"
   },
   "oauth2": {
-     "client_id": "799894733477-pept7gm20n0gj8n9ul98nmago3s2fpk9.apps.googleusercontent.com",
+     //dev"client_id": "799894733477-pept7gm20n0gj8n9ul98nmago3s2fpk9.apps.googleusercontent.com",//
+     "client_id": "799894733477-2hu801jg2rd8pidf11dv6cfb5fu4kbfs.apps.googleusercontent.com",
     "scopes": [
                 "https://www.googleapis.com/auth/userinfo.email"
         ]

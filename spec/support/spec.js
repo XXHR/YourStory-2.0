@@ -12,47 +12,47 @@ describe('YourStory App', function () {
     });
   });
 
-  // describe('GET /api/username', function () {
-  //   it('returns status 201', function (done) {
-  //     request.get(base_url + '/api/username', function (error, response, body) {
-  //       expect(response.statusCode).toBe(201);
-  //       done();
-  //     });
-  //   });
-  // });
+  describe('GET /api/username', function () {
+    it('returns status 201', function (done) {
+      request.get(base_url + '/api/username', function (error, response, body) {
+        expect(response.statusCode).toBe(201);
+        done();
+      });
+    });
+  });
 
-  // describe('GET /api/catData', function () {
-  //   it('returns status 201', function (done) {
-  //     request.get(base_url + '/api/catData', function (error, response, body) {
-  //       if(error) {
-  //         console.log("this is the error", error);
-  //       }
-  //       expect(response.statusCode).toBe(201);        
-  //       done();
-  //     });
-  //   });
+  describe('GET /api/catData', function () {
+    it('returns status 201', function (done) {
+      request.get(base_url + '/api/catData', function (error, response, body) {
+        if(error) {
+          console.log("this is the error", error);
+        }
+        expect(response.statusCode).toBe(201);        
+        done();
+      });
+    });
 
-  //   it('returns an array', function (done) {
-  //     request.get(base_url + '/api/catData', function (error, response, body) {
-  //       expect(body.data).toBe([]);
-  //       done();
-  //     });
-  //   });
-  // });
+    it('returns an array', function (done) {
+      request.get(base_url + '/api/catData', function (error, response, body) {
+        expect(body.data).toBe([]);
+        done();
+      });
+    });
+  });
 
-  // describe('GET /api/weekData', function () {
-  //   it('returns status 201', function (done) {
-  //     request.get(base_url + '/api/weekData', function (error, response, body) {
-  //       expect(response.statusCode).toBe(201);
-  //       done();
-  //     });
-  //   });
+  describe('GET /api/weekData', function () {
+    it('returns status 201', function (done) {
+      request.get(base_url + '/api/weekData', function (error, response, body) {
+        expect(response.statusCode).toBe(201);
+        done();
+      });
+    });
 
-  //   it('returns an array', function (done) {
-  //     request.get(base_url + '/api/weekData', function (error, response, body) {
-  //       expect(body.data).toBe([]);
-  //       done();
-  //     });
-  //   });
-  // });
+    it('returns an array', function (done) {
+      request.get(base_url + '/api/weekData', function (error, response, body) {
+        expect(body.data).toBe([]);
+        done();
+      });
+    });
+  });
 });

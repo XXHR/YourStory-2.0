@@ -1,0 +1,34 @@
+{
+  "manifest_version": 2,
+  "name": "Your Story",
+  "description": "Visualize Your Browsing History",
+  "version": "0.0.0.1",
+  "permissions": [
+    "history", "tabs", "http://*/",  "identity", "storage", "background", "alarms"
+  ],
+  "background": {
+    "scripts": ["event.js"],
+    "persistent": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": [],
+      "js": ["content.js"]
+    }
+  ],
+  "chrome_url_overrides" : {
+    "newtab": "./index.html"
+  },
+  "icons" : {
+    "16": "./assets/logos/logo-16.png",
+    "48": "./assets/logos/logo-48.png",
+    "128": "./assets/logos/logo-128.png"
+  },
+  "oauth2": {
+     "client_id": "799894733477-pept7gm20n0gj8n9ul98nmago3s2fpk9.apps.googleusercontent.com",
+    "scopes": [
+                "https://www.googleapis.com/auth/userinfo.email"
+        ]
+  }
+}

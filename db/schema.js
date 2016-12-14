@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
-//require database setup from config
+// require database setup from config
 const db = require('./config');
 
-//establish connection 
+// establish connection
 db
   .authenticate()
   .then(() => {
@@ -34,7 +34,7 @@ const Domain = db.define('domain', {
   },
   domain: {
     type: Sequelize.STRING,
-    unique: true,
+    // unique: true,
   },
 });
 
@@ -51,13 +51,18 @@ const Category = db.define('category', {
 });
 
 const UserDomain = db.define('users_domains', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
   count: Sequelize.INTEGER,
-  date_added: Sequelize.DATEONLY
+  date_added: Sequelize.DATEONLY,
 });
 
-Domain.belongsToMany(User, { through: UserDomain, foreignKey: 'domainId' });
+Domain.belongsToMany(User, { through: { model: UserDomain, unique: false } });
 
-User.belongsToMany(Domain, { through: UserDomain, foreignKey: 'userId' });
+User.belongsToMany(Domain, { through: { model: UserDomain, unique: false } });
 
 
 Category.hasMany(Domain, { as: 'Sites' });
@@ -67,67 +72,11 @@ Domain.belongsTo(Category);
 db
   .sync({ force: false })
   .then(() => {
-
-    
-    let today = new Date();
-    let year = today.getFullYear().toString();
-    let month = (today.getMonth() + 1).toString();
-    let day = (today.getDate() - 1).toString();
-
-    let date = year + '-' + month + '-' + day;
-
-
-    User.findOrCreate({ where: { username: 'Natasha' } })
-        .spread((user, created) => {
-          if(user) {
-            Domain.findOrCreate({ where: { domain: 'hello.com' } })
-                  .spread((domain, created) => {
-                    console.log(domain.get({
-                      plain: true
-                    }))
-
-                    // get user's domains for today
-                    user.getDomains({ where: { date_added:  } })
-                        .then((domains) => {
-                          console.log(typeof domains);
-                        })
-                      // check if new domain is already in list for user for today's date
-                        // if yes, update the count
-                        // if no, add domain to list for today 
-                            // user.addDomain(domain, { count: 100, date_added: new Date() });
-                  })
-          }
-        });
-
-
-
-
-    // User.findOne({ where: { username: 'Natasha' } })
-    //     .then((user) => {
-    //       user.getDomains()
-    //           .then((domains) => {
-    //             console.log('domain date added', domains[2].dataValues.users_domains.dataValues.date_added);
-
-    //             console.log('javascript date: ', date, ' sequelize date: ', domains[0].dataValues.users_domains.dataValues.date_added)
-
-    //             if(date === domains[0].dataValues.users_domains.dataValues.date_added) {
-    //               console.log('added today');
-    //             } else {
-                  
-    //             }
-
-    //           })
-    //     })
-    
-
-
-  })
-  .then(() => {
     console.log('All tables created');
   })
   .catch((err) => {
-    console.log("error creating tables");
-  })
+    console.log('error creating tables', err);
+  });
 
 module.exports = {
   User: User,

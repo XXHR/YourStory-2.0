@@ -1,4 +1,4 @@
-const routes = require('./routes');
+const postUser = require('./routes/postUser');
 
 const db = require('../db/config');
 
@@ -9,5 +9,5 @@ db.authenticate().then(() => {
 });
 
 module.exports = {
-  postUser: routes.postUser
+  postUser: postUser,
 }

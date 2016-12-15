@@ -1,5 +1,3 @@
-'use strict';
-
 const Sequelize = require('sequelize');
 // require database setup from config
 const db = require('./config');
@@ -84,5 +82,5 @@ module.exports = {
   User: User,
   Domain: Domain,
   Category: Category,
-  UserDomain: UserDomain,
-};
+  UserDomain: UserDomain
+}

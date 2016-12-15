@@ -1,12 +1,21 @@
-const Sequelize = require('sequelize');
-// require database setup from config
-const db = require('./config');
+'use strict';
 
-// establish connection
+const pg = require('pg');
+const Sequelize = require('sequelize');
+
+const db = new Sequelize('postgres://localhost/testyourstory', {
+  dialect: 'postgres',
+  define: {
+    timestamps: false,
+  },
+  timezone: 'America/Los_Angeles',
+});
+
+//establish connection 
 db
   .authenticate()
   .then(() => {
-    console.log('Connection established from schema');
+    console.log('Connection established from test schema');    
   })
   .catch((err) => {
     console.log('Unable to connect: ', err);
@@ -51,18 +60,13 @@ const Category = db.define('category', {
 });
 
 const UserDomain = db.define('users_domains', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
   count: Sequelize.INTEGER,
-  date_added: Sequelize.DATEONLY,
+  date_added: Sequelize.DATEONLY
 });
 
-Domain.belongsToMany(User, { through: { model: UserDomain, unique: false } });
+Domain.belongsToMany(User, { through: UserDomain, foreignKey: 'domainId' });
 
-User.belongsToMany(Domain, { through: { model: UserDomain, unique: false } });
+User.belongsToMany(Domain, { through: UserDomain, foreignKey: 'userId' });
 
 
 Category.hasMany(Domain, { as: 'Sites' });
@@ -70,17 +74,18 @@ Domain.belongsTo(Category);
 
 
 db
-  .sync({ force: false })
-  .then(() => {
+  .sync({ force: false })  
+  .then(() => {    
     console.log('All tables created');
   })
   .catch((err) => {
-    console.log('error creating tables', err);
-  });
+    console.log("error creating tables");
+  })
 
 module.exports = {
   User: User,
   Domain: Domain,
   Category: Category,
-  UserDomain: UserDomain
-}
+  UserDomain: UserDomain,
+  db: db
+};

@@ -92,38 +92,14 @@
 // });
 
 
-
 'use strict';
 
 const Sequelize = require('sequelize');
-
-const express = require('express');
-// const routes = require('../../server/routes');
-const bodyParser = require('body-parser');
-// const cookieParser = require('cookie-parser');
-
-const app = express();
-
-// app.use(cookieParser());
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-
-// routes(app);
-
-// const { db } = require('../../db/schema');
 const db = require('../testSchema');
 
-describe('create user', function() {
-  beforeAll(function(done) {
-    setTimeout(function() {
-      done();
-    }, 4500);
-  });
-
-  // const db = db.db;
-
-  beforeAll(function(done) {
-   db.db
+describe('database queries', function () {
+  beforeEach(function (done) {
+    db.db
      .authenticate()
      .then(function (err) {
        console.log('Connection established from Jasmine spec.js');
@@ -134,16 +110,11 @@ describe('create user', function() {
      });
   });
 
-  beforeEach(function () {
-    this.app = app;
-    this.dbs = db;
-  });
-
   it('adds a user to user table', function (done) {
-    expect(
-      this.dbs.User.findOrCreate({ where: { username: 'Melba' } })
-      ).toBe('Melba');
-    done();
+    db.User
+    .findOrCreate({ where: { username: 'Adele' } }).then((user) => {
+      expect(user[0].dataValues.username).toBe('Adele');
+      done();
+    });
   });
-
 });

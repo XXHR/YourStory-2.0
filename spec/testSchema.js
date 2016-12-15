@@ -15,7 +15,7 @@ const db = new Sequelize('postgres://localhost/testyourstory', {
 db
   .authenticate()
   .then(() => {
-    console.log('Connection established from test schema');
+    console.log('Connection established from test schema');    
   })
   .catch((err) => {
     console.log('Unable to connect: ', err);
@@ -74,8 +74,8 @@ Domain.belongsTo(Category);
 
 
 db
-  .sync({ force: true })  
-  .then(() => {
+  .sync({ force: false })  
+  .then(() => {    
     console.log('All tables created');
   })
   .catch((err) => {

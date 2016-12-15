@@ -3,11 +3,9 @@ const Domain = require('../../db/schema').Domain;
 
 module.exports = (req, res) => {
 
-  // parse through user's chrome history in req.body
-    // extract unique domains list
-        // for each unique domain, save in database for today 
+  // make date range (today to seven days ago)
+    // using date range, query for all domains and their count
 
   res.sendStatus(200);
 
 }
-

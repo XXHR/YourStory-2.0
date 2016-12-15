@@ -1,6 +1,7 @@
 const postUser = require('./routeHandlers/postUser');
 const postHistory = require('./routeHandlers/postHistory');
 const getUser = require('./routeHandlers/getUser');
+const getCatData = require('./routeHandlers/getCatData');
 
 
 
@@ -18,4 +19,6 @@ module.exports = {
   getUser: getUser,
 
   postHistory: postHistory,
+
+  getCatData: getCatData,
 }

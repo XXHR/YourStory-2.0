@@ -126,11 +126,11 @@ describe('create user', function() {
    db.db
      .authenticate()
      .then(function (err) {
-       console.log('Connection established jasmine');
+       console.log('Connection established from Jasmine spec.js');
        done();
      })
      .catch(function (err) {
-       console.error.bind(console, 'Sequelize connection error: ');
+       console.error.bind(console, 'Connection error from Jasmine spec.js ');
      });
   });
 

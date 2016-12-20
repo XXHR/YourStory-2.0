@@ -1,10 +1,10 @@
 const Domain = require('../../../db/schema').Domain;
-// require btoa for web shrinker api call 
+// require btoa for web shrinker api call
 
 const saveDomains = (uniqueDomains) => {
-  for (let domain in uniqueDomains) {
+  for (let domainKey in uniqueDomains) {
     Domain
-      .findOrCreate({ where: { domain: key } })
+      .findOrCreate({ where: { domain: domainKey } })
       .then((domain) => {
 
         // check if domain has category
@@ -19,7 +19,7 @@ const saveDomains = (uniqueDomains) => {
         console.log('Done saving all domains');
       });
   }
-}
+};
 
 const promisedSavedDomains = new Promise((resolve, reject) => {
   return resolve(saveDomains());

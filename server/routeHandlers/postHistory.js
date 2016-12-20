@@ -44,7 +44,7 @@ module.exports = (req, res) => {
 
   const date = year + '-' + month + '-' + day;
 
-  // ================ add saved domains to users_domains table ============
+  // ================ add saved domains to users_domains table =============
   saveDomains()
     .then(() => {
       getUser(req.session.chromeID)
@@ -71,7 +71,7 @@ module.exports = (req, res) => {
                       // add or update domain for user for today's date
                       addDomainToday(userDomains, domainId, date)
                         .then(() => {
-
+                          console.log('DOMAIN ADDED FOR TODAY');
                           // ===== send VIS DATA ?? ======
                           res.sendStatus(200);
                         })

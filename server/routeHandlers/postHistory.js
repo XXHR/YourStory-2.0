@@ -47,7 +47,7 @@ module.exports = (req, res) => {
   // ================ add saved domains to users_domains table ============
   saveDomains()
     .then(() => {
-      getUser()
+      getUser(req.session.chromeID)
         .then((userId) => {
           // iterate through uniqueDomains list
           for (let domainKey in uniqueDomains) {

@@ -1,10 +1,15 @@
 const Domain = require('../../../db/schema').Domain;
+// require btoa for web shrinker api call 
 
 const saveDomains = (uniqueDomains) => {
   for (let domain in uniqueDomains) {
     Domain
       .findOrCreate({ where: { domain: key } })
-      .then(() => {
+      .then((domain) => {
+
+        // check if domain has category
+          // if no, fetch category from api 
+
 
       })
       .catch((err) => {

@@ -1,11 +1,14 @@
-const getUser = require('./helpers/getUser');
+// const getUser = require('./helpers/getUser');
+const User = require('../../db/schema').User;
 const saveDomains = require('./helpers/saveDomains');
 const tallyVisitCount = require('./helpers/tallyVisitCount');
 const UserDomain = require('../../db/schema').UserDomain;
 const Domain = require('../../db/schema').Domain;
 const addDomainToday = require('./helpers/addDomainToday');
 
-module.exports = (req, res) => {
+
+module.exports.postHistory = (req, res) => {
+
   const allHistory = req.body.history;
   // parse through user's chrome history in req.body
   // ============= add parsed domain to each history object in allData array ================
@@ -36,6 +39,14 @@ module.exports = (req, res) => {
     return uniqueDomains[historyItem.domain];
   });
 
+  console.log('tallyVisitCount', uniqueDomains);
+
+  // ======== promised functions ==========
+
+  const promisedSavedDomains = new Promise((resolve, reject) => {
+    return resolve(saveDomains(uniqueDomains));
+  });
+
   // ================ get today's date ===============
   const today = new Date();
   const year = today.getFullYear().toString();
@@ -45,20 +56,22 @@ module.exports = (req, res) => {
   const date = year + '-' + month + '-' + day;
 
   // ================ add saved domains to users_domains table =============
-  saveDomains()
+  promisedSavedDomains
     .then(() => {
-      getUser(req.session.chromeID)
-        .then((userId) => {
+      User.findOne({ where: { chromeID: '12345' } })
+        .then((user) => {
+          const userId = user.dataValues.id;
           // iterate through uniqueDomains list
           for (let domainKey in uniqueDomains) {
             // find each domain in list
             Domain.findOne({ where: { domain: domainKey } })
               .then((domain) => {
+                console.log('domain', domain.id);
                 const domainId = domain.id;
-                const totalCount = tallyVisitCount(uniqueDomains[domain]);
+                const totalCount = tallyVisitCount(uniqueDomains[domainKey]);
 
                 // search for domain in users domains list from today
-                UserDomain.findAll({ where: { userId: userId, domainId: domainId } })
+                UserDomain.findAll({ where: { userId: userId, domainId: domainId, date_added: date } })
                   .then((userDomains) => {
                     // if no domains saved for today's date, add domain to table
                      if (userDomains.length === 0) {
@@ -69,7 +82,12 @@ module.exports = (req, res) => {
                       }
 
                       // add or update domain for user for today's date
-                      addDomainToday(userDomains, domainId, date)
+
+                      const promisedAddDomainsToday = new Promise((resolve, reject) => {
+                        return resolve(addDomainToday(userDomains, domainId, date));
+                      });
+
+                      promisedAddDomainsToday
                         .then(() => {
                           console.log('DOMAIN ADDED FOR TODAY');
                           // ===== send VIS DATA ?? ======

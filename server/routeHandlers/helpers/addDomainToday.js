@@ -16,8 +16,5 @@ const addDomainToday = (userDomains, domainId, todayDate) => {
   }
 };
 
-const promisedSavedDomainToday = new Promise((resolve, reject) => {
-  return resolve(addDomainToday());
-});
 
-module.exports = promisedSavedDomainToday;
+module.exports = addDomainToday;

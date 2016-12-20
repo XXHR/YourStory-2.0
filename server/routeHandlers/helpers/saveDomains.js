@@ -1,7 +1,10 @@
 const Domain = require('../../../db/schema').Domain;
 // require btoa for web shrinker api call
 
+const uniqueDomains = require('../postHistory').uniqueDomains;
+
 const saveDomains = (uniqueDomains) => {
+
   for (let domainKey in uniqueDomains) {
     Domain
       .findOrCreate({ where: { domain: domainKey } })
@@ -21,8 +24,5 @@ const saveDomains = (uniqueDomains) => {
   }
 };
 
-const promisedSavedDomains = new Promise((resolve, reject) => {
-  return resolve(saveDomains());
-});
 
-module.exports = promisedSavedDomains;
+module.exports = saveDomains;

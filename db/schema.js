@@ -83,4 +83,4 @@ module.exports = {
   Domain: Domain,
   Category: Category,
   UserDomain: UserDomain
-}
+};

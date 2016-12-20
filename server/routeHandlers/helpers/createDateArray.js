@@ -1,7 +1,7 @@
 class DateRange {
   constructor(startDay, startMonth, startYear, endDay, step) {
     // defaults to one week ago if provided no arguments
-    // currently, it can return an array of dates up to 30 days
+    // currently, it can return an array of dates up to 31 days
     this.start = startDay || new Date().getDate();
     this.end = endDay || this.start - 6;
     this.step = step || -1;
@@ -20,7 +20,6 @@ class DateRange {
         rangeArray.push(i);
       }
     }
-    console.log(rangeArray)
     return rangeArray;
   }
 

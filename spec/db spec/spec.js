@@ -95,7 +95,7 @@
 'use strict';
 
 const Sequelize = require('sequelize');
-const db = require('../testSchema');
+const db = require('./sample-schema');
 
 describe('database queries', function () {
   beforeEach(function (done) {

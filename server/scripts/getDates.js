@@ -112,6 +112,7 @@ class DateRange {
   }
 }
 
+module.exports = DateRange;
 // USE:
 // create a new instance of the constructor and pass no arguments to get a default output
 // default output: array of the prior week's dates (in reverse order)

@@ -69,8 +69,11 @@ module.exports = (req, res) => {
                             });
                   }
 
-                  // if already in users domains table, add new count to current count
-
+                  // add or update domain for user for today's date
+                  addDomainToday(userDomains, domainId, date)
+                    .then(() => {
+                      // return all vis Data? 
+                    })
 
 
                 })
@@ -87,8 +90,6 @@ module.exports = (req, res) => {
       
     }) 
     
-    
-    // if no, create 
 
   res.sendStatus(200);
 

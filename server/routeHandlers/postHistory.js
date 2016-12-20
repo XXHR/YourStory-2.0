@@ -49,49 +49,45 @@ module.exports = (req, res) => {
     .then(() => {
       getUser()
         .then((userId) => {
+          // iterate through uniqueDomains list
+          for (let domainKey in uniqueDomains) {
+            // find each domain in list
+            Domain.findOne({ where: { domain: domainKey } })
+              .then((domain) => {
+                const domainId = domain.id;
+                const totalCount = tallyVisitCount(uniqueDomains[domain]);
 
-        // iterate through uniqueDomains list
-        for (let domainKey in uniqueDomains) {
-          // find each domain in list
-          Domain.findOne({ where: { domain: domainKey } })
-            .then((domain) => {
-              const domainId = domain.id;
-              const totalCount = tallyVisitCount(uniqueDomains[domain]);
+                // search for domain in users domains list from today
+                UserDomain.findAll({ where: { userId: userId, domainId: domainId } })
+                  .then((userDomains) => {
+                    // if no domains saved for today's date, add domain to table
+                     if (userDomains.length === 0) {
+                      UserDomain.create({ count: totalCount, date_added: date, domainId: domainId, userId: userId })
+                                .catch((error) => {
+                                  console.log('unable to save in users domains table', error);
+                                });
+                      }
 
-              // search for domain in users domains list from today
-              UserDomain.findAll({ where: { userId: userId, domainId: domainId } })
-                .then((userDomains) => {
-                  // if no domains saved for today's date, add domain to table
-                 if (userDomains.length === 0) {
-                  UserDomain.create({ count: totalCount, date_added: date, domainId: domainId, userId: userId })
-                            .catch((error) => {
-                              console.log('unable to save in users domains table', error);
-                            });
-                  }
+                      // add or update domain for user for today's date
+                      addDomainToday(userDomains, domainId, date)
+                        .then(() => {
 
-                  // add or update domain for user for today's date
-                  addDomainToday(userDomains, domainId, date)
-                    .then(() => {
-                      // return all vis Data? 
-                    })
-
-
-                })
-
-            })
-        }
-
-
+                          // ===== send VIS DATA ?? ======
+                          res.sendStatus(200);
+                        })
+                  })
+                  .catch((err) => {
+                    console.log('error fetching all user domains', err);
+                  });
+              })
+              .catch((err) => {
+                console.log('error finding domain', err);
+              });
+          }
         })
-
-
-
-
-      
-    }) 
-    
-
-  res.sendStatus(200);
-
-}
+        .catch((err) => {
+          console.log('error finding user', err);
+        });
+    });
+};
 

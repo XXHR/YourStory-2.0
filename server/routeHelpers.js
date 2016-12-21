@@ -4,8 +4,6 @@ const getUser = require('./routeHandlers/getUser');
 const getCatData = require('./routeHandlers/getCatData');
 const getWeekData = require('./routeHandlers/getWeekData');
 
-
-
 const db = require('../db/config');
 
 db.authenticate().then(() => {
@@ -16,12 +14,8 @@ db.authenticate().then(() => {
 
 module.exports = {
   postUser: postUser,
-
   getUser: getUser,
-
   postHistory: postHistory,
-
   getCatData: getCatData,
-
-  getWeekData: getWeekData
-}
+  getWeekData: getWeekData,
+};

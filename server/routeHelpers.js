@@ -1,5 +1,5 @@
 const postUser = require('./routeHandlers/postUser');
-const postHistory = require('./routeHandlers/postHistory');
+const postHistory = require('./routeHandlers/postHistory').postHistory;
 const getUser = require('./routeHandlers/getUser');
 const getCatData = require('./routeHandlers/getCatData');
 const getWeekData = require('./routeHandlers/getWeekData');

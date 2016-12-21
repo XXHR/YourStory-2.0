@@ -1,6 +1,7 @@
 // *** use path dirname here?? ***
 const User = require('../../../db/schema').User;
 
+
 const getUser = (chromeID) => {
   return User.findOne({ where: { chromeID: chromeID } })
   .then((user) => {
@@ -11,8 +12,5 @@ const getUser = (chromeID) => {
   });
 };
 
-const promisedUserId = new Promise((resolve, reject) => {
-  return resolve(getUser());
-});
 
-module.exports = promisedUserId;
+module.exports = getUser;

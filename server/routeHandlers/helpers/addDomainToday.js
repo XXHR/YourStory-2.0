@@ -1,14 +1,14 @@
 const UserDomain = require('../../../db/schema');
 
-const addDomainToday = (userDomains, domainId, todayDate) => {
+const addDomainToday = (userDomains, domainId, todayDate, totalCount) => {
   for (let domain of userDomains) {
     if (domain.dataValues.domainId === domainId) {
       console.log('update count');
       let currentCount = domain.dataValues.count;
-      domain.update({ count: currentCount + 200 });
+      domain.update({ count: currentCount + totalCount });
     } else {
       console.log('DOMAIN ID: ', domainId);
-      UserDomain.create({ count: 100, date_added: todayDate, domainId: domainId, userId: user.id })
+      UserDomain.create({ count: totalCount, date_added: todayDate, domainId: domainId, userId: user.id })
                 .catch((error) => {
                 console.log('unable to save in users domains table', error)
               })
@@ -16,8 +16,5 @@ const addDomainToday = (userDomains, domainId, todayDate) => {
   }
 };
 
-const promisedSavedDomainToday = new Promise((resolve, reject) => {
-  return resolve(addDomainToday());
-});
 
-module.exports = promisedSavedDomainToday;
+module.exports = addDomainToday;

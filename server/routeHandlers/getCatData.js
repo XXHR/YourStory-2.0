@@ -1,3 +1,4 @@
+const User = require('../../db/schema').User;
 const Category = require('../../db/schema').Category;
 const Domain = require('../../db/schema').Domain;
 const getUser = require('./helpers/getUser');
@@ -12,14 +13,19 @@ module.exports = (req, res) => {
   });
 
   const getAllUserDomains = () => {
-    promisedUserId
-    .then((user) => {
-      return user.getDomains();
+    return promisedUserId.then((id) => {
+      return User.findOne({ where: { id: id } })
+      .then((user) => {
+        return user.getDomains()
+        .catch((err) => {
+          console.log(err);
+        });
+      })
     })
-    .catch((err) => {
-      console.log(err);
-    });
-  };
+      .catch((err) => {
+        console.log(err);
+      });
+    };
 
   let domains = new Promise((resolve, reject) => {
     return resolve(getAllUserDomains());
@@ -77,10 +83,10 @@ const getDomArr = () => {
     .then((catObj) => {
       for (let category in catObj) {
         let cat = {};
-        cat['id'] = catObj[category];
-        cat['category'] = category;
-        cat['domains'] = [];
-        cat['totalCount'] = 0;
+        cat.id = catObj[category];
+        cat.category = category;
+        cat.domains = [];
+        cat.totalCount = 0;
         catData.push(cat);
        }
 
@@ -89,7 +95,6 @@ const getDomArr = () => {
          for (let i = 0; i < catData.length; i++) {
            console.log('domain inside domArr: ', domain);
            if (catData[i].id === domain.categoryId) {
-            // catData[i].domains.push(domain.name);
              catData[i].domains.push({ label: domain.name, count: domain.count });
              catData[i].totalCount += domain.count;
            }

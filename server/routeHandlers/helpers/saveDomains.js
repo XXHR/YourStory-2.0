@@ -1,9 +1,4 @@
 const Domain = require('../../../db/schema').Domain;
-<<<<<<< HEAD
-// require btoa for web shrinker api call
-
-const saveDomains = (uniqueDomains) => {
-=======
 const Category = require('../../../db/schema').Category;
 
 const axios = require('axios');

@@ -2,14 +2,14 @@
 
 const DateRange = require('../../../server/routeHandlers/helpers/createDateArray');
 
-describe('Date Range Constructor', () => {
+describe('Date Range Constructor', function () {
   const today = new Date().getDate();
   const thisMonth = new Date().getMonth() + 1;
   const thisYear = new Date().getFullYear();
   const oneWeekAgo = today - 6;
   const nextWeek = today + 6;
 
-  it('should return a default array of the previous week\'s dates', () => {
+  it('should return a default array of the previous week\'s dates', function () {
     const weekArray = new DateRange().createDateArray();
 
     expect(weekArray).toEqual(jasmine.any(Array));
@@ -18,7 +18,7 @@ describe('Date Range Constructor', () => {
     expect(weekArray).toContain(thisYear + '-' + thisMonth + '-' + oneWeekAgo);
   });
 
-  it('should account for the boundary of a month', () => {
+  it('should account for the boundary of a month', function () {
     const date = new Date(2016,0,29);
     const startDay = date.getDate();
     const month = date.getMonth() + 1;
@@ -31,7 +31,7 @@ describe('Date Range Constructor', () => {
     expect(monthEnd[3]).toBe('2016-2-1');
   });
 
-  it('should account for the boundary of a year', () => {
+  it('should account for the boundary of a year', function () {
     const date = new Date(2016,11,29);
     const startDay = date.getDate();
     const month = date.getMonth() + 1;
@@ -44,7 +44,7 @@ describe('Date Range Constructor', () => {
     expect(yearEnd[3]).toBe('2017-1-1');
   });
 
-  it('should return dates in descending order', () => {
+  it('should return dates in descending order', function () {
     const weekArray = new DateRange().createDateArray();
 
     expect(weekArray[0]).toBe(thisYear + '-' + thisMonth + '-' + today);
@@ -52,14 +52,14 @@ describe('Date Range Constructor', () => {
 
   });
 
-  it('should return dates in ascending order', () => {
+  it('should return dates in ascending order', function () {
     const weekArray = new DateRange(today, thisMonth, thisYear, nextWeek, 1).createDateArray();
 
     expect(weekArray[0]).toBe(thisYear + '-' + thisMonth + '-' + today);
     expect(weekArray[6]).toBe(thisYear + '-' + thisMonth + '-' + nextWeek);
   });
 
-  it('should account for leap years', () => {
+  it('should account for leap years', function () {
     const date = new Date(2016,2,14);
     const startDay = date.getDate();
     const month = date.getMonth();
@@ -70,7 +70,7 @@ describe('Date Range Constructor', () => {
     expect(oneMonth[15]).toBe('2016-2-29')
   });
 
-  it('should return a range of dates up to 31 days in length', () => {
+  it('should return a range of dates up to 31 days in length', function () {
     const date = new Date();
     const startDay = date.getDate();
     const month = date.getMonth();
@@ -81,7 +81,7 @@ describe('Date Range Constructor', () => {
     expect(oneMonth.length).toBe(31);
   });
 
-  xit('should return a range of dates up to a year in length', () => {
+  xit('should return a range of dates up to a year in length', function () {
     //TODO: implement this functionality and write this test
   });
 });

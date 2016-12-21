@@ -75,6 +75,7 @@ module.exports.postHistory = (req, res) => {
                   .then((userDomains) => {
                     // if no domains saved for today's date, add domain to table
                      if (userDomains.length === 0) {
+                      console.log('domain not added for today');
                       UserDomain.create({ count: totalCount, date_added: date, domainId: domainId, userId: userId })
                                 .catch((error) => {
                                   console.log('unable to save in users domains table', error);
@@ -84,7 +85,7 @@ module.exports.postHistory = (req, res) => {
                       // add or update domain for user for today's date
 
                       const promisedAddDomainsToday = new Promise((resolve, reject) => {
-                        return resolve(addDomainToday(userDomains, domainId, date));
+                        return resolve(addDomainToday(userDomains, domainId, date, totalCount));
                       });
 
                       promisedAddDomainsToday

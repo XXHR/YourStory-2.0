@@ -71,7 +71,59 @@ Domain.belongsTo(Category);
 
 db
   .sync({ force: false })
+  // .then(() => {
+  //   return User.bulkCreate([
+  //     { username: 'Natasha' },
+  //     { username: 'Melba' },
+  //   ])
+  //   .then(() => {
+  //     console.log('User Table created');
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  // })
+  // .then(() => {    
+  //   return Domain.bulkCreate([
+  //     { domain: 'google.com', userId: 1 },
+  //     { domain: 'yelp.com', userId: 1 },
+  //     { domain: 'facebook.com', userId: 1 },
+  //     { domain: 'wsj.com', userId: 1 },
+  //   ])
+  //   .then(() => {
+  //     console.log('Domain Table created');
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  // })
+  // .then(() => {
+  //   UserDomain.bulkCreate([
+  //     { domainId: 1, count: 140, userId: 1, date_added: '12-17-2016' },
+  //     { domainId: 2, count: 14, userId: 1, date_added: '12-17-2016' },
+  //     { domainId: 3, count: 24, userId: 1, date_added: '12-17-2016' },
+  //     { domainId: 4, count: 150, userId: 1, date_added: '12-17-2016' },
+  //     { domainId: 1, count: 140, userId: 1, date_added: '12-18-2016' },
+  //     { domainId: 2, count: 14, userId: 1, date_added: '12-18-2016' },
+  //     { domainId: 3, count: 24, userId: 1, date_added: '12-18-2016' },
+  //     { domainId: 4, count: 150, userId: 1, date_added: '12-18-2016' },
+  //     { domainId: 1, count: 140, userId: 1, date_added: '12-19-2016' },
+  //     { domainId: 2, count: 14, userId: 1, date_added: '12-19-2016' },
+  //     { domainId: 3, count: 24, userId: 1, date_added: '12-19-2016' },
+  //     { domainId: 4, count: 150, userId: 1, date_added: '12-19-2016' },
+  //   ])
+  //   .then(() => {
+  //     console.log('UserDomain Table created');
+  //   })
+  //   .catch((err) => {
+  //     console.log('error creating UserDomain table', err);
+  //   });
+  // })  
   .then(() => {
+    User.findOne({ where: { username: 'Natasha' } })
+      .then((user) => {
+        user.update({ chromeID: '12345' })
+      })
     console.log('All tables created');
   })
   .catch((err) => {

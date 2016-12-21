@@ -10,15 +10,12 @@ const saveDomains = (uniqueDomains) => {
     Domain
       .findOrCreate({ where: { domain: domainKey } })
       .then((domain) => {
-        console.log('domain from save domains', domain);
         // check if domain has category
-        console.log('category', domain.category);
-        domain.getCategory()
+        domain[0].getCategory()
           .then((category) => {
-            console.log('trying to get category', category);
             if (category === null) {
               const apiUrl = 'https://api.webshrinker.com/categories/v2/';
-              const hashURL = btoa('http://www.' + domain.dataValues.domain);
+              const hashURL = btoa('http://www.' + domain[0].dataValues.domain);
               axios({
                 method: 'get',
                 url: apiUrl + hashURL,
@@ -31,7 +28,7 @@ const saveDomains = (uniqueDomains) => {
                 Category
                 .findOrCreate({ where: { category: response.data.data[0].categories[0] } })
                 .then((cat) => {
-                  domain.updateAttributes({
+                  domain[0].updateAttributes({
                     categoryId: cat[0].dataValues.id,
                   });
                 })

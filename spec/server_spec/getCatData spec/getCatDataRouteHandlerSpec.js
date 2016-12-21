@@ -18,11 +18,27 @@ describe('getCatData routehandler', function () {
   });
 
   describe('GET /api/catData', function () {
+
     it('returns status 200', function (done) {
       request.get(base_url + '/api/catData', function (error, response, body) {
         expect(response.statusCode).toBe(200);
         done();
       });
+    });
+
+    it('returns an array', function (done) {
+      request.get(base_url + '/api/catData', function (error, response, body) {
+        expect(JSON.parse(body)).toEqual(jasmine.any(Array));
+        expect(JSON.parse(body.length)).not.toBe(0);
+        done();
+      })
+    })
+
+    it('returns a user id', function(done) {
+      request.get(base_url + '/api/catData', function (error, response, body) {
+        expect(JSON.parse(body)).toBe(12345);
+        done();
+      })
     });
   });
 });

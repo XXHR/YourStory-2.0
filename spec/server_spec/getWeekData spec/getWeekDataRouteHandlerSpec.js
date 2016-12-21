@@ -33,4 +33,3 @@ describe('getWeekData routehandler', function () {
     });
   });
 });
-

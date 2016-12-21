@@ -12,6 +12,5 @@ module.exports.postHistory = (req, res) => {
     .catch((err) => {
       console.log('error creating vis data', err);
       res.sendStatus(200);
-    });
 };
 

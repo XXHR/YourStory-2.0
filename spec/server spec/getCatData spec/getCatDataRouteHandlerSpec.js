@@ -23,7 +23,6 @@ describe('getCatData routehandler', function () {
         expect(response.statusCode).toBe(200);
         done();
       });
-    });    
+    });
   });
 });
-

@@ -120,10 +120,6 @@ db
   //   });
   // })  
   .then(() => {
-    User.findOne({ where: { username: 'Natasha' } })
-      .then((user) => {
-        user.update({ chromeID: '12345' })
-      })
     console.log('All tables created');
   })
   .catch((err) => {

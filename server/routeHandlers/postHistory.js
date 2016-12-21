@@ -1,4 +1,4 @@
-// const getUser = require('./helpers/getUser');
+const getUser = require('./helpers/getUser');
 const User = require('../../db/schema').User;
 const saveDomains = require('./helpers/saveDomains');
 const tallyVisitCount = require('./helpers/tallyVisitCount');
@@ -9,8 +9,8 @@ const addDomainToday = require('./helpers/addDomainToday');
 
 module.exports.postHistory = (req, res) => {
 
-  const allHistory = req.body.history;
   // parse through user's chrome history in req.body
+  const allHistory = req.body.history;
   // ============= add parsed domain to each history object in allData array ================
   allHistory.map((historyItem) => {
     const url = historyItem.url;
@@ -39,13 +39,15 @@ module.exports.postHistory = (req, res) => {
     return uniqueDomains[historyItem.domain];
   });
 
-  console.log('tallyVisitCount', uniqueDomains);
-
   // ======== promised functions ==========
 
   const promisedSavedDomains = new Promise((resolve, reject) => {
     return resolve(saveDomains(uniqueDomains));
   });
+
+  const promisedGetUser = new Promise((resolve, reject) => {
+    return resolve(getUser(req.session.chromeID));
+  })
 
   // ================ get today's date ===============
   const today = new Date();
@@ -75,7 +77,6 @@ module.exports.postHistory = (req, res) => {
                   .then((userDomains) => {
                     // if no domains saved for today's date, add domain to table
                      if (userDomains.length === 0) {
-                      console.log('domain not added for today');
                       UserDomain.create({ count: totalCount, date_added: date, domainId: domainId, userId: userId })
                                 .catch((error) => {
                                   console.log('unable to save in users domains table', error);
@@ -89,9 +90,19 @@ module.exports.postHistory = (req, res) => {
 
                       promisedAddDomainsToday
                         .then(() => {
-                          console.log('DOMAIN ADDED FOR TODAY');
-                          // ===== send VIS DATA ?? ======
-                          res.sendStatus(200);
+                          
+                          user.getDomains()
+                            .then((domains) => {
+                              let visData = {};
+                              for (let domain of domains) {
+                                if (visData[domain.dataValues.domain]) {
+                                  visData[domain.dataValues.domain] += domain.dataValues.users_domains.count
+                                } else {
+                                  visData[domain.dataValues.domain] = domain.dataValues.users_domains.count
+                                }
+                              }
+                              res.sendStatus(200).json(visData);
+                            })
                         })
                   })
                   .catch((err) => {

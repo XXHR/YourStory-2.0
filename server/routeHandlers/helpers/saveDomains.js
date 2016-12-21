@@ -10,12 +10,9 @@ const saveDomains = (uniqueDomains) => {
     Domain
       .findOrCreate({ where: { domain: domainKey } })
       .then((domain) => {
-        console.log('domain from save domains', domain);
         // check if domain has category
-        console.log('category', domain.category);
         domain.getCategory()
           .then((category) => {
-            console.log('trying to get category', category);
             if (category === null) {
               const apiUrl = 'https://api.webshrinker.com/categories/v2/';
               const hashURL = btoa('http://www.' + domain.dataValues.domain);

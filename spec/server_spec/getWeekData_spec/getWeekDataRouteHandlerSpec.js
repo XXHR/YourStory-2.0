@@ -9,7 +9,7 @@ const Sequelize = require('sequelize');
 
 describe('getWeekData routehandler', function () {
   describe('GET /', function () {
-    xit('returns status 200', function (done) {
+    it('returns status 200', function (done) {
       request.get(base_url, function (error, response, body) {
         expect(response.statusCode).toBe(200);
         done();
@@ -18,16 +18,16 @@ describe('getWeekData routehandler', function () {
   });
 
   describe('GET /api/weekData', function () {
-    xit('returns status 200', function (done) {
+    it('returns status 200', function (done) {
       request.get(base_url + '/api/weekData', function (error, response, body) {
         expect(response.statusCode).toBe(200);
         done();
       });
     });
 
-    xit('returns an array', function (done) {
+    it('returns an array', function (done) {
       request.get(base_url + '/api/weekData', function (error, response, body) {
-        expect(body.data).toBe([]);
+        expect(JSON.parse(body)).toBe({});
         done();
       });
     });

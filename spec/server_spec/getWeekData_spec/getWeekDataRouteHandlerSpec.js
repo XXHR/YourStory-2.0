@@ -25,9 +25,9 @@ describe('getWeekData routehandler', function () {
       });
     });
 
-    it('returns an array', function (done) {
+    it('returns an object', function (done) {
       request.get(base_url + '/api/weekData', function (error, response, body) {
-        expect(JSON.parse(body)).toBe({});
+        expect(body).toBe({});
         done();
       });
     });

@@ -4,6 +4,7 @@ const UserDomain = require('../../db/schema').UserDomain;
 const Domain = require('../../db/schema').Domain;
 const getUser = require('./helpers/getUser');
 const DateRange = require('./helpers/createDateArray');
+const getAllDomains = require('./helpers/getAllDomains');
 
 module.exports = (req, res) => {
   const week = new DateRange().createDateArray();
@@ -26,19 +27,9 @@ module.exports = (req, res) => {
       return weekDomains;
     })
     .then((weekDomains) => {
-      const domainIDs = [];
+      const domainIDs = Object.keys(weekDomains);
 
-      for (let domainID in weekDomains) {
-        domainIDs.push(domainID);
-      }
-
-      const allDomains = new Promise(
-        (resolve, reject) => {
-          resolve(Domain.findAll({ where: { id: domainIDs } }));
-        }
-      );
-
-      allDomains
+      getAllDomains(domainIDs)
       .then((domainsArr) => {
         const finalWeekData = {};
         domainsArr.map((domain) => {
@@ -46,7 +37,6 @@ module.exports = (req, res) => {
             finalWeekData[domain.dataValues.domain] = weekDomains[domain.dataValues.id];
           }
         });
-
         res.status(200).json(finalWeekData);
       });
     })

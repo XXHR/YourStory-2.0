@@ -4,6 +4,7 @@ const getAllUserDomainIDs = require('./helpers/getAllUserDomainIDs');
 const getAllDomainNames = require('./helpers/getAllDomainNames');
 const getUser = require('./helpers/getUser');
 const DateRange = require('./helpers/createDateArray');
+const mapDomainIdsArrayToWeekDataObject = require('./helpers/mapDomainIdsArrayToWeekDataObject');
 
 module.exports = (req, res) => {
   const week = new DateRange().createDateArray();
@@ -11,20 +12,13 @@ module.exports = (req, res) => {
 
   getUser(chromeID)
     .then((userID) => {
+      // TODO - refactor getUser helper function so that it returns the entire user object not jsut the ID so that it's more functional
+      // change parameter on line 13 to user not userID
+      // var userID = user.dataValues.id;
       return getAllUserDomainIDs(userID, week);
     })
     .then((userDomainIdResultsArray) => {
-      const weekDomains = {};
-
-      userDomainIdResultsArray.map((domain) => {
-        if (!weekDomains[domain.dataValues.domainId]) {
-          weekDomains[domain.dataValues.domainId] = [];
-        }
-        weekDomains[domain.dataValues.domainId].push({ date: domain.dataValues.date_added,
-          count: domain.dataValues.count });
-      });
-
-      return weekDomains;
+      return mapDomainIdsArrayToWeekDataObject(userDomainIdResultsArray);
     })
     .then((weekDomains) => {
       const domainIDs = Object.keys(weekDomains);

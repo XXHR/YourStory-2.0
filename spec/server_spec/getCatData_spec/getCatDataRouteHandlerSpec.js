@@ -1,3 +1,5 @@
+//LOOK INTO JEST FOR TEST
+
 'use strict';
 
 const request = require('request');
@@ -24,6 +26,9 @@ describe('getCatData routehandler', function () {
   describe('GET /', function () {
     xit('returns status 200', function (done) {
       request.get(base_url, function (error, response, body) {
+        if (error) {
+          done.fail(error);
+        }
         expect(response.statusCode).toBe(200);
         done();
       });

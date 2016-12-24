@@ -166,6 +166,7 @@ db
   //   });
   // })
   .then(() => {
+    console.log("NODE_ENV: ", process.env.NODE_ENV);
     console.log('All tables created');
   })
   .catch((err) => {

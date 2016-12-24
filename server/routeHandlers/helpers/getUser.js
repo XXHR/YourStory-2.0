@@ -8,7 +8,7 @@ const getUser = (chromeID) => {
     return user.dataValues.id;
   })
   .catch((err) => {
-      console.log('error getting userId from Users: ', err);
+    console.log('error getting userId from Users: ', err);
   });
 };
 

@@ -6,7 +6,7 @@
 
 const DateRange = require('./createDateArray');
 const getUser = require('./getUser');
-const getAllUserDomainIDs = require('./getAllUserDomainIDs');
+const getAllUserDomainIdsByWeekAndUserId = require('./getAllUserDomainIdsByWeekAndUserId');
 const mapDomainIdsArrayToWeekDataObject = require('./mapDomainIdsArrayToWeekDataObject');
 const getFinalWeekDataObject = require('./getFinalWeekDataObject');
 
@@ -16,7 +16,7 @@ const readWeekData = (chromeID) => {
 
   return getUser(chromeID)
     .then((userID) => {
-      return getAllUserDomainIDs(userID, week);
+      return getAllUserDomainIdsByWeekAndUserId(userID, week);
     })
     .then((domainIdsArray) => {
       return mapDomainIdsArrayToWeekDataObject(domainIdsArray);

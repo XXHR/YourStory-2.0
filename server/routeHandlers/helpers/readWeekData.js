@@ -18,7 +18,7 @@ const readWeekData = (chromeID) => {
     .then((userID) => {
       return getAllUserDomainIdsByWeekAndUserId(userID, week);
     })
-    .then((domainIdsArray) => {
+    .then((domainIdsArray) => {      
       return mapDomainIdsArrayToWeekDataObject(domainIdsArray);
     })
     .then((domainIdsWeekDataObject) => {

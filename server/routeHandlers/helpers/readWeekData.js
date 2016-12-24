@@ -10,7 +10,8 @@ const getAllUserDomainIDs = require('./getAllUserDomainIDs');
 const mapDomainIdsArrayToWeekDataObject = require('./mapDomainIdsArrayToWeekDataObject');
 const getFinalWeekDataObject = require('./getFinalWeekDataObject');
 
-const getWeekDataFromDB = (chromeID) => {
+
+const readWeekData = (chromeID) => {
   const week = new DateRange().createDateArray();
 
   return getUser(chromeID)
@@ -25,7 +26,7 @@ const getWeekDataFromDB = (chromeID) => {
     })
 }
 
-module.exports = getWeekDataFromDB;
+module.exports = readWeekData;
 
 
 

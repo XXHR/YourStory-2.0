@@ -1,11 +1,11 @@
 'use strict';
 
-const getWeekDataFromDB = require('./helpers/getWeekDataFromDB');
+const readWeekData = require('./helpers/readWeekData');
 
 module.exports = (req, res) => {
   const chromeID = req.session.chromeID || '12345';
 
-  getWeekDataFromDB(chromeID)
+  readWeekData(chromeID)
     .then((finalWeekData) => {
       res.status(200).json(finalWeekData);
     })

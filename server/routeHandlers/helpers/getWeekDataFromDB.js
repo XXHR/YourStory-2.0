@@ -1,3 +1,9 @@
+// TODO - refactor getUser helper function
+// so that it returns the entire user object
+// not just the ID so that it's more functional
+// change parameter on line 17 to user not userID
+// var userID = user.dataValues.id;
+
 const DateRange = require('./createDateArray');
 const getUser = require('./getUser');
 const getAllUserDomainIDs = require('./getAllUserDomainIDs');
@@ -20,3 +26,8 @@ const getWeekDataFromDB = (chromeID) => {
 }
 
 module.exports = getWeekDataFromDB;
+
+
+
+
+

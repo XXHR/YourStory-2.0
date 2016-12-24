@@ -1,7 +1,7 @@
-const mapDomainIdsArrayToWeekDataObject = (userDomainIdResultsArray) => {
+const mapDomainIdsArrayToWeekDataObject = (domainIdsByUserArray) => {
   const weekDomains = {};
 
-  userDomainIdResultsArray.map((domain) => {
+  domainIdsByUserArray.map((domain) => {
     if (!weekDomains[domain.dataValues.domainId]) {
       weekDomains[domain.dataValues.domainId] = [];
     }

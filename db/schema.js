@@ -113,18 +113,50 @@ db
   // })
   // .then(() => {
   //   UserDomain.bulkCreate([
+  //     { domainId: 1, count: 140, userId: 1, date_added: '12-11-2016' },
+  //     { domainId: 2, count: 14, userId: 1, date_added: '12-11-2016' },
+  //     { domainId: 3, count: 24, userId: 1, date_added: '12-11-2016' },
+  //     { domainId: 4, count: 150, userId: 1, date_added: '12-11-2016' },
+
+  //     { domainId: 1, count: 140, userId: 1, date_added: '12-12-2016' },
+  //     { domainId: 2, count: 14, userId: 1, date_added: '12-12-2016' },
+  //     { domainId: 3, count: 24, userId: 1, date_added: '12-12-2016' },
+  //     { domainId: 4, count: 150, userId: 1, date_added: '12-12-2016' },
+
+  //     { domainId: 1, count: 140, userId: 1, date_added: '12-14-2016' },
+  //     { domainId: 2, count: 14, userId: 1, date_added: '12-14-2016' },
+  //     { domainId: 3, count: 24, userId: 1, date_added: '12-14-2016' },
+  //     { domainId: 4, count: 150, userId: 1, date_added: '12-14-2016' },
+
+  //     { domainId: 1, count: 140, userId: 1, date_added: '12-15-2016' },
+  //     { domainId: 2, count: 14, userId: 1, date_added: '12-15-2016' },
+  //     { domainId: 3, count: 24, userId: 1, date_added: '12-15-2016' },
+  //     { domainId: 4, count: 150, userId: 1, date_added: '12-15-2016' },
+
+  //     { domainId: 1, count: 140, userId: 1, date_added: '12-16-2016' },
+  //     { domainId: 2, count: 14, userId: 1, date_added: '12-16-2016' },
+  //     { domainId: 3, count: 24, userId: 1, date_added: '12-16-2016' },
+  //     { domainId: 4, count: 150, userId: 1, date_added: '12-16-2016' },
+
   //     { domainId: 1, count: 140, userId: 1, date_added: '12-17-2016' },
   //     { domainId: 2, count: 14, userId: 1, date_added: '12-17-2016' },
   //     { domainId: 3, count: 24, userId: 1, date_added: '12-17-2016' },
   //     { domainId: 4, count: 150, userId: 1, date_added: '12-17-2016' },
+
   //     { domainId: 1, count: 140, userId: 1, date_added: '12-18-2016' },
   //     { domainId: 2, count: 14, userId: 1, date_added: '12-18-2016' },
   //     { domainId: 3, count: 24, userId: 1, date_added: '12-18-2016' },
   //     { domainId: 4, count: 150, userId: 1, date_added: '12-18-2016' },
+
   //     { domainId: 1, count: 140, userId: 1, date_added: '12-19-2016' },
   //     { domainId: 2, count: 14, userId: 1, date_added: '12-19-2016' },
   //     { domainId: 3, count: 24, userId: 1, date_added: '12-19-2016' },
   //     { domainId: 4, count: 150, userId: 1, date_added: '12-19-2016' },
+
+  //     { domainId: 1, count: 140, userId: 1, date_added: '12-20-2016' },
+  //     { domainId: 2, count: 14, userId: 1, date_added: '12-20-2016' },
+  //     { domainId: 3, count: 24, userId: 1, date_added: '12-20-2016' },
+  //     { domainId: 4, count: 150, userId: 1, date_added: '12-20-2016' },
   //   ])
   //   .then(() => {
   //     console.log('UserDomain Table created');
@@ -134,6 +166,7 @@ db
   //   });
   // })
   .then(() => {
+    console.log("NODE_ENV: ", process.env.NODE_ENV);
     console.log('All tables created');
   })
   .catch((err) => {

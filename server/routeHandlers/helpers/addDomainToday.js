@@ -1,6 +1,5 @@
 const UserDomain = require('../../../db/schema').UserDomain;
 
-
 const readOrWriteDomainForUser = (userId, domainId, totalCount, date) => {   
   return UserDomain.findAll({ where: { userId, domainId, date_added: date } })
     .then((userDomain) => {

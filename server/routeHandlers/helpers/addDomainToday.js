@@ -2,6 +2,7 @@ const UserDomain = require('../../../db/schema');
 
 const addDomainToday = (userDomains, domainId, todayDate, totalCount) => {
   for (let domain of userDomains) {
+    console.log('+++++++INSIDE SAVING DOMAINS LOOP+++++++')
     if (domain.dataValues.domainId === domainId) {
       let currentCount = domain.dataValues.count;
       domain.update({ count: currentCount + totalCount });

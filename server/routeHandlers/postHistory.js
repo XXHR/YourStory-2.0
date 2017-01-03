@@ -41,13 +41,13 @@ module.exports.postHistory = (req, res) => {
 
   // ======== promised functions ==========
 
-  const promisedSavedDomains = new Promise((resolve, reject) => {
-    return resolve(saveDomains(uniqueDomains));
-  });
+  // const promisedSavedDomains = new Promise((resolve, reject) => {
+  //   return resolve(saveDomains(uniqueDomains));
+  // });
 
-  const promisedGetUser = new Promise((resolve, reject) => {
-    return resolve(getUser(req.session.chromeID));
-  })
+  // const promisedGetUser = new Promise((resolve, reject) => {
+  //   return resolve(getUser(req.session.chromeID));
+  // })
 
   // ================ get today's date ===============
   const today = new Date();
@@ -58,68 +58,23 @@ module.exports.postHistory = (req, res) => {
   const date = year + '-' + month + '-' + day;
 
   // ================ add saved domains to users_domains table =============
-  promisedSavedDomains
-    .then(() => {
-      User.findOne({ where: { chromeID: '12345' } })
-        .then((user) => {
-          const userId = user.dataValues.id;
-          // iterate through uniqueDomains list
-          for (let domainKey in uniqueDomains) {
-            // find each domain in list
-            Domain.findOne({ where: { domain: domainKey } })
-              .then((domain) => {
-                console.log('domain', domain.id);
-                const domainId = domain.id;
-                const totalCount = tallyVisitCount(uniqueDomains[domainKey]);
-
-                // search for domain in users domains list from today
-                UserDomain.findAll({ where: { userId: userId, domainId: domainId, date_added: date } })
-                  .then((userDomains) => {
-                    // if no domains saved for today's date, add domain to table
-                     if (userDomains.length === 0) {
-                      UserDomain.create({ count: totalCount, date_added: date, domainId: domainId, userId: userId })
-                                .catch((error) => {
-                                  console.log('unable to save in users domains table', error);
-                                });
-                      }
-
-                      // add or update domain for user for today's date
-                      const promisedAddDomainsToday = new Promise((resolve, reject) => {
-                        return resolve(addDomainToday(userDomains, domainId, date, totalCount));
-                      });
-
-                      promisedAddDomainsToday
-                        .then(() => {                         
-                          user.getDomains()
-                            .then((domains) => {
-                              let visData = {};
-                              for (let domain of domains) {
-                                if (visData[domain.dataValues.domain]) {
-                                  visData[domain.dataValues.domain] += domain.dataValues.users_domains.count;
-                                } else {
-                                  visData[domain.dataValues.domain] = domain.dataValues.users_domains.count;
-                                }
-                              }
-                              console.log('vis data', visData);
-                              res.status(200).json(visData);
-                            })
-                            .catch((err) => {
-                              console.log('error fetching user domains', err);
-                            })
-                        })
-                  })
-                  .catch((err) => {
-                    console.log('error fetching all user domains', err);
-                  });
-              })
-              .catch((err) => {
-                console.log('error finding domain', err);
-              });
-          }
-        })
-        .catch((err) => {
-          console.log('error finding user', err);
-        });
-    });
+  // promisedSavedDomains
+  // .then(() => {
+  //   return User.findOne({ where: { chromeID: '12345' } })
+  // })
+  User.findOne({ where: { chromeID: '12345' } })
+  .then((user) => {
+    // const userId = user.dataValues.id;
+    // return Domain.findAll({ where: { domain: Object.keys(uniqueDomains) } })
+    let domains = Object.keys(uniqueDomains).map((domain) => {
+      return { domain: domain };
+    })
+    console.log('DOMAINS ARRAY FOR BULK CREATE', domains);
+    return Domain.bulkCreate(domains);
+  })
+  .then((domains) => {
+    // console.log('FINDING ALL DOMAINS', domains.length);
+    console.log('DID IT MAKE THE DOMAINS LETS SEE', domains.length)
+  })
 };
 

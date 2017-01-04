@@ -2,7 +2,7 @@ const UserDomain = require('../../../db/schema').UserDomain;
 
 
 const readOrWriteDomainForUser = (userId, domainId, totalCount, date) => {    
-  UserDomain.findAll({ where: { userId, domainId, date_added: date } })
+  return UserDomain.findAll({ where: { userId, domainId, date_added: date } })
     .then((userDomain) => {
       // if no domains saved for today's date, add domain to table
        if (userDomain.length === 0) {

@@ -1,18 +1,22 @@
-const UserDomain = require('../../../db/schema');
+const UserDomain = require('../../../db/schema').UserDomain;
 
-const addDomainToday = (userDomains, domainId, todayDate, totalCount) => {
-  for (let domain of userDomains) {
-    console.log('+++++++INSIDE SAVING DOMAINS LOOP+++++++')
-    if (domain.dataValues.domainId === domainId) {
-      let currentCount = domain.dataValues.count;
-      domain.update({ count: currentCount + totalCount });
-    } else {
-      UserDomain.create({ count: totalCount, date_added: todayDate, domainId: domainId, userId: user.id })
-                .catch((error) => {
-                console.log('unable to save in users domains table', error)
-              })
+const addDomainToday = (domainIds, userId, date) => {
+  for (let domain of domainIds) {
+
+     UserDomain.findAll({ where: { userId, domainId: domain.id, date_added: date } })
+      .then((userDomain) => {
+        // if no domains saved for today's date, add domain to table
+         if (userDomain.length === 0) {
+          UserDomain.create({ count: domain.totalCount, date_added: date, domainId: domain.id, userId: userId })
+                    .catch((error) => {
+                      console.log('unable to save in users domains table', error);
+                    });
+          } else {
+            let currentCount = userDomain[0].dataValues.count;
+            userDomain[0].update({ count: currentCount + domain.totalCount });
+          }    
+      });
     }
-  }
 };
 
 

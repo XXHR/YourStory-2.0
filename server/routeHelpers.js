@@ -3,7 +3,7 @@ const postHistory = require('./routeHandlers/postHistory').postHistory;
 const getUser = require('./routeHandlers/getUser');
 const getCatData = require('./routeHandlers/getCatData');
 const getWeekData = require('./routeHandlers/getWeekData');
-const getVisData = require('./routeHandlers/getVisData');
+const getVisData = require('./routeHandlers/getVisData').getVisData;
 
 
 
@@ -21,5 +21,5 @@ module.exports = {
   postHistory: postHistory,
   getCatData: getCatData,
   getWeekData: getWeekData,
-  getVisData: getVisData
+  getVisData: getVisData,
 };

@@ -89,22 +89,41 @@ module.exports.postHistory = (req, res) => {
     return Domain.findAll({ attributes: ['id', 'domain'], where: { domain: Object.keys(uniqueDomains) } })
   })
   .then((domains) => {
-    const domainIds = domains.map((domain) => {
+    const domainObjsArray = domains.map((domain) => {
       const totalCount = tallyVisitCount(uniqueDomains[domain.dataValues.domain]);
       return { id: domain.dataValues.id, domain: domain.dataValues.domain, totalCount };
     });
 
-    return domainIds;
+    return domainObjsArray;
   })
-  .then((domainIds) => {
-    console.log('DOMAIN IDS', domainIds);
+  .then((domainObjsArray) => {
+    console.log('DOMAIN OBJS ARRAY', domainObjsArray);
 
     User.findOne({ where: { chromeID: '12345' } })
     .then((user) => {
-      return addDomainToday(domainIds, user.dataValues.id, date);
+      return addDomainToday(domainObjsArray, user.dataValues.id, date);
     })
     .then(() => {
-      res.sendStatus(200);
+      const chromeID = req.session.chromeID || '12345';
+      User.findOne({ where: { chromeID } })
+      .then((user) => {
+        user.getDomains()
+        .then((domains) => {
+          let visData = {};
+          for (let domain of domains) {
+            if (visData[domain.dataValues.domain]) {
+              visData[domain.dataValues.domain] += domain.dataValues.users_domains.count;
+            } else {
+              visData[domain.dataValues.domain] = domain.dataValues.users_domains.count;
+            }
+          }
+          console.log('vis data', visData);
+          res.status(200).json(visData);
+        })
+        .catch((err) => {
+          console.log('error fetching user domains', err);
+        });
+      });
     });
   });
 

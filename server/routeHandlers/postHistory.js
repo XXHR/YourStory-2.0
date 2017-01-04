@@ -39,6 +39,8 @@ module.exports.postHistory = (req, res) => {
     return uniqueDomains[historyItem.domain];
   });
 
+  console.log('UNIQUE DOMAINS', uniqueDomains);
+
   // ======== promised functions ==========
 
   // const promisedSavedDomains = new Promise((resolve, reject) => {
@@ -58,23 +60,50 @@ module.exports.postHistory = (req, res) => {
   const date = year + '-' + month + '-' + day;
 
   // ================ add saved domains to users_domains table =============
-  // promisedSavedDomains
-  // .then(() => {
-  //   return User.findOne({ where: { chromeID: '12345' } })
-  // })
-  User.findOne({ where: { chromeID: '12345' } })
+
+  Domain.findAll({ where: { domain: Object.keys(uniqueDomains) } })
+  .then((domains) => {
+
+    const exisitingDomains = domains.map((domain) => {
+      return domain.dataValues.domain;
+    });
+
+    // iterate through uniqueDomains keys list
+      // if key is not in exisitingDomains array, return that key
+    // bulk create only the domains that don't exist already
+
+    const domainsToCreate = Object.keys(uniqueDomains).filter((domain) => {
+      if (!exisitingDomains.includes(domain)) {
+        return domain;
+      }
+    });
+
+    const domainsBulkCreate = domainsToCreate.map((domain) => {
+      return { domain };
+    });
+
+    return Domain.bulkCreate(domainsBulkCreate);
+  })
+  .then(() => {
+    return User.findOne({ where: { chromeID: '12345' } });
+  })
   .then((user) => {
-    // const userId = user.dataValues.id;
-    // return Domain.findAll({ where: { domain: Object.keys(uniqueDomains) } })
-    let domains = Object.keys(uniqueDomains).map((domain) => {
-      return { domain: domain };
-    })
-    console.log('DOMAINS ARRAY FOR BULK CREATE', domains);
-    return Domain.bulkCreate(domains);
+    const userId = user.dataValues.id;
+
+    return UserDomain.findAll({ where: { userId: userId, date_added: date } })
+  })
+  .then((userDomains) => {
+
+    return Domain.findAll({ attributes: ['id', 'domain'], where: { domain: Object.keys(uniqueDomains) } })
   })
   .then((domains) => {
-    // console.log('FINDING ALL DOMAINS', domains.length);
-    console.log('DID IT MAKE THE DOMAINS LETS SEE', domains.length)
+    const domainIds = domains.map((domain) => {
+      const totalCount = tallyVisitCount(uniqueDomains[domain.dataValues.domain]);
+      return { id: domain.dataValues.id, domain: domain.dataValues.domain, totalCount };
+    });
+
+    console.log('DOMAIN IDS', domainIds);
+
   })
 };
 

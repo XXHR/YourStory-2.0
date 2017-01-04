@@ -6,4 +6,5 @@ module.exports.router = (app) => {
   app.post('/api/history', routeHelpers.postHistory);
   app.get('/api/catData', routeHelpers.getCatData);
   app.get('/api/weekData', routeHelpers.getWeekData);
+  app.get('/api/visData', routeHelpers.getVisData);
 };

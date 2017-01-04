@@ -39,7 +39,7 @@ module.exports.postHistory = (req, res) => {
     return uniqueDomains[historyItem.domain];
   });
 
-  console.log('UNIQUE DOMAINS', uniqueDomains);
+  // console.log('UNIQUE DOMAINS', uniqueDomains);
 
   // ======== promised functions ==========
 
@@ -85,14 +85,6 @@ module.exports.postHistory = (req, res) => {
     return Domain.bulkCreate(domainsBulkCreate);
   })
   .then(() => {
-    return User.findOne({ where: { chromeID: '12345' } });
-  })
-  .then((user) => {
-    const userId = user.dataValues.id;
-
-    return UserDomain.findAll({ where: { userId: userId, date_added: date } })
-  })
-  .then((userDomains) => {
 
     return Domain.findAll({ attributes: ['id', 'domain'], where: { domain: Object.keys(uniqueDomains) } })
   })
@@ -102,8 +94,19 @@ module.exports.postHistory = (req, res) => {
       return { id: domain.dataValues.id, domain: domain.dataValues.domain, totalCount };
     });
 
+    return domainIds;
+  })
+  .then((domainIds) => {
     console.log('DOMAIN IDS', domainIds);
 
-  })
+    User.findOne({ where: { chromeID: '12345' } })
+    .then((user) => {
+      return addDomainToday(domainIds, user.dataValues.id, date);
+    })
+    .then(() => {
+      res.sendStatus(200);
+    });
+  });
+
 };
 

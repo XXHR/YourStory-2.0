@@ -6,8 +6,8 @@ class App extends React.Component {
     document.addEventListener('click', () => {
       this.props.dispatch({
         type: 'ADD_COUNT',
-      })
-    });    
+      });
+    });
   }
 
   render() {

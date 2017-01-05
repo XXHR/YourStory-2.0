@@ -27,6 +27,7 @@ class App extends React.Component {
 
   componentDidMount() {
     document.addEventListener('click', () => {
+<<<<<<< HEAD
       this.props.dispatch(getCount());
       this.props.dispatch(getChromeIDFromBackground());
     });

@@ -8,7 +8,6 @@ const middleware = [alias(aliases), ReduxThunk];
 const store = createStore(rootReducer, applyMiddleware(
   ...middleware));
 
-
 wrapStore(store, {
   portName: 'YourStory',
 });

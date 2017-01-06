@@ -5,7 +5,7 @@ const axios = require('axios');
 const btoa = require('btoa');
 
 const bulkCreateNewDomains = (uniqueDomains) => {
-   return Domain.findAll({ where: { domain: Object.keys(uniqueDomains) } })
+  return Domain.findAll({ where: { domain: Object.keys(uniqueDomains) } })
     .then((domains) => {
 
       const exisitingDomains = domains.map((domain) => {
@@ -58,7 +58,7 @@ const bulkCreateNewDomains = (uniqueDomains) => {
           console.log('error finding or creating category', err);
         });
       }
-    });
+   });
 };
 
 module.exports = bulkCreateNewDomains;

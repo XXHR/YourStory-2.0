@@ -5,6 +5,7 @@ const getDateToday = () => {
   const day = (today.getDate()).toString();
 
   return year + '-' + month + '-' + day;
-}
+};
 
 module.exports = getDateToday;
+

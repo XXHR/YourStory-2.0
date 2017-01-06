@@ -20,6 +20,8 @@ const postHistoryData = (allHistory, chromeID) => {
     .then(() => {
       return getVisData(chromeID);
     });
+
 };
 
 module.exports = postHistoryData;
+

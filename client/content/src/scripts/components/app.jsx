@@ -5,7 +5,7 @@ class App extends React.Component {
   componentDidMount() {    
     document.addEventListener('click', () => {
       this.props.dispatch({
-        type: 'say-hello',
+        type: 'ADD_COUNT',
       })
     });    
   }
@@ -13,7 +13,7 @@ class App extends React.Component {
   render() {
     return (
       <div>        
-        <div>count: {this.props.hello} </div>
+        <div>count: {this.props.count} </div>
 
       </div>
     );
@@ -22,7 +22,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    hello: state.hello
+    count: state.count,
   };
 };
 

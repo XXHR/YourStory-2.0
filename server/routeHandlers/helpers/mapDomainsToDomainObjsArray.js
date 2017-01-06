@@ -1,4 +1,5 @@
 const Domain = require('../../../db/schema').Domain;
+const tallyVisitCount = require('./tallyVisitCount');
 
 const mapDomainsToDomainObjsArray = (uniqueDomains) => {
   return Domain.findAll({ attributes: ['id', 'domain'], where: { domain: Object.keys(uniqueDomains) } })

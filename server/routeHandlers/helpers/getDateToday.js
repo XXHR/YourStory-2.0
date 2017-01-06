@@ -1,4 +1,4 @@
-module.exports.getDateToday = () => {
+const getDateToday = () => {
   const today = new Date();
   const year = today.getFullYear().toString();
   const month = (today.getMonth() + 1).toString();
@@ -6,3 +6,5 @@ module.exports.getDateToday = () => {
 
   return year + '-' + month + '-' + day;
 }
+
+module.exports = getDateToday;

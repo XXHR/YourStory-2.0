@@ -21,3 +21,5 @@ const postHistoryData = (allHistory, chromeID) => {
       return getVisData(chromeID);
     });
 };
+
+module.exports = postHistoryData;

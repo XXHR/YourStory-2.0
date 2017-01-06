@@ -57,7 +57,7 @@
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.1.0",
     "request": "^2.79.0",
-    "sequelize": "^3.24.8",
+    "sequelize": "^3.28.0",
     "undefined": "^0.1.0",
     "underscore": "^1.8.3",
     "webpack": "^1.13.3"

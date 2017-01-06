@@ -17,9 +17,9 @@ describe('postHistory routehandler', function () {
     });
   });
 
-  describe('GET /api/history', function () {
-    xit('returns status 200', function (done) {
-      request.get(base_url + '/api/history', function (error, response, body) {
+  describe('POST /api/history', function () {
+    it('returns status 200', function (done) {
+      request.post(base_url + '/api/history', function (error, response, body) {
         expect(response.statusCode).toBe(200);
         done();
       });

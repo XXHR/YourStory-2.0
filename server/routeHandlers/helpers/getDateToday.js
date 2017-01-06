@@ -8,4 +8,3 @@ const getDateToday = () => {
 };
 
 module.exports = getDateToday;
-

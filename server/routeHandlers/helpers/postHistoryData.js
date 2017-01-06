@@ -20,8 +20,12 @@ const postHistoryData = (allHistory, chromeID) => {
     .then(() => {
       return getVisData(chromeID);
     });
+<<<<<<< HEAD
 
 };
 
 module.exports = postHistoryData;
 
+=======
+};
+>>>>>>> [add] add addDomainsForToday helper function and getVisData

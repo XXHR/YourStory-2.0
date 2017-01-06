@@ -2,6 +2,8 @@ const mapHistoryToUniqueDomainsObj = require('./mapHistoryToUniqueDomainsObj');
 const getDateToday = require('./getDateToday');
 const bulkCreateNewDomains = require('./bulkCreateNewDomains');
 const mapDomainsToDomainObjsArray = require('./mapDomainsToDomainObjsArray');
+const addDomainsForToday = require('./addDomainsForToday');
+const getVisData = require('./getVisData');
 
 
 const postHistoryData = (allHistory, chromeID) => {

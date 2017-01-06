@@ -1,4 +1,4 @@
-const Domain = require('../../../db/schema');
+const Domain = require('../../../db/schema').Domain;
 
 const mapDomainsToDomainObjsArray = (uniqueDomains) => {
   return Domain.findAll({ attributes: ['id', 'domain'], where: { domain: Object.keys(uniqueDomains) } })
@@ -9,7 +9,7 @@ const mapDomainsToDomainObjsArray = (uniqueDomains) => {
     });
 
       return domainObjsArray;
-    })
+    });
 };
 
 module.exports = mapDomainsToDomainObjsArray;

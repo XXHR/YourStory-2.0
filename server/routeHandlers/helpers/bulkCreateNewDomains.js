@@ -1,4 +1,4 @@
-const Domain = require('../../../db/schema');
+const Domain = require('../../../db/schema').Domain;
 
 const bulkCreateNewDomains = (uniqueDomains) => {
    return Domain.findAll({ where: { domain: Object.keys(uniqueDomains) } })

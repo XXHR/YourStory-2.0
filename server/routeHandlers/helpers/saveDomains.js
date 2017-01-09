@@ -49,6 +49,7 @@ const saveDomains = (uniqueDomains) => {
         console.log('Done saving all domains');
       });
   }
+
 };
 
 

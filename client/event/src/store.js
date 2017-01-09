@@ -10,17 +10,18 @@ const aliases = {
   // creator that gets executed when the proxied action is received in the
   // background
 
-  // 'user-clicked-alias': function() {
+  // 'user-created-alias': function() {
   //   // console.log("inside store")
   //   const data = {
-  //     type: ADD_COUNT,
+  //     type: 'ADD_COUNT',
   //     payload: {}
   //   };
   //   // this.props.dispatch({
   //   //   type: ADD_COUNT
   //   // })
+  //   console.log('INSIDE ALIAS')
   //   return data;
-  // }
+  // },
 };
 
 const createStoreWithMiddleware = applyMiddleware(

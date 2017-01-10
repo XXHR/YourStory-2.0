@@ -58,7 +58,7 @@ const bulkCreateNewDomains = (uniqueDomains) => {
           console.log('error finding or creating category', err);
         });
       }
-   });
+    });
 };
 
 module.exports = bulkCreateNewDomains;

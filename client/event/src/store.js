@@ -10,8 +10,8 @@ const aliases = {
   // creator that gets executed when the proxied action is received in the
   // background
 
-  'user-clicked-alias': function() {
-    console.log("inside store.js");
+  'user-clicked-alias': function () {
+    console.log('inside store.js');
     const data = {
       type: 'ADD_COUNT',
     };

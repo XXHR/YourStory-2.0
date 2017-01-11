@@ -8,7 +8,6 @@ const mapDomainsToDomainObjsArray = (uniqueDomains) => {
         const totalCount = tallyVisitCount(uniqueDomains[domain.dataValues.domain]);
         return { id: domain.dataValues.id, domain: domain.dataValues.domain, totalCount };
       });
-
       return domainObjsArray;
     });
 };

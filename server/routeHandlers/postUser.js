@@ -6,7 +6,7 @@ module.exports = (req, res) => {
 
   req.session.chromeID = req.body.chromeID;
 
-  User.findOrCreate({ where: { chrome_id: req.body.chromeID },
+  User.findOrCreate({ where: { chromeID: req.body.chromeID },
     defaults: { username: req.body.username },
   })
       .spread((user, created) => {

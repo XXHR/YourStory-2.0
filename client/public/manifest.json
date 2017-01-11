@@ -26,10 +26,11 @@
     "128": "./assets/logos/logo-128.png"
   },
   "oauth2": {
-    // "client_id": "290557892275-f55p4vmd6msl7lp6hmj2d3m111hr29q0.apps.googleusercontent.com", //melba
-    "client_id": "799894733477-pept7gm20n0gj8n9ul98nmago3s2fpk9.apps.googleusercontent.com",
+    "client_id": "560450262837-uu2v872vnsifa6dtg2g876sm5caso858.apps.googleusercontent.com", //OAuth client id
+    // "client_id": "799894733477-pept7gm20n0gj8n9ul98nmago3s2fpk9.apps.googleusercontent.com",
     "scopes": [
-                "https://www.googleapis.com/auth/userinfo.email"
+                "https://www.googleapis.com/auth/plus.profile.emails.read"
         ]
-  }
+  }, 
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkXRW95iosuwf0Ovv18eI4g6ZuuRIhsGvEns7D0u7OFikhnNUDOFTpCuolG9zQ8qRSbXjIsJczpapxAj1SmEX/A/XnrptFBgK5wrBiLIyLa6aRFCmeiIB4shJ9zQhr7cenyk/zu/nvrMjQsse2XPqeoll2fYLu+n5B+xO7VKQ4ylnhnvgfZ+2jgIPm3YFVJL8Is2GSxEMWIt6tC9OHfYJ0aLZHY7eN5aXWXzDjUON9C86zue2qI3ylCbvMSCO7G4Td88n1PVGGTgPWzJq1EG8za6UqQisdT37qaHS3349AmGPms1OwW8SSZ345px/QE/JAr17ab/OEqnDRt36WfRgowIDAQAB"
 }

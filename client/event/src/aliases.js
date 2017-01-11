@@ -1,7 +1,8 @@
-import getToken from './reducers/getToken';
+import getToken from './actions/getToken';
+import getChromeID from './actions/getChromeID';
 
 const userClickedAlias = () => {
-  console.log('inside userClickedAlias alias');
+  console.log('inside userClickedAlias action');
   const data = {
     type: 'ADD_COUNT',
   };
@@ -20,8 +21,10 @@ const userClickedAlias = () => {
 
 export default {
   // the keys in this object are the names of the action to proxy,
-  // the values are the action creators that get executed when the proxied action is received in the background
+  // the values are the action creators that get executed
+    // when the proxied action is received in the background
 
   'user-clicked-alias': userClickedAlias, // the action to proxy and the new action to call
   'get-token': getToken,
+  'get-chromeid': getChromeID,
 };

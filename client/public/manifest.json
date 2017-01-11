@@ -27,7 +27,6 @@
   },
   "oauth2": {
     "client_id": "560450262837-uu2v872vnsifa6dtg2g876sm5caso858.apps.googleusercontent.com", //OAuth client id
-    // "client_id": "799894733477-pept7gm20n0gj8n9ul98nmago3s2fpk9.apps.googleusercontent.com",
     "scopes": [
                 "https://www.googleapis.com/auth/plus.profile.emails.read"
         ]

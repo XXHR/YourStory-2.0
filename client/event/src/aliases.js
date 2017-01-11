@@ -10,15 +10,6 @@ const userClickedAlias = () => {
   return data;
 };
 
-// const getToken = () => {
-//   console.log("inside getToken alias");
-//   const data = {
-//     type: 'GET_TOKEN',
-//   };
-
-//   return data;
-// };
-
 export default {
   // the keys in this object are the names of the action to proxy,
   // the values are the action creators that get executed

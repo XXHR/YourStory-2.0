@@ -36,6 +36,7 @@ class App extends React.Component {
     } else {
       console.log('chromeID exists in props', this.props.chromeID);
     }
+
   }
 
   render() {

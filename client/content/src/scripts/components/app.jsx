@@ -12,7 +12,7 @@ const getCount = () => {
 };
 
 const getChromeIDFromBackground = () => {
-  console.log('getting token from background script from mock action: ', data)
+  console.log('getting chromeID from background script from mock action: ', data)
   const data = {
     type: 'get-chromeid',
   };
@@ -31,10 +31,10 @@ class App extends React.Component {
       this.props.dispatch(getChromeIDFromBackground());
     });
 
-    if (this.props.chromeID === 'no token') {
-      console.log('there should be no token from store: ', this.props.chromeID);
+    if (this.props.chromeID === 'no chromeID') {
+      console.log('there should be no chromeID from store: ', this.props.chromeID);
     } else {
-      console.log('token exists in props', this.props.chromeID);
+      console.log('chromeID exists in props', this.props.chromeID);
     }
   }
 

@@ -2,29 +2,18 @@ import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { alias, wrapStore } from 'react-chrome-redux';
 import rootReducer from './reducers';
-// import loadTokenOnResponse from './auth/auth';
-// import fetchVisData from './actions/fetch_vis_data.js';
+import aliases from './aliases';
 
-const aliases = {
-  // this key is the name of the action to proxy, the value is the action
-  // creator that gets executed when the proxied action is received in the
-  // background
+// const createStoreWithMiddleware = applyMiddleware(
+//   ReduxThunk, alias(aliases)
+// )(createStore);
+// const store = createStoreWithMiddleware(rootReducer);
 
-  'user-clicked-alias': function () {
-    console.log('inside store.js');
-    const data = {
-      type: 'ADD_COUNT',
-    };
 
-    return data;
-  },
-};
+const middleware = [alias(aliases), ReduxThunk];
+const store = createStore(rootReducer, applyMiddleware(
+  ...middleware));
 
-const createStoreWithMiddleware = applyMiddleware(
-  ReduxThunk, alias(aliases)
-)(createStore);
-
-const store = createStoreWithMiddleware(rootReducer);
 
 wrapStore(store, {
   portName: 'YourStory',

@@ -15,15 +15,6 @@ const proxyStore = new Store({
 const unsubscribe = proxyStore.subscribe(() => {
   unsubscribe(); // make sure to only fire once
 
-  // var microsecondsPerDay = 1000 * 60 * 60 * 24;
-  // var oneDayAgo = (new Date).getTime() - microsecondsPerDay;
-  // chrome.history.search({
-  //       'text': '',              // Return every history item....
-  //       'startTime': oneDayAgo  // that was accessed less than one week ago.
-  //     }, function(array){
-  //         console.log('chrome history array', array);
-  //     })
-
   ReactDOM.render(
     <Provider store={proxyStore}>
       <App />

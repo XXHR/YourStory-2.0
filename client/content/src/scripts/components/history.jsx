@@ -7,15 +7,29 @@ import * as d3 from 'd3';
 import _ from 'underscore';
 
 @connect((store) => {
-  console.log("store from history Component: ", store);
   return {
-    visData: store.visData,
+    history: store.history,
   };
 })
 
-export default class History extends React.Component {
+export default class History extends React.Component {  
   componentDidMount() {
-    const data = _.uniq(this.props.visData.sort((a, b) => {
+    const domainNames = Object.keys(this.props.history);
+
+    const historyDataFunc = () => {
+      const historyData = [];
+
+      domainNames.map((domain) => {
+        return historyData.push({
+          domain,
+          visits: this.props.history[domain],
+        });
+      });
+
+      return historyData;
+    };
+
+    const data = _.uniq(historyDataFunc().sort((a, b) => {
       if (a.visits > b.visits) {
         return 1;
       }

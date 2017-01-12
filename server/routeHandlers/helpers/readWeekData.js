@@ -1,4 +1,4 @@
-1// TODO - refactor getUser helper function
+// TODO - refactor getUser helper function
 // so that it returns the entire user object
 // not just the ID so that it's more functional
 // change parameter on line 17 to user not userID
@@ -18,17 +18,12 @@ const readWeekData = (chromeID) => {
     .then((userID) => {
       return getAllUserDomainIdsByWeekAndUserId(userID, week);
     })
-    .then((domainIdsArray) => {      
+    .then((domainIdsArray) => {
       return mapDomainIdsArrayToWeekDataObject(domainIdsArray);
     })
     .then((domainIdsWeekDataObject) => {
       return getFinalWeekDataObject(domainIdsWeekDataObject);
-    })
-}
+    });
+};
 
 module.exports = readWeekData;
-
-
-
-
-

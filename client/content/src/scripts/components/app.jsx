@@ -79,6 +79,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <History />
         <h1>Hello from App.js</h1>
         <div>Count: {this.props.count} </div>
         <div>ChromeID: {this.props.chromeID} </div>

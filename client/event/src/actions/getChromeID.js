@@ -45,8 +45,9 @@ export default function getChromeID() {
             dispatch(finalGetChromeID(chromeID));
             //record store's time state
             //store dispatches individual actions to post history and fetch data
+
             let oneWeekAgo = new Date();
-            
+
             chrome.history.search({
             'text': '', // Return every history item....
             'startTime': oneWeekAgo.setDate(oneWeekAgo.getDate() - 7), // need to subtract now from timeHistoryLastFetched 

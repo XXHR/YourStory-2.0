@@ -2,6 +2,10 @@
 
 import axios from 'axios';
 import store from '../store';
+import getWeekData from './getWeekData';
+import { finalHistory } from './postHistory';
+import getCatData from './getCatData';
+
 
 const finalGetChromeID = (chromeID) => {
   console.log('inside GET_CHROMEID action');
@@ -41,6 +45,25 @@ export default function getChromeID() {
             dispatch(finalGetChromeID(chromeID));
             //record store's time state
             //store dispatches individual actions to post history and fetch data
+            let oneWeekAgo = new Date();
+            
+            chrome.history.search({
+            'text': '', // Return every history item....
+            'startTime': oneWeekAgo.setDate(oneWeekAgo.getDate() - 7), // need to subtract now from timeHistoryLastFetched 
+            }, (chromeHistoryArray) => {
+              console.log('CHROME HISTORY', chromeHistoryArray);
+              axios({
+                method: 'post',
+                url: 'http://localhost:3000/api/history',
+                data: { history: chromeHistoryArray },
+              }).then((response) => {
+                dispatch(getWeekData());
+                dispatch(finalHistory(response.data));
+                dispatch(getCatData());
+
+              });
+            });
+
           })
           .catch((error) => {
             console.log(error);

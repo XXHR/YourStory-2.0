@@ -36,6 +36,9 @@ const getWeekDataFromBackground = () => {
     type: 'get-week-data',
   };
 
+  return data;
+}
+
 const postHistory = () => {
   const data = {
     type: 'post-history',
@@ -65,6 +68,8 @@ class App extends React.Component {
       this.props.dispatch(getWeekDataFromBackground());
       this.props.dispatch(getTimeHistoryLastFetchedFromBackground());
       this.props.dispatch(postHistory());
+    }
+
   }
 
   render() {

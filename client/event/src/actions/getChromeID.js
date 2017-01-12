@@ -1,6 +1,7 @@
 'use strict';
 
 import axios from 'axios';
+import store from '../store';
 
 const finalGetChromeID = (chromeID) => {
   console.log('inside GET_CHROMEID action');

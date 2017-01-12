@@ -37,6 +37,13 @@ const getWeekDataFromBackground = () => {
   };
 
   return data;
+}
+
+const postHistory = () => {
+  const data = {
+    type: 'post-history',
+  };
+  return data;
 };
 
 // ************** END MOCK ACTIONS ************************
@@ -60,7 +67,9 @@ class App extends React.Component {
       console.log('chromeID exists in props', this.props.chromeID);
       this.props.dispatch(getWeekDataFromBackground());
       this.props.dispatch(getTimeHistoryLastFetchedFromBackground());
+      this.props.dispatch(postHistory());
     }
+
   }
 
   render() {
@@ -70,6 +79,7 @@ class App extends React.Component {
         <div>Count: {this.props.count} </div>
         <div>ChromeID: {this.props.chromeID} </div>
         <div>Time History Last Fetched from Chrome: {this.props.timeHistoryLastFetched} </div>
+        <div>VisData: {this.props.visData} </div>
 
       </div>
     );
@@ -83,6 +93,7 @@ const mapStateToProps = (state) => {
     chromeID: state.chromeID,
     timeHistoryLastFetched: state.timeHistoryLastFetched,
     weekData: state.weekData,
+    visData: state.visData
   };
 };
 

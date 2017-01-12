@@ -1,6 +1,7 @@
 import getChromeID from './actions/getChromeID';
 import getTimeHistoryLastFetched from './actions/getTimeHistoryLastFetched';
 import getWeekData from './actions/getWeekData';
+import postHistory from './actions/postHistory';
 
 const userClickedAlias = () => {
   const data = {
@@ -19,4 +20,5 @@ export default {
   'get-chromeid': getChromeID,
   'get-time-history-last-fetched': getTimeHistoryLastFetched,
   'get-week-data': getWeekData,
+  'post-history': postHistory,
 };

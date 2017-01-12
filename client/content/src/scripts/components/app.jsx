@@ -37,7 +37,7 @@ const getWeekDataFromBackground = () => {
   };
 
   return data;
-}
+};
 
 const postHistory = () => {
   const data = {
@@ -70,6 +70,9 @@ class App extends React.Component {
       this.props.dispatch(postHistory());
     }
 
+    const listItems = this.props.visData.map((domain) =>
+      <li key={domain.title}> {domain.title} </li>
+    );
   }
 
   render() {
@@ -79,8 +82,11 @@ class App extends React.Component {
         <div>Count: {this.props.count} </div>
         <div>ChromeID: {this.props.chromeID} </div>
         <div>Time History Last Fetched from Chrome: {this.props.timeHistoryLastFetched} </div>
-        <div>VisData: {this.props.visData} </div>
-
+        <div>VisData: 
+          <ul>
+            {listItems}
+          </ul>
+        </div>        
       </div>
     );
   }

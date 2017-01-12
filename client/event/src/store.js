@@ -11,3 +11,5 @@ const store = createStore(rootReducer, applyMiddleware(
 wrapStore(store, {
   portName: 'YourStory',
 });
+
+export default store;

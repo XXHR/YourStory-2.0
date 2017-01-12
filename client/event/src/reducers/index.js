@@ -3,9 +3,13 @@ import { combineReducers } from 'redux';
 
 import count from './count';
 import chromeID from './chromeID';
+import timeHistoryLastFetched from './timeHistoryLastFetched';
+import weekData from './weekData';
 
 export default combineReducers({
   count,
   chromeID,
+  timeHistoryLastFetched,
+  weekData,
 });
 

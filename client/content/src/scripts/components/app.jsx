@@ -12,7 +12,6 @@ const getCount = () => {
 };
 
 const getChromeIDFromBackground = () => {
-  console.log('getting chromeID from background script from mock action: ', data)
   const data = {
     type: 'get-chromeid',
   };
@@ -21,7 +20,6 @@ const getChromeIDFromBackground = () => {
 };
 
 const getTimeHistoryLastFetchedFromBackground = () => {
-  console.log('inside get-time-history-last-fetched mock action');
   const data = {
     type: 'get-time-history-last-fetched',
   };
@@ -30,8 +28,6 @@ const getTimeHistoryLastFetchedFromBackground = () => {
 };
 
 const getWeekDataFromBackground = () => {
-  console.log('inside get-week-data mock action');
-
   const data = {
     type: 'get-week-data',
   };
@@ -69,7 +65,6 @@ class App extends React.Component {
     if (this.props.chromeID === 'no chromeID') {
       console.log('chromeID should not exist in store: ', this.props.chromeID);
       this.props.dispatch(getChromeIDFromBackground());
-      this.props.dispatch(getTimeHistoryLastFetchedFromBackground());
     } else {
       console.log('chromeID exists in props', this.props.chromeID);
       this.props.dispatch(getWeekDataFromBackground());
@@ -77,10 +72,6 @@ class App extends React.Component {
       this.props.dispatch(getCatDataFromBackground());
       this.props.dispatch(postHistoryFromBackground());
     }
-
-    const listItems = this.props.visData.map((domain) =>
-      <li key={domain.title}> {domain.title} </li>
-    );
   }
 
   render() {
@@ -103,7 +94,7 @@ const mapStateToProps = (state) => {
     timeHistoryLastFetched: state.timeHistoryLastFetched,
     weekData: state.weekData,
     history: state.history,
-    catData: state.catData
+    catData: state.catData,
   };
 };
 

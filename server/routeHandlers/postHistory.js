@@ -2,7 +2,7 @@ const postHistoryData = require('./helpers/postHistoryData');
 
 
 module.exports.postHistory = (req, res) => {
-  const chromeID = req.session.chromeID || '12345';
+  const chromeID = req.session.chromeID;
   const allHistory = req.body.history;
 
   postHistoryData(allHistory, chromeID)

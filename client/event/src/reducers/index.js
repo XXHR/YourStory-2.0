@@ -5,13 +5,16 @@ import count from './count';
 import chromeID from './chromeID';
 import timeHistoryLastFetched from './timeHistoryLastFetched';
 import weekData from './weekData';
-import postHistory from './postHistory';
+import history from './history';
+import catData from './catData';
+
 
 export default combineReducers({
   count,
   chromeID,
   timeHistoryLastFetched,
   weekData,
-  postHistory,
+  history,
+  catData
 });
 

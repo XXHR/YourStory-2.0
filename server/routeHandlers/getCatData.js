@@ -101,7 +101,7 @@ const getDomArr = () => {
          }
        }
 
-       res.send(200, catData);
+       res.status(200).send(catData);
     });
   });
 }

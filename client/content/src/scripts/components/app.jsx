@@ -101,7 +101,8 @@ const mapStateToProps = (state) => {
     chromeID: state.chromeID,
     timeHistoryLastFetched: state.timeHistoryLastFetched,
     weekData: state.weekData,
-    history: state.history
+    history: state.history,
+    catData: state.catData
   };
 };
 

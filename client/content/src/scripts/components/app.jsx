@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import History from './history';
+import Categories from './catData';
 
 // ********************************************************
 // *************** START MOCK ACTIONS *********************
@@ -56,7 +57,7 @@ const getCatDataFromBackground = () => {
 
 class App extends React.Component {
 
-  componentDidMount() {
+  componentWillMount() {
     document.addEventListener('click', () => {
       this.props.dispatch(getCount());
       // this.props.dispatch(getChromeIDFromBackground());
@@ -80,6 +81,7 @@ class App extends React.Component {
     return (
       <div>
         <History />
+        <Categories />
         <h1>Hello from App.js</h1>
         <div>Count: {this.props.count} </div>
         <div>ChromeID: {this.props.chromeID} </div>

@@ -12,7 +12,7 @@ import _ from 'underscore';
   };
 })
 
-export default class History extends React.Component {  
+export default class History extends React.Component {
   componentDidMount() {
     const domainNames = Object.keys(this.props.history);
 
@@ -37,7 +37,7 @@ export default class History extends React.Component {
         return -1;
       }
       return 0;
-    }).slice(-15), (datum) => {return datum.domain; }).reverse();
+    }).slice(-15), (datum) => { return datum.domain; }).reverse();
 
 
     const h = 360,
@@ -114,7 +114,7 @@ export default class History extends React.Component {
 
   render(data) {
     return (
-        <div id="bubble-container"></div>
+      <div id="bubble-container"></div>
     );
   }
 }

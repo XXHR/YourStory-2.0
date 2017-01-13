@@ -17,7 +17,6 @@ export default function getCatData() {
       method: 'get',
       url: 'http://localhost:3000/api/catData',
     }).then((response) => {
-      console.log("response from catdata: ", response);
       dispatch(finalGetCatData(response.data));
     });
   };

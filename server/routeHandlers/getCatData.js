@@ -93,7 +93,6 @@ const getDomArr = () => {
 
        for (let domain of domArr) {
          for (let i = 0; i < catData.length; i++) {
-           console.log('domain inside domArr: ', domain);
            if (catData[i].id === domain.categoryId) {
              catData[i].domains.push({ label: domain.name, count: domain.count });
              catData[i].totalCount += domain.count;

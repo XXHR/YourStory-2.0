@@ -2,7 +2,7 @@ const postUser = require('./routeHandlers/postUser');
 const postHistory = require('./routeHandlers/postHistory').postHistory;
 const getUser = require('./routeHandlers/getUser');
 const getCatData = require('./routeHandlers/getCatData');
-const getWeekData = require('./routeHandlers/getWeekData');
+const getHistoryByDate = require('./routeHandlers/getHistoryByDate');
 
 const db = require('../db/config');
 
@@ -17,5 +17,5 @@ module.exports = {
   getUser: getUser,
   postHistory: postHistory,
   getCatData: getCatData,
-  getWeekData: getWeekData,
+  getHistoryByDate: getHistoryByDate,
 };

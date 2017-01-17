@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import History from './history';
 import Categories from './catData';
 
+
 // ********************************************************
 // *************** START MOCK ACTIONS *********************
 

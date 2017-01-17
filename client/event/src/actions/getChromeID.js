@@ -38,7 +38,8 @@ export default function getChromeID() {
           .then((response) => {
             console.log('response: ', response);
             const chromeID = JSON.parse(response.config.data).chromeID;
-            dispatch(finalGetChromeID(chromeID));
+            
+            // dispatch(finalGetChromeID(chromeID));
             //record store's time state
             //store dispatches individual actions to post history and fetch data
 

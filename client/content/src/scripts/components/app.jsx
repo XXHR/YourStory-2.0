@@ -73,21 +73,27 @@ class App extends React.Component {
       this.props.dispatch(getWeekDataFromBackground());
       this.props.dispatch(getTimeHistoryLastFetchedFromBackground());
       this.props.dispatch(getCatDataFromBackground());
-      this.props.dispatch(postHistoryFromBackground());
+      this.props.dispatch(postHistoryFromBackground()); 
     }
   }
 
   render() {
-    return (
-      <div>
-        <History />
-        <Categories />
-        <h1>Hello from App.js</h1>
-        <div>Count: {this.props.count} </div>
-        <div>ChromeID: {this.props.chromeID} </div>
-        <div>Time History Last Fetched from Chrome: {this.props.timeHistoryLastFetched} </div>
-      </div>
-    );
+    if (this.props.chromeID !== 'no chromeID') {
+      return (
+        <div>
+          <History />
+          <Categories />
+          <h1>Hello from App.js</h1>
+          <div>Count: {this.props.count} </div>
+          <div>ChromeID: {this.props.chromeID} </div>
+          <div>Time History Last Fetched from Chrome: {this.props.timeHistoryLastFetched} </div>
+        </div>
+      );
+    } else {
+      return (
+        <div>YOUR ARE NOT AUTHORIZED TO VIEW THIS APP no chromeID</div>
+      )
+    }
   }
 }
 

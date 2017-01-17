@@ -6,29 +6,29 @@
 
 const DateRange = require('./createDateArray');
 const getUser = require('./getUser');
-const getAllUserDomainIdsByWeekAndUserId = require('./getAllUserDomainIdsByWeekAndUserId');
-const mapDomainIdsArrayToWeekDataObject = require('./mapDomainIdsArrayToWeekDataObject');
-const getFinalWeekDataObject = require('./getFinalWeekDataObject');
+const getAllUserDomainIdsByDatesAndUserId = require('./getAllUserDomainIdsByDatesAndUserId');
+const mapDomainIdsArrayToDatesDataObject = require('./mapDomainIdsArrayToDatesDataObject');
+const getFinalDatesDataObject = require('./getFinalDatesDataObject');
 
 
-const readHistoryByDate = (chromeID) => {
-  const week = new DateRange().createDateArray();
+const readHistoryByDate = (chromeID, dateRange) => {
+  const startDate = dateRange.startDate;
+  const endDate = startDate - dateRange.endDate;
+  const year = dateRange.year;
+  const month = dateRange.month;
+
+  const dates = new DateRange(startDate, month, year, endDate).createDateArray();
 
   return getUser(chromeID)
     .then((userID) => {
-      return getAllUserDomainIdsByWeekAndUserId(userID, week);
+      return getAllUserDomainIdsByDatesAndUserId(userID, dates);
     })
-    .then((domainIdsArray) => {      
-      return mapDomainIdsArrayToWeekDataObject(domainIdsArray);
+    .then((domainIdsArray) => {  
+      return mapDomainIdsArrayToDatesDataObject(domainIdsArray);
     })
-    .then((domainIdsWeekDataObject) => {
-      return getFinalWeekDataObject(domainIdsWeekDataObject);
-    })
+    .then((domainIdsDatesDataObject) => {
+      return getFinalDatesDataObject(domainIdsDatesDataObject);
+    });
 }
 
-module.exports = readWeekData;
-
-
-
-
-
+module.exports = readHistoryByDate;

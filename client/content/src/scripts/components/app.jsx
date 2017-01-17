@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import History from './history';
+import Categories from './catData';
+
 // ********************************************************
 // *************** START MOCK ACTIONS *********************
 
@@ -12,7 +15,6 @@ const getCount = () => {
 };
 
 const getChromeIDFromBackground = () => {
-  console.log('getting chromeID from background script from mock action: ', data)
   const data = {
     type: 'get-chromeid',
   };
@@ -21,7 +23,6 @@ const getChromeIDFromBackground = () => {
 };
 
 const getTimeHistoryLastFetchedFromBackground = () => {
-  console.log('inside get-time-history-last-fetched mock action');
   const data = {
     type: 'get-time-history-last-fetched',
   };
@@ -30,14 +31,12 @@ const getTimeHistoryLastFetchedFromBackground = () => {
 };
 
 const getWeekDataFromBackground = () => {
-  console.log('inside get-week-data mock action');
-
   const data = {
     type: 'get-week-data',
   };
 
   return data;
-}
+};
 
 const postHistoryFromBackground = () => {
   const data = {
@@ -58,7 +57,7 @@ const getCatDataFromBackground = () => {
 
 class App extends React.Component {
 
-  componentDidMount() {
+  componentWillMount() {
     document.addEventListener('click', () => {
       this.props.dispatch(getCount());
       // this.props.dispatch(getChromeIDFromBackground());
@@ -69,28 +68,32 @@ class App extends React.Component {
     if (this.props.chromeID === 'no chromeID') {
       console.log('chromeID should not exist in store: ', this.props.chromeID);
       this.props.dispatch(getChromeIDFromBackground());
-      this.props.dispatch(getTimeHistoryLastFetchedFromBackground());
     } else {
       console.log('chromeID exists in props', this.props.chromeID);
       this.props.dispatch(getWeekDataFromBackground());
       this.props.dispatch(getTimeHistoryLastFetchedFromBackground());
       this.props.dispatch(getCatDataFromBackground());
-      this.props.dispatch(postHistoryFromBackground());
+      this.props.dispatch(postHistoryFromBackground()); 
     }
-
   }
 
   render() {
-    return (
-      <div>
-        <h1>Hello from App.js</h1>
-        <div>Count: {this.props.count} </div>
-        <div>ChromeID: {this.props.chromeID} </div>
-        <div>Time History Last Fetched from Chrome: {this.props.timeHistoryLastFetched} </div>
-        
-
-      </div>
-    );
+    if (this.props.chromeID !== 'no chromeID') {
+      return (
+        <div>
+          <History />
+          <Categories />
+          <h1>Hello from App.js</h1>
+          <div>Count: {this.props.count} </div>
+          <div>ChromeID: {this.props.chromeID} </div>
+          <div>Time History Last Fetched from Chrome: {this.props.timeHistoryLastFetched} </div>
+        </div>
+      );
+    } else {
+      return (
+        <div>YOUR ARE NOT AUTHORIZED TO VIEW THIS APP no chromeID</div>
+      )
+    }
   }
 }
 
@@ -102,7 +105,7 @@ const mapStateToProps = (state) => {
     timeHistoryLastFetched: state.timeHistoryLastFetched,
     weekData: state.weekData,
     history: state.history,
-    catData: state.catData
+    catData: state.catData,
   };
 };
 

@@ -14,7 +14,7 @@ const getVisData = (chromeID) => {
             visData[domain.dataValues.domain] = domain.dataValues.users_domains.count;
           }
         }
-        console.log('vis data', visData);
+
         return visData;
       })
       .catch((err) => {

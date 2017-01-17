@@ -15,6 +15,5 @@ export default combineReducers({
   timeHistoryLastFetched,
   weekData,
   history,
-  catData
+  catData,
 });
-

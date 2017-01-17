@@ -11,7 +11,7 @@ const mapDomainIdsArrayToWeekDataObject = require('./mapDomainIdsArrayToWeekData
 const getFinalWeekDataObject = require('./getFinalWeekDataObject');
 
 
-const readWeekData = (chromeID) => {
+const readHistoryByDate = (chromeID) => {
   const week = new DateRange().createDateArray();
 
   return getUser(chromeID)

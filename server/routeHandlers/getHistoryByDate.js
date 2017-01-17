@@ -1,16 +1,17 @@
 'use strict';
 
-const readWeekData = require('./helpers/readWeekData');
+const readHistoryByDate = require('./helpers/readHistoryByDate');
 
 module.exports = (req, res) => {
   const chromeID = req.session.chromeID || '12345';
+  const dateRange = req.body.dateRange;
 
-  readWeekData(chromeID)
-    .then((finalWeekData) => {
-      res.status(200).json(finalWeekData);
+  readHistoryByDate(chromeID, dateRange);
+    .then((finalHistoryByDate) => {
+      res.status(200).json(finalHistoryByDate);
     })
     .catch((err) => {
-      console.log('Error creating weekData ', err);
+      console.log('Error creating history by date ', err);
       res.sendStatus(404);
     });
 };

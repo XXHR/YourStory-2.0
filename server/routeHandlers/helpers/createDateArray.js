@@ -90,7 +90,7 @@ class DateRange {
         if(day === monthLength) {
           month -= 1;
           if(month === 0) {
-            month = 1;
+            month = 12;
             year -= 1;
           }
         }

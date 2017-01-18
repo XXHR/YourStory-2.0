@@ -35,9 +35,19 @@ export default function getChromeID() {
           data: { chromeID: userInfo.id, username: userInfo.name },
         })
         .then((response) => {
-          const chromeID = response.data;
+          axios({
+            method: 'get',
+            url: 'http://localhost:3000/api/user', // 'http://yourstory-app.herokuapp.com/api/history'
+          })
+          .then((response) => {
+            console.log("client username: ", response);
+          })
 
-          dispatch(finalGetChromeID(chromeID));
+
+          // const chromeID = response.data;
+
+          // dispatch(finalGetChromeID(chromeID));
+          
           //record store's time state
           //store dispatches individual actions to post history and fetch data
         })

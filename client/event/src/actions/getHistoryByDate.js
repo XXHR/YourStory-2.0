@@ -2,10 +2,10 @@
 
 import axios from 'axios';
 
-function finalGetHistoryByDate(data) {
+function finalGetHistoryByDate(historyByDateData) {
   const data = {
     type: 'GET_HISTORY_BY_DATE',
-    payload: data,
+    payload: historyByDateData,
   };
 
   return data;
@@ -16,7 +16,7 @@ export default function getHistoryByDates(dates) {
     axios({
       method: 'post',
       url: 'http://localhost:3000/api/historyByDate',
-      data: dates
+      data: { dateRange: dates }
     }).then((response) => {
       dispatch(finalGetHistoryByDate(response.data));
     });

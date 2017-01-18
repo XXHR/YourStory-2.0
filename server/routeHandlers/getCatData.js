@@ -88,16 +88,17 @@ module.exports = (req, res) => {
         catData.push(cat);
       }
 
-      for (let domain of domArr) {
-        for (let i = 0; i < catData.length; i++) {
-          if (catData[i].id === domain.categoryId) {
-            catData[i].domains.push({ label: domain.name, count: domain.count });
-            catData[i].totalCount += domain.count;
-          }
-        }
-      }
+       for (let domain of domArr) {
+         for (let i = 0; i < catData.length; i++) {
+           if (catData[i].id === domain.categoryId) {
+             catData[i].domains.push({ label: domain.name, count: domain.count });
+             catData[i].totalCount += domain.count;
+           }
+         }
+       }
 
       res.status(200).send(catData);
+
     });
   });
 };

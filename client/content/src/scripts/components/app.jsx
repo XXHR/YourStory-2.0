@@ -30,9 +30,9 @@ const getTimeHistoryLastFetchedFromBackground = () => {
   return data;
 };
 
-const getWeekDataFromBackground = () => {
+const getHistoryByDateFromBackground = () => {
   const data = {
-    type: 'get-week-data',
+    type: 'get-history-by-date',
   };
 
   return data;
@@ -70,7 +70,7 @@ class App extends React.Component {
       this.props.dispatch(getChromeIDFromBackground());
     } else {
       console.log('chromeID exists in props', this.props.chromeID);
-      this.props.dispatch(getWeekDataFromBackground());
+      this.props.dispatch(getHistoryByDateFromBackground());
       this.props.dispatch(getTimeHistoryLastFetchedFromBackground());
       this.props.dispatch(getCatDataFromBackground());
       this.props.dispatch(postHistoryFromBackground()); 
@@ -103,7 +103,7 @@ const mapStateToProps = (state) => {
     count: state.count,
     chromeID: state.chromeID,
     timeHistoryLastFetched: state.timeHistoryLastFetched,
-    weekData: state.weekData,
+    historyByDate: state.historyByDate,
     history: state.history,
     catData: state.catData,
   };

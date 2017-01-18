@@ -5,5 +5,5 @@ module.exports.router = (app) => {
   app.get('/api/user', routeHelpers.getUser);
   app.post('/api/history', routeHelpers.postHistory);
   app.get('/api/catData', routeHelpers.getCatData);
-  app.get('/api/weekData', routeHelpers.getWeekData);
+  app.post('/api/historyByDate', routeHelpers.getHistoryByDate);
 };

@@ -1,7 +1,7 @@
 'use strict';
 
 import axios from 'axios';
-import getWeekData from './getWeekData';
+import getHistoryByDate from './getHistoryByDate';
 import { finalHistory } from './postHistory';
 import getCatData from './getCatData';
 
@@ -54,7 +54,7 @@ export default function getChromeID() {
                 url: 'http://localhost:3000/api/history',
                 data: { history: chromeHistoryArray },
               }).then((response) => {
-                dispatch(getWeekData());
+                dispatch(getHistoryByDate());
                 dispatch(finalHistory(response.data));
                 dispatch(getCatData());
               });

@@ -10,7 +10,7 @@ import * as d3 from 'd3';
 })
 
 export default class Categories extends React.Component {
-  componentDidUpdate() {
+  componentDidMount() {
     const catParser = {
       uncategorized: 'Other',
       searchenginesandportals: 'Search Engines',

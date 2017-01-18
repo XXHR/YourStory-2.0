@@ -1,5 +1,6 @@
-const postHistoryData = require('./helpers/postHistoryData');
+'use strict';
 
+const postHistoryData = require('./helpers/postHistoryData');
 
 module.exports.postHistory = (req, res) => {
   const chromeID = req.session.chromeID;

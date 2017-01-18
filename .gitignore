@@ -14,3 +14,6 @@ npm-debug.log
 # bundle
 /client/public/content.js
 /client/public/event.js
+
+# keys and clientIDs
+.env

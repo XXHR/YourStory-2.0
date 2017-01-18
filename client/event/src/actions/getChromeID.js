@@ -5,7 +5,6 @@ import getHistoryByDate from './getHistoryByDate';
 import { finalHistory } from './postHistory';
 import getCatData from './getCatData';
 
-
 const finalGetChromeID = (chromeID) => {
   const data = {
     type: 'GET_CHROMEID',
@@ -35,34 +34,36 @@ export default function getChromeID() {
           url: 'http://localhost:3000/api/users', // 'http://yourstory-app.herokuapp.com/api/history'
           data: { chromeID: userInfo.id, username: userInfo.name },
         })
-          .then((response) => {
-            console.log('response: ', response);
-            const chromeID = JSON.parse(response.config.data).chromeID;
-            dispatch(finalGetChromeID(chromeID));
-            //record store's time state
-            //store dispatches individual actions to post history and fetch data
+        .then((response) => {
 
-            let oneWeekAgo = new Date();
+          const chromeID = response.data;
+          dispatch(finalGetChromeID(chromeID));
+          
+          //record store's time state
+          //store dispatches individual actions to post history and fetch data
+        })
+        .then(() => {
+          let oneWeekAgo = new Date();
 
-            chrome.history.search({
-            'text': '', // Return every history item....
-            'startTime': oneWeekAgo.setDate(oneWeekAgo.getDate() - 7), // need to subtract now from timeHistoryLastFetched 
-            }, (chromeHistoryArray) => {
-              console.log('CHROME HISTORY', chromeHistoryArray);
-              axios({
-                method: 'post',
-                url: 'http://localhost:3000/api/history',
-                data: { history: chromeHistoryArray },
-              }).then((response) => {
-                dispatch(getHistoryByDate());
-                dispatch(finalHistory(response.data));
-                dispatch(getCatData());
-              });
+          chrome.history.search({
+          'text': '', // Return every history item....
+          'startTime': oneWeekAgo.setDate(oneWeekAgo.getDate() - 7), // need to subtract now from timeHistoryLastFetched 
+          }, (chromeHistoryArray) => {
+            console.log('CHROME HISTORY', chromeHistoryArray);
+            axios({
+              method: 'post',
+              url: 'http://localhost:3000/api/history',
+              data: { history: chromeHistoryArray },
+            }).then((response) => {
+              dispatch(getHistoryByDate());
+              dispatch(finalHistory(response.data));
+              dispatch(getCatData());
             });
-          })
-          .catch((error) => {
-            console.log(error);
           });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       };
       x.send();
     });

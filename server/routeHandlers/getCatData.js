@@ -1,3 +1,5 @@
+'use strict';
+
 const User = require('../../db/schema').User;
 const Category = require('../../db/schema').Category;
 const getUser = require('./helpers/getUser');

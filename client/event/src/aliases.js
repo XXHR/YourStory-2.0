@@ -1,6 +1,6 @@
 import getChromeID from './actions/getChromeID';
 import getTimeHistoryLastFetched from './actions/getTimeHistoryLastFetched';
-import getWeekData from './actions/getWeekData';
+import getHistoryByDate from './actions/getHistoryByDate';
 import postHistory from './actions/postHistory';
 
 const userClickedAlias = () => {
@@ -19,6 +19,6 @@ export default {
   'user-clicked-alias': userClickedAlias, // the action to proxy and the new action to call
   'get-chromeid': getChromeID,
   'get-time-history-last-fetched': getTimeHistoryLastFetched,
-  'get-week-data': getWeekData,
+  'get-history-by-date': getHistoryByDate,
   'post-history': postHistory,
 };

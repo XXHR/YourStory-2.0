@@ -4,7 +4,7 @@ const readHistoryByDate = require('./helpers/readHistoryByDate');
 
 module.exports = (req, res) => {
   const chromeID = req.session.chromeID || '12345';
-  const dateRange = req.body.dateRange || { startDate: 16, month: 1, endDate: 28, year: 2017 };
+  const dateRange = req.body.dateRange || 'week';
 
   readHistoryByDate(chromeID, dateRange)
     .then((finalHistoryByDate) => {

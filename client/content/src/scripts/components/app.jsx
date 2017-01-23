@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import History from './history';
 import Categories from './catData';
-
+import axios from 'axios';
 
 // ********************************************************
 // *************** START MOCK ACTIONS *********************
@@ -92,14 +92,16 @@ class App extends React.Component {
       );
     } else {
       return (
-        <div>YOUR ARE NOT AUTHORIZED TO VIEW THIS APP no chromeID</div>
+        <center>
+          <h1>Please download the extension from the <a href="https://chrome.google.com/webstore/detail/your-story/jdcimfeoliipgbnpmbbnnojlpehbdflh?authuser=3">Chrome Store</a></h1>
+        </center>
       )
     }
   }
 }
 
 const mapStateToProps = (state) => {
-  console.log('Store from App.js: ', state);
+  // console.log('Store from App.js: ', state);
   return {
     count: state.count,
     chromeID: state.chromeID,

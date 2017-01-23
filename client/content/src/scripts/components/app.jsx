@@ -92,7 +92,9 @@ class App extends React.Component {
       );
     } else {
       return (
-        <center><h1>YOUR ARE NOT AUTHORIZED TO VIEW THIS APP no chromeID</h1></center>
+        <center>
+          <h1>Please download the extension from the <a href="https://chrome.google.com/webstore/detail/your-story/jdcimfeoliipgbnpmbbnnojlpehbdflh?authuser=3">Chrome Store</a></h1>
+        </center>
       )
     }
   }

@@ -92,7 +92,7 @@ class App extends React.Component {
       );
     } else {
       return (
-        <div><h1>YOUR ARE NOT AUTHORIZED TO VIEW THIS APP no chromeID</h1></div>
+        <center><h1>YOUR ARE NOT AUTHORIZED TO VIEW THIS APP no chromeID</h1></center>
       )
     }
   }

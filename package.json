@@ -7,7 +7,7 @@
     "start": "nodemon ./server/server.js",
     "build": "webpack -p --config webpack.config.production.js",
     "build:dev": "webpack --watch --config webpack.config.development.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
@@ -25,10 +25,11 @@
     "eslint-config-airbnb": "^12.0.0",
     "eslint-plugin-import": "^1.16.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.5.0"
+    "eslint-plugin-react": "^6.5.0",
+    "jasmine": "^2.5.2"
   },
   "dependencies": {
-    "axios": "^0.15.2",
+    "axios": "^0.15.3",
     "babel-core": "^6.18.2",
     "babel-eslint": "^7.1.0",
     "babel-loader": "^6.2.7",
@@ -37,11 +38,15 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-1": "^6.16.0",
     "body-parser": "^1.15.2",
+    "btoa": "^1.1.2",
+    "crypto-js": "^3.1.9-1",
     "d3": "^4.3.0",
+    "dotenv": "^4.0.0",
     "eslint-plugin-react": "^6.5.0",
     "express": "^4.14.0",
     "express-session": "^1.14.2",
     "ignore-loader": "^0.1.1",
+    "lodash": "^4.17.4",
     "nodemon": "^1.11.0",
     "pg": "^6.1.0",
     "react": "^15.3.2",
@@ -54,7 +59,8 @@
     "redux-action": "^1.1.0",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.1.0",
-    "sequelize": "^3.24.8",
+    "request": "^2.79.0",
+    "sequelize": "^3.28.0",
     "undefined": "^0.1.0",
     "underscore": "^1.8.3",
     "webpack": "^1.13.3"

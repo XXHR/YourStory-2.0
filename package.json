@@ -6,9 +6,9 @@
   "scripts": {
     "postinstall": "npm run build",
     "start": "nodemon ./server/server.js",
-    "build": "webpack -p --config ./client/content/webpack.config.js",
-    "build:dev": "webpack --watch --config ./client/content/webpack.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack -p --config webpack.config.production.js",
+    "build:dev": "webpack --watch --config webpack.config.development.js",
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "npm run build",
     "start": "nodemon ./server/server.js",
     "build": "webpack -p --config webpack.config.production.js",
     "build:dev": "webpack --watch --config webpack.config.development.js",

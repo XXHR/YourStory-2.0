@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "npm run build",
     "start": "nodemon ./server/server.js",
-    "build": "webpack -p --config webpack.config.production.js",
+    "build": "webpack --watch ./client/content/webpack.config.js & webpack --watch ./client/event/webpack.config.js",
     "build:dev": "webpack --watch --config webpack.config.development.js",
     "test": "jasmine"
   },

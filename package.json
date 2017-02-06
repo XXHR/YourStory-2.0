@@ -6,8 +6,9 @@
   "scripts": {
     "postinstall": "npm run build",
     "start": "nodemon ./server/server.js",
-    "build": "webpack --watch ./client/content/webpack.config.js & webpack --watch ./client/event/webpack.config.js",
-    "test": "jasmine"
+    "build": "webpack -p --config webpack.config.production.js",
+    "build:dev": "webpack --watch --config webpack.config.development.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -26,7 +27,23 @@
     "eslint-plugin-import": "^1.16.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.5.0",
-    "jasmine": "^2.5.2"
+    "jasmine": "^2.5.2",
+    "babel-core": "^6.18.2",
+    "babel-eslint": "^7.1.0",
+    "babel-loader": "^6.2.8",
+    "babel-preset-es2015": "^6.18.0",
+    "css-loader": "^0.26.0",
+    "eslint": "^3.9.1",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.5.0",
+    "file-loader": "^0.9.0",
+    "node-sass": "^3.13.0",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.3"
   },
   "dependencies": {
     "axios": "^0.15.3",

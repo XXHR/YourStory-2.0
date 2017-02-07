@@ -82,13 +82,54 @@ class App extends React.Component {
     if (this.props.chromeID !== 'no chromeID') {
       return (
         <div>
-          <History />
-          <Categories />
-          <h1>Hello from App.js</h1>
-          <div>Count: {this.props.count} </div>
-          <div>ChromeID: {this.props.chromeID} </div>
-          <div>Time History Last Fetched from Chrome: {this.props.timeHistoryLastFetched} </div>
-        </div>
+          <div>
+            <h1>Hello from App.js</h1>
+            <div>Count: {this.props.count} </div>
+            <div>ChromeID: {this.props.chromeID} </div>
+            <div>Time History Last Fetched from Chrome: {this.props.timeHistoryLastFetched} </div>
+          </div>
+          <div className="row">
+            <div className="col-sm-1"></div>
+            <div className="col-sm-5">
+              <div className="row">
+                <div className="col-sm-11">
+                  <h5>Most Visited Sites</h5>
+                  <div className="data-parent-container">
+                    <History />
+                  </div>
+                </div>
+                <div className="col-sm-1"></div>
+              </div>
+            </div>
+
+            <div className="col-sm-5">
+              <div className="row">
+                <div className="col-sm-1"></div>
+                <div className="col-sm-11">
+                  <h5>Sites By Category</h5>
+                  <div className="data-parent-container">
+                    <Categories />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-sm-1"></div>
+          </div>      
+          <div className="row">
+            <div className="col-sm-12">
+              <div className="row">
+                <div className="col-sm-1"></div>
+                <div className="col-sm-10">
+                  <h5>Sites Visited This Week</h5>
+
+                </div>
+                <div className="col-sm-1"></div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <br />
+        </div>        
       );
     } else {
       return (

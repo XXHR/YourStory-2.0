@@ -1,8 +1,8 @@
-const webpack = require('webpack');
-const path = require('path');
+const webpack = require('webpack')
+const path = require('path')
 
 module.exports = {
-  entry: path.join(__dirname, './src/store.js'),
+  entry: ['./src/store.js'],
   output: {
     path: path.join(__dirname, '../public'),
     filename: 'event.js'

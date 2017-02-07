@@ -84,8 +84,10 @@ rect {
   padding: 5%;
 }
 
-.nav-greeting {
-  
+.nav-greeting {  
   text-align: right;
 }
 
+#splash-inner-content {
+  border : 1px red solid;
+}

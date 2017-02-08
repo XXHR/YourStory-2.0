@@ -83,12 +83,6 @@ class App extends React.Component {
     if (this.props.chromeID !== 'no chromeID') {
       return (
         <div>
-          <div>
-            <h1>Hello from App.js</h1>
-            <div>Count: {this.props.count} </div>
-            <div>ChromeID: {this.props.chromeID} </div>
-            <div>Time History Last Fetched from Chrome: {this.props.timeHistoryLastFetched} </div>
-          </div>
           <div className="row">
             <div className="col-sm-1"></div>
             <div className="col-sm-5">

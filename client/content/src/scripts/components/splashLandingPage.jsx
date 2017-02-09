@@ -15,11 +15,12 @@ export default class SplashLandingPage extends React.Component {
             <div id="splash-inner-content">
               <div className="row">
                 <div className="col-sm-6">
-                  add img here
+                  <img src="./assets/ChromeYourStory.png" width="400px" />
                 </div>
                 <div className="col-sm-6">
-                  <table cls>
-                    <tr className="splash-inner-header-table-row">
+                  <table>
+                    <tbody>
+                      <tr className="splash-inner-header-table-row">
                       <td className="splash-inner-header-table-cell">
                         <h1>YourStory</h1>
                       </td>
@@ -30,6 +31,7 @@ export default class SplashLandingPage extends React.Component {
                         <h1>Chrome</h1>
                       </td>
                     </tr>
+                    </tbody>                    
                   </table>
 
                   <p>Installing the YourStory browser extension allows you to visualize your browsing history each time you open a new tab on Chrome.<a href="https://chrome.google.com/webstore/detail/your-story/jdcimfeoliipgbnpmbbnnojlpehbdflh?authuser=3">Chrome Store</a></p>

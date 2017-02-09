@@ -88,6 +88,41 @@ rect {
   text-align: right;
 }
 
-#splash-inner-content {
-  border : 1px red solid;
+#splash-inner-content {  
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,.1);;
+  border-radius: 10px;  
+  padding: 5%;  
+  margin: 50px;  
 }
+
+#splash-header {
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,.1);;
+  height:115px;
+}
+
+#splash-header-logo {  
+  padding:3%;
+}
+
+.splash-inner-header-table-row {
+  width:100%;
+}
+
+.splash-inner-header-table-cell {
+  padding-right: 5px;
+}
+
+.btn-install {
+  background-color: #E15B5F;
+  color: #fff;
+  border: 1px #CC3842 solid;
+}
+
+#install-url {
+  margin-top: 3%;
+  font-size: 12px;
+}
+
+

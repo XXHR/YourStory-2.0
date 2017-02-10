@@ -4,6 +4,7 @@ import axios from 'axios';
 import getHistoryByDate from './getHistoryByDate';
 import { finalHistory } from './postHistory';
 import getCatData from './getCatData';
+import HostPort from './hostPort';
 
 const finalGetChromeID = (chromeID) => {
   const data = {
@@ -31,7 +32,7 @@ export default function getChromeID() {
         console.log('User info from chrome: ', userInfo);
         axios({
           method: 'post',
-          url: 'http://localhost:3000/api/users', // 'http://yourstory-app.herokuapp.com/api/history'
+          url: `http://${HostPort}/api/users`,
           data: { chromeID: userInfo.id, username: userInfo.name },
         })
         .then((response) => {
@@ -52,7 +53,7 @@ export default function getChromeID() {
             console.log('CHROME HISTORY', chromeHistoryArray);
             axios({
               method: 'post',
-              url: 'http://localhost:3000/api/history',
+              url: `http://${HostPort}/api/history`,
               data: { history: chromeHistoryArray },
             }).then((response) => {
               dispatch(getHistoryByDate());

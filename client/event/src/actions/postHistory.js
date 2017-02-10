@@ -1,5 +1,6 @@
 import axios from 'axios';
 import store from '../store';
+import HostPort from './hostPort';
 
 export function finalHistory(data) {
   return {
@@ -16,7 +17,7 @@ export function postHistory() {
     }, (chromeHistoryArray) => {
       axios({
         method: 'post',
-        url: 'http://localhost:3000/api/history',
+        url: `http://${HostPort}/api/history`,
         data: { history: chromeHistoryArray },
       }).then((response) => {
         dispatch(finalHistory(response.data));

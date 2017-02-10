@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 
 import History from './history';
 import Categories from './catData';
-import axios from 'axios';
+import SplashLandingPage from './splashLandingpage';
+import Footer from './footer';
 
 // ********************************************************
 // *************** START MOCK ACTIONS *********************
@@ -82,12 +83,6 @@ class App extends React.Component {
     if (this.props.chromeID !== 'no chromeID') {
       return (
         <div>
-          <div>
-            <h1>Hello from App.js</h1>
-            <div>Count: {this.props.count} </div>
-            <div>ChromeID: {this.props.chromeID} </div>
-            <div>Time History Last Fetched from Chrome: {this.props.timeHistoryLastFetched} </div>
-          </div>
           <div className="row">
             <div className="col-sm-1"></div>
             <div className="col-sm-5">
@@ -121,7 +116,6 @@ class App extends React.Component {
                 <div className="col-sm-1"></div>
                 <div className="col-sm-10">
                   <h5>Sites Visited This Week</h5>
-
                 </div>
                 <div className="col-sm-1"></div>
               </div>
@@ -129,13 +123,16 @@ class App extends React.Component {
           </div>
           <br />
           <br />
+          <center>
+            <Footer />
+          </center>
         </div>        
       );
     } else {
       return (
-        <center>
-          <h1>Please download the extension from the <a href="https://chrome.google.com/webstore/detail/your-story/jdcimfeoliipgbnpmbbnnojlpehbdflh?authuser=3">Chrome Store</a></h1>
-        </center>
+        <div>
+          <SplashLandingPage />
+        </div>
       )
     }
   }

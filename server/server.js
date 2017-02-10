@@ -8,12 +8,12 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '../client/public')));
+app.use(express.static(path.join(__dirname, '../client/public/index')));
 app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true }));
 
 routes.router(app);
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', 5000);
 
 app.listen(app.get('port'), () => {
   console.log('listening on port: ', app.get('port'));

@@ -13,7 +13,7 @@ app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true
 
 routes.router(app);
 
-app.set('port', process.env.PORT || 5000);
+app.set('port', 5000);
 
 app.listen(app.get('port'), () => {
   console.log('listening on port: ', app.get('port'));

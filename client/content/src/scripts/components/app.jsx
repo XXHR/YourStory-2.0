@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import History from './history';
 import Categories from './catData';
-import axios from 'axios';
 import SplashLandingPage from './splashLandingpage';
+import Footer from './footer';
 
 // ********************************************************
 // *************** START MOCK ACTIONS *********************
@@ -116,7 +116,6 @@ class App extends React.Component {
                 <div className="col-sm-1"></div>
                 <div className="col-sm-10">
                   <h5>Sites Visited This Week</h5>
-
                 </div>
                 <div className="col-sm-1"></div>
               </div>
@@ -124,12 +123,15 @@ class App extends React.Component {
           </div>
           <br />
           <br />
+          <center>
+            <Footer />
+          </center>
         </div>        
       );
     } else {
       return (
-        <div>          
-          <SplashLandingPage/>          
+        <div>
+          <SplashLandingPage />
         </div>
       )
     }

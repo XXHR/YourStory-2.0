@@ -1,6 +1,7 @@
 'use strict';
 
 import axios from 'axios';
+import HostPort from './hostPort';
 
 function finalGetHistoryByDate(historyByDateData) {
   const data = {
@@ -15,7 +16,7 @@ export default function getHistoryByDates(dates) {
   return function (dispatch) {
     axios({
       method: 'post',
-      url: 'http://localhost:3000/api/historyByDate',
+      url: `http://${HostPort}/api/historyByDate`,
       data: { dateRange: dates }
     }).then((response) => {
       dispatch(finalGetHistoryByDate(response.data));

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import History from './history';
 import Categories from './catData';
+import LineGraph from './line-graph/lineGraph';
 import SplashLandingPage from './splashLandingpage';
 import Footer from './footer';
 
@@ -116,6 +117,7 @@ class App extends React.Component {
                 <div className="col-sm-1"></div>
                 <div className="col-sm-10">
                   <h5>Sites Visited This Week</h5>
+                  <LineGraph />
                 </div>
                 <div className="col-sm-1"></div>
               </div>

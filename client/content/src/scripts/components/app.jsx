@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import History from './history';
 import Categories from './catData';
+import LineGraph from './line-graph/lineGraph';
 import SplashLandingPage from './splashLandingpage';
 import Footer from './footer';
 import Chart from './chart';
@@ -75,7 +76,7 @@ class App extends React.Component {
     } else {
       return (
         <div>no chromeid</div>
-      )
+      );
     }
   //   if (this.props.chromeID !== 'no chromeID') {
   //     return (

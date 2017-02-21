@@ -8,14 +8,14 @@ const d3Chart = require('../d3Chart');
 
 export default class Chart extends React.Component {  
   constructor(props) {
-    super(props);
+    super(props);    
     this.state = {
       data: this.props.data,
     };
   }
 
   componentDidMount() {
-    const el = ReactDom.findDOMNode(this);
+    const el = ReactDom.findDOMNode(this);    
     d3Chart.create(el, {
       width: '100%',
       height: '300px',
@@ -24,6 +24,7 @@ export default class Chart extends React.Component {
 
   componentDidUpdate() {
     const el = ReactDom.findDOMNode(this);
+    console.log("Chart componentDidMount props: ", this.state.data);
     d3Chart.update(el, this.state.data);
   }
 

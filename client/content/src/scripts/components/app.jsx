@@ -57,34 +57,35 @@ const getCatDataFromBackground = () => {
 
 // ************** END MOCK ACTIONS ************************
 // ********************************************************
-const sampleData = [{'google.com':100}, {'youtube.com':300}, {'github.com':500}, {'linkedin.com':100}];
+// const sampleData = [{'google.com':100}, {'youtube.com':300}, {'github.com':500}, {'linkedin.com':100}];
+const sampleData = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: sampleData,
-    };    
+    };
   }
 
-  componentWillMount() {
-    document.addEventListener('click', () => {
-      this.props.dispatch(getCount());
-      // this.props.dispatch(getChromeIDFromBackground());
-      // this.props.dispatch(getWeekDataFromBackground());
-      // this.props.dispatch(getTimeHistoryLastFetchedFromBackground());
-    });
+  componentWillMount() {    
+    // document.addEventListener('click', () => {
+    //   this.props.dispatch(getCount());
+    //   // this.props.dispatch(getChromeIDFromBackground());
+    //   // this.props.dispatch(getWeekDataFromBackground());
+    //   // this.props.dispatch(getTimeHistoryLastFetchedFromBackground());
+    // });
 
-    if (this.props.chromeID === 'no chromeID') {
-      console.log('chromeID should not exist in store: ', this.props.chromeID);
-      this.props.dispatch(getChromeIDFromBackground());
-    } else {
-      console.log('chromeID exists in props', this.props.chromeID);
-      this.props.dispatch(getHistoryByDateFromBackground());
-      this.props.dispatch(getTimeHistoryLastFetchedFromBackground());
-      this.props.dispatch(getCatDataFromBackground());
-      this.props.dispatch(postHistoryFromBackground()); 
-    }
+    // if (this.props.chromeID === 'no chromeID') {
+    //   console.log('chromeID should not exist in store: ', this.props.chromeID);
+    //   this.props.dispatch(getChromeIDFromBackground());
+    // } else {
+    //   console.log('chromeID exists in props', this.props.chromeID);
+    //   this.props.dispatch(getHistoryByDateFromBackground());
+    //   this.props.dispatch(getTimeHistoryLastFetchedFromBackground());
+    //   this.props.dispatch(getCatDataFromBackground());
+    //   this.props.dispatch(postHistoryFromBackground()); 
+    // }
   }
 
   render() {

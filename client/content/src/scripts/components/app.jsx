@@ -57,23 +57,24 @@ const getCatDataFromBackground = () => {
 
 // ************** END MOCK ACTIONS ************************
 // ********************************************************
-// const sampleData = [{'google.com':100}, {'youtube.com':300}, {'github.com':500}, {'linkedin.com':100}];
-const sampleData = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
+const sampleData1 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
+// const sampleData2 = [['google.com', 18], ['youtube.com', 17], ['github.com', 16], ['linkedin.com', 15], ['google.com', 14], ['youtube.com', 13], ['github.com', 12], ['linkedin.com', 11], ['google.com', 10], ['youtube.com', 9], ['github.com', 8], ['linkedin.com', 7], ['google.com', 6], ['youtube.com', 5], ['github.com', 4], ['linkedin.com', 3]];
+const sampleData2 = [['google.com', 1], ['youtube.com', 2], ['github.com', 3], ['linkedin.com', 4], ['google.com', 5], ['youtube.com', 6], ['github.com', 7], ['linkedin.com', 8], ['google.com', 9], ['youtube.com', 10], ['github.com', 11], ['linkedin.com', 12], ['google.com', 13], ['youtube.com', 14], ['github.com', 15], ['linkedin.com', 16]];
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: sampleData,
+      data: sampleData2,
     };
   }
 
-  componentWillMount() {    
+  componentWillMount() {
     // document.addEventListener('click', () => {
-    //   this.props.dispatch(getCount());
-    //   // this.props.dispatch(getChromeIDFromBackground());
-    //   // this.props.dispatch(getWeekDataFromBackground());
-    //   // this.props.dispatch(getTimeHistoryLastFetchedFromBackground());
+      // this.props.dispatch(getCount());
+      // this.props.dispatch(getChromeIDFromBackground());
+      // this.props.dispatch(getWeekDataFromBackground());
+      // this.props.dispatch(getTimeHistoryLastFetchedFromBackground());
     // });
 
     // if (this.props.chromeID === 'no chromeID') {
@@ -86,6 +87,9 @@ class App extends React.Component {
     //   this.props.dispatch(getCatDataFromBackground());
     //   this.props.dispatch(postHistoryFromBackground()); 
     // }
+  }
+  componentDidUpate() {
+    console.log("componentDidUpate");
   }
 
   render() {

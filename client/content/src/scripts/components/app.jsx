@@ -5,6 +5,7 @@ import History from './history';
 import Categories from './catData';
 import SplashLandingPage from './splashLandingpage';
 import Footer from './footer';
+import Chart from './chart';
 
 // ********************************************************
 // *************** START MOCK ACTIONS *********************
@@ -56,8 +57,15 @@ const getCatDataFromBackground = () => {
 
 // ************** END MOCK ACTIONS ************************
 // ********************************************************
+const sampleData = [{'google.com':100}, {'youtube.com':300}, {'github.com':500}, {'linkedin.com':100}];
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: sampleData,
+    };    
+  }
 
   componentWillMount() {
     document.addEventListener('click', () => {
@@ -80,61 +88,64 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.props.chromeID !== 'no chromeID') {
-      return (
-        <div>
-          <div className="row">
-            <div className="col-sm-1"></div>
-            <div className="col-sm-5">
-              <div className="row">
-                <div className="col-sm-11">
-                  <h5>Most Visited Sites</h5>
-                  <div className="data-parent-container">
-                    <History />
-                  </div>
-                </div>
-                <div className="col-sm-1"></div>
-              </div>
-            </div>
+    return (
+      <Chart data={this.state.data} />
+    );
+    // if (this.props.chromeID !== 'no chromeID') {
+    //   return (
+    //     <div>
+    //       <div className="row">
+    //         <div className="col-sm-1"></div>
+    //         <div className="col-sm-5">
+    //           <div className="row">
+    //             <div className="col-sm-11">
+    //               <h5>Most Visited Sites</h5>
+    //               <div className="data-parent-container">
+    //                 <History />
+    //               </div>
+    //             </div>
+    //             <div className="col-sm-1"></div>
+    //           </div>
+    //         </div>
 
-            <div className="col-sm-5">
-              <div className="row">
-                <div className="col-sm-1"></div>
-                <div className="col-sm-11">
-                  <h5>Sites By Category</h5>
-                  <div className="data-parent-container">
-                    <Categories />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-1"></div>
-          </div>      
-          <div className="row">
-            <div className="col-sm-12">
-              <div className="row">
-                <div className="col-sm-1"></div>
-                <div className="col-sm-10">
-                  <h5>Sites Visited This Week</h5>
-                </div>
-                <div className="col-sm-1"></div>
-              </div>
-            </div>
-          </div>
-          <br />
-          <br />
-          <center>
-            <Footer />
-          </center>
-        </div>        
-      );
-    } else {
-      return (
-        <div>
-          <SplashLandingPage />
-        </div>
-      )
-    }
+    //         <div className="col-sm-5">
+    //           <div className="row">
+    //             <div className="col-sm-1"></div>
+    //             <div className="col-sm-11">
+    //               <h5>Sites By Category</h5>
+    //               <div className="data-parent-container">
+    //                 <Categories />
+    //               </div>
+    //             </div>
+    //           </div>
+    //         </div>
+    //         <div className="col-sm-1"></div>
+    //       </div>      
+    //       <div className="row">
+    //         <div className="col-sm-12">
+    //           <div className="row">
+    //             <div className="col-sm-1"></div>
+    //             <div className="col-sm-10">
+    //               <h5>Sites Visited This Week</h5>
+    //             </div>
+    //             <div className="col-sm-1"></div>
+    //           </div>
+    //         </div>
+    //       </div>
+    //       <br />
+    //       <br />
+    //       <center>
+    //         <Footer />
+    //       </center>
+    //     </div>        
+    //   );
+    // } else {
+    //   return (
+    //     <div>
+    //       <SplashLandingPage />
+    //     </div>
+    //   )
+    // }
   }
 }
 

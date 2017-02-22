@@ -2,26 +2,47 @@
 
 import React from 'react';
 import ReactDom from 'react-dom';
+import { connect } from 'react-redux';
 import * as d3 from 'd3';
-// import d3Chart from '../d3Chart';
-const d3Chart = require('../d3Chart');
 
-export default class Chart extends React.Component { 
+import d3Chart from '../d3Chart';
+
+class Chart extends React.Component {
   constructor(props) {
     super(props);
-    console.log('props in Chart: ', props);
+    console.log('Chart props: ', props);
     this.state = {
       data: this.props.data,
     };
   }
 
   componentDidMount() {
-    const el = ReactDom.findDOMNode(this);  
+    const el = ReactDom.findDOMNode(this);
     d3Chart.create(el, {
       width: '100%',
       height: '300px',
     }, this.state.data);
   }
+  
+  componentWillUpdate() {
+    const domainNames = Object.keys(this.props.history);
+
+    const historyDataFunc = () => {
+      const historyData = [];
+
+      domainNames.map((domain) => {
+        return historyData.push({
+          domain,
+          visits: this.props.history[domain],
+        });
+      });
+
+      return historyData;
+    };
+    const historyData = historyDataFunc();
+    console.log("Chart.jsx domain names: ", historyData);
+    this.setState({ data:historyData.slice(0, 50) });
+  }  
 
   componentDidUpdate() {
     const el = ReactDom.findDOMNode(this);
@@ -49,3 +70,11 @@ export default class Chart extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    history: state.history,
+  };
+};
+
+export default connect(mapStateToProps)(Chart);

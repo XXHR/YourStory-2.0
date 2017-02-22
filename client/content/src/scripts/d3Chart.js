@@ -45,7 +45,7 @@ d3Chart._drawPoints = function (el, data) {
       return i * (w / data.length);
      })
      .attr("y", h - 1)
-     .attr("width", 20)
+     .attr("width", 5)
      .attr("height", 1);
 
   bars
@@ -53,10 +53,10 @@ d3Chart._drawPoints = function (el, data) {
     .duration(1000)
     .delay(100)
     .attr("y", function(d) {
-      return h - (d[1] * 4);  //Height minus data value
+      return h - (d.visits * 4);  //Height minus data value
     })
      .attr("height", function(d) {
-      return d[1] * 4;
+      return d.visits * 4;
     })
 
 };

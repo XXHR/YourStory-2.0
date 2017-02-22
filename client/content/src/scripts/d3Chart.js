@@ -1,3 +1,4 @@
+'use strict'
 import * as d3 from 'd3';
 
 const d3Chart = {};
@@ -5,7 +6,7 @@ const d3Chart = {};
 d3Chart.create = function (el, props, state) {
   console.log("d3Chart.create (state)", state);
   //Create SVG element
-  let svg = d3.select(el)
+  const svg = d3.select(el)
     .append('svg')
     .attr('width', props.width)
     .attr('height', props.height);

@@ -3,7 +3,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import { connect } from 'react-redux';
-import * as d3 from 'd3';
 
 import d3Chart from '../d3Chart';
 
@@ -16,15 +15,7 @@ class Chart extends React.Component {
     };
   }
 
-  componentDidMount() {
-    const el = ReactDom.findDOMNode(this);
-    d3Chart.create(el, {
-      width: '100%',
-      height: '300px',
-    }, this.state.data);
-  }
-  
-  componentWillUpdate() {
+  componentWillMount() {
     const domainNames = Object.keys(this.props.history);
 
     const historyDataFunc = () => {
@@ -42,6 +33,14 @@ class Chart extends React.Component {
     const historyData = historyDataFunc();
     console.log("Chart.jsx domain names: ", historyData);
     this.setState({ data:historyData.slice(0, 50) });
+  }
+  
+  componentDidMount() {
+    const el = ReactDom.findDOMNode(this);
+    d3Chart.create(el, {
+      width: '100%',
+      height: '300px',
+    }, this.state.data);
   }  
 
   componentDidUpdate() {

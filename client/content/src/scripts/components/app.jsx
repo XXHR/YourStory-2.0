@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import History from './history';
-// import Categories from './catData';
+import Categories from './catData';
 import SplashLandingPage from './splashLandingpage';
 import Footer from './footer';
 import Chart from './chart';
@@ -47,31 +47,21 @@ const getCatDataFromBackground = () => {
   };
   return data;
 };
-
 // ************** END MOCK ACTIONS ************************
 // ********************************************************
-const sampleData1 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
-// const sampleData2 = [['google.com', 18], ['youtube.com', 17], ['github.com', 16], ['linkedin.com', 15], ['google.com', 14], ['youtube.com', 13], ['github.com', 12], ['linkedin.com', 11], ['google.com', 10], ['youtube.com', 9], ['github.com', 8], ['linkedin.com', 7], ['google.com', 6], ['youtube.com', 5], ['github.com', 4], ['linkedin.com', 3]];
-const sampleData2 = [['google.com', 1], ['youtube.com', 2], ['github.com', 3], ['linkedin.com', 4], ['google.com', 5], ['youtube.com', 6], ['github.com', 7], ['linkedin.com', 8], ['google.com', 9], ['youtube.com', 10], ['github.com', 11], ['linkedin.com', 12], ['google.com', 13], ['youtube.com', 14], ['github.com', 15], ['linkedin.com', 16]];
 
 class App extends React.Component {
-  // componentWillMount() {
-  //   // this.props.dispatch(getWeekDataFromBackground());
-
-  //   if (this.props.chromeID === 'no chromeID') {
-  //     console.log('chromeID should not exist in store: ', this.props.chromeID);
-  //     this.props.dispatch(getChromeIDFromBackground());
-  //   } else {
-  //     console.log('chromeID exists in props', this.props.chromeID);
-  //     this.props.dispatch(getHistoryByDateFromBackground());
-  //     this.props.dispatch(getTimeHistoryLastFetchedFromBackground());
-  //     this.props.dispatch(getCatDataFromBackground());
-  //     this.props.dispatch(postHistoryFromBackground()); 
-  //   }    
-  // }
-  
-  componentDidUpdate() {
-    console.log("app redux props: ", this.props.history);
+  componentWillMount() {
+    if (this.props.chromeID === 'no chromeID') {
+      console.log('chromeID should not exist in store: ', this.props.chromeID);
+      this.props.dispatch(getChromeIDFromBackground());
+    } else {
+      console.log('chromeID exists in props', this.props.chromeID);
+      this.props.dispatch(getHistoryByDateFromBackground());
+      this.props.dispatch(getTimeHistoryLastFetchedFromBackground());
+      this.props.dispatch(getCatDataFromBackground());
+      this.props.dispatch(postHistoryFromBackground()); 
+    }
   }
 
   render() {
@@ -157,7 +147,6 @@ const mapStateToProps = (state) => {
     chromeID: state.chromeID,
     timeHistoryLastFetched: state.timeHistoryLastFetched,
     historyByDate: state.historyByDate,
-    history: state.history,
     catData: state.catData,
   };
 };

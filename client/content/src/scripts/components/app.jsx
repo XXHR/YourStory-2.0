@@ -51,26 +51,44 @@ const getCatDataFromBackground = () => {
 // ********************************************************
 
 class App extends React.Component {
-  componentWillMount() {
-    if (this.props.chromeID === 'no chromeID') {
-      console.log('chromeID should not exist in store: ', this.props.chromeID);
-      this.props.dispatch(getChromeIDFromBackground());
-    } else {
-      console.log('chromeID exists in props', this.props.chromeID);
-      this.props.dispatch(getHistoryByDateFromBackground());
-      this.props.dispatch(getTimeHistoryLastFetchedFromBackground());
-      this.props.dispatch(getCatDataFromBackground());
-      this.props.dispatch(postHistoryFromBackground()); 
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      chromeIDState: this.props.chromeID,
+    };
   }
 
-  render() {
-    return (
-      <div>
-        <h5>Chart</h5>
-        <Chart />
-      </div>
-    );
+  componentWillMount() {
+    console.log("App componentWillMount: ");
+    this.props.dispatch(getChromeIDFromBackground());
+    this.props.dispatch(postHistoryFromBackground());
+    this.props.dispatch(getHistoryByDateFromBackground());
+    this.props.dispatch(getTimeHistoryLastFetchedFromBackground());
+    this.props.dispatch(getCatDataFromBackground());
+    
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("App componentWillReceiveProps nextProps: ", nextProps);
+    if (this.props.chromeIDState !== nextProps.chromeID) {
+      this.setState({ chromeIDState: nextProps.chromeID });
+    }
+    console.log("this.props.history", this.props.history);
+  }
+
+  render () {
+    if (this.props.chromeID !== 'no chromeID' && this.props.history !== null) {
+      return (
+        <div>
+          <h5>Chart</h5>
+          <Chart data={this.props.history} />
+        </div>
+      );
+    } else {
+      return (
+        <div>no chromeid</div>
+      )
+    }
   //   if (this.props.chromeID !== 'no chromeID') {
   //     return (
   //       <div>
@@ -147,6 +165,7 @@ const mapStateToProps = (state) => {
     chromeID: state.chromeID,
     timeHistoryLastFetched: state.timeHistoryLastFetched,
     historyByDate: state.historyByDate,
+    history: state.history,
     catData: state.catData,
   };
 };

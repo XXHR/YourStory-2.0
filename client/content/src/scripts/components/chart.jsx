@@ -6,6 +6,13 @@ import { connect } from 'react-redux';
 
 import d3Chart from '../d3Chart';
 
+const postHistoryFromBackground = () => {
+  const data = {
+    type: 'post-history',
+  };
+  return data;
+};
+
 class Chart extends React.Component {
   constructor(props) {
     super(props);
@@ -16,11 +23,11 @@ class Chart extends React.Component {
   }
 
   componentWillMount() {
+    console.log("Chart componentWillMount", this.props.history);
     const domainNames = Object.keys(this.props.history);
 
     const historyDataFunc = () => {
       const historyData = [];
-
       domainNames.map((domain) => {
         return historyData.push({
           domain,
@@ -30,42 +37,39 @@ class Chart extends React.Component {
 
       return historyData;
     };
+
     const historyData = historyDataFunc();
     console.log("Chart.jsx domain names: ", historyData);
-    this.setState({ data:historyData.slice(0, 50) });
+    this.setState({ data: historyData.slice(0, 50) });
   }
-  
+
   componentDidMount() {
     const el = ReactDom.findDOMNode(this);
     d3Chart.create(el, {
       width: '100%',
       height: '300px',
     }, this.state.data);
-  }  
+  }
 
-  componentDidUpdate() {
-    const el = ReactDom.findDOMNode(this);
-    console.log('Chart componentDidUpdate props: ', this.state.data);
-    d3Chart.destroy(el);
-    d3Chart.update(el, this.state.data);
+  componentWillReceiveProps(nextProps) {
+    console.log("Chart componentWillReceiveProps nextProps: ", nextProps);
+    if (this.props.history !== nextProps.history) {
+      const el = ReactDom.findDOMNode(this);
+      console.log('Chart componentWillReceiveProps props: ', this.state.data);
+      d3Chart.destroy(el);
+      d3Chart.update(el, this.state.data);
+      return;
+    }
   }
 
   componentWillUnmount() {
-    console.log('Chart componentWillUnmount props: ');
     const el = ReactDom.findDOMNode(this);
     d3Chart.destroy(el);
-  }
-
-  changeDataSet(newData) {
-    this.setState({
-      data: newData,
-    });
-    console.log('Chart changeDataSet function after setting state', this.state.data);
   }
 
   render() {
     return (
-      <div className='Chart' onClick={() => this.changeDataSet([['google.com', 18], ['youtube.com', 17], ['github.com', 16], ['linkedin.com', 15], ['google.com', 14], ['youtube.com', 13], ['github.com', 12], ['linkedin.com', 11], ['google.com', 10], ['youtube.com', 9], ['github.com', 8], ['linkedin.com', 7], ['google.com', 6], ['youtube.com', 5], ['github.com', 4], ['linkedin.com', 3]])}></div>
+      <div className='Chart' />
     );
   }
 }

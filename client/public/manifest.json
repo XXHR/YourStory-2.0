@@ -8,7 +8,7 @@
   ],
   "background": {
     "scripts": ["event.js"],
-    "persistent": false
+    "persistent": true
   },
   "content_scripts": [
     {

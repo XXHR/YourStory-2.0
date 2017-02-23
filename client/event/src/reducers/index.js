@@ -1,19 +1,17 @@
-import React from 'react';
-import { combineReducers } from 'redux';
+// import React from 'react';
+// import { combineReducers } from 'redux';
 
-import count from './count';
-import chromeID from './chromeID';
-import timeHistoryLastFetched from './timeHistoryLastFetched';
-import historyByDate from './historyByDate';
-import history from './history';
-import catData from './catData';
+// import chromeID from './chromeID';
+// import timeHistoryLastFetched from './timeHistoryLastFetched';
+// import historyByDate from './historyByDate';
+// import history from './history';
+// import catData from './catData';
 
 
-export default combineReducers({
-  count,
-  chromeID,
-  timeHistoryLastFetched,
-  historyByDate,
-  history,
-  catData,
-});
+// // export default combineReducers({
+// //   chromeID,
+// //   timeHistoryLastFetched,
+// //   historyByDate,
+// //   history,
+// //   catData,
+// // });

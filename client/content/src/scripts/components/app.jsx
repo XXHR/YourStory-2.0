@@ -53,35 +53,34 @@ const getCatDataFromBackground = () => {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      chromeIDState: this.props.chromeID,
-    };
+    console.log("props", props)
   }
 
   componentWillMount() {
-    console.log("App componentWillMount: ");
-    this.props.dispatch(getChromeIDFromBackground());
-    this.props.dispatch(postHistoryFromBackground());
-    this.props.dispatch(getHistoryByDateFromBackground());
-    this.props.dispatch(getTimeHistoryLastFetchedFromBackground());
-    this.props.dispatch(getCatDataFromBackground());
-    
+    //if chromeID does not exsists, dispatch getChromeID    
+    if (this.props.chromeID === 'no chromeID') {
+      console.log("App componentWillMount getting chromeID: ");
+      this.props.dispatch(getChromeIDFromBackground());
+    }
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log("App componentWillReceiveProps nextProps: ", nextProps);
-    if (this.props.chromeIDState !== nextProps.chromeID) {
-      this.setState({ chromeIDState: nextProps.chromeID });
+  shouldComponentUpdate(nextProps) {
+    console.log("App componentWillReceiveProps nextProps: ", nextProps.chromeID);
+    console.log("App componentWillReceiveProps this.props.chromeID: ", this.props.chromeID);
+
+    //if chromeID changes,re-render
+    if (this.props.chromeID !== nextProps.chromeID) {
+      return true;
     }
-    console.log("this.props.history", this.props.history);
+    //else if chromeID does not change return false
+    return false;
   }
 
   render () {
-    if (this.props.chromeID !== 'no chromeID' && this.props.history !== null) {
+    if (this.props.chromeID !== 'no chromeID') {
       return (
         <div>
-          <h5>Chart</h5>
-          <Chart data={this.props.history} />
+          <h5>Chart</h5>        
         </div>
       );
     } else {
@@ -161,12 +160,9 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log("App state: ", state);
   return {
     chromeID: state.chromeID,
-    timeHistoryLastFetched: state.timeHistoryLastFetched,
-    historyByDate: state.historyByDate,
-    history: state.history,
-    catData: state.catData,
   };
 };
 

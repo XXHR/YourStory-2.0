@@ -34,13 +34,6 @@ const getChromeIDFromBackground = () => {
 //   return data;
 // };
 
-// const postHistoryFromBackground = () => {
-//   const data = {
-//     type: 'post-history',
-//   };
-//   return data;
-// };
-
 // const getCatDataFromBackground = () => {
 //   const data = {
 //     type: 'get-cat-data',

@@ -18,44 +18,39 @@ const getChromeIDFromBackground = () => {
   return data;
 };
 
-const getTimeHistoryLastFetchedFromBackground = () => {
-  const data = {
-    type: 'get-time-history-last-fetched',
-  };
+// const getTimeHistoryLastFetchedFromBackground = () => {
+//   const data = {
+//     type: 'get-time-history-last-fetched',
+//   };
 
-  return data;
-};
+//   return data;
+// };
 
-const getHistoryByDateFromBackground = () => {
-  const data = {
-    type: 'get-history-by-date',
-  };
+// const getHistoryByDateFromBackground = () => {
+//   const data = {
+//     type: 'get-history-by-date',
+//   };
 
-  return data;
-};
+//   return data;
+// };
 
-const postHistoryFromBackground = () => {
-  const data = {
-    type: 'post-history',
-  };
-  return data;
-};
+// const postHistoryFromBackground = () => {
+//   const data = {
+//     type: 'post-history',
+//   };
+//   return data;
+// };
 
-const getCatDataFromBackground = () => {
-  const data = {
-    type: 'get-cat-data',
-  };
-  return data;
-};
+// const getCatDataFromBackground = () => {
+//   const data = {
+//     type: 'get-cat-data',
+//   };
+//   return data;
+// };
 // ************** END MOCK ACTIONS ************************
 // ********************************************************
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    console.log("props", props)
-  }
-
   componentWillMount() {
     //if chromeID does not exsists, dispatch getChromeID    
     if (this.props.chromeID === 'no chromeID') {
@@ -65,8 +60,8 @@ class App extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    console.log("App componentWillReceiveProps nextProps: ", nextProps.chromeID);
-    console.log("App componentWillReceiveProps this.props.chromeID: ", this.props.chromeID);
+    console.log("App componentWillReceiveProps this.props.chromeID: ", this.props.chromeID);    
+    console.log("App componentWillReceiveProps nextProps: ", nextProps.chromeID);    
 
     //if chromeID changes,re-render
     if (this.props.chromeID !== nextProps.chromeID) {
@@ -80,7 +75,8 @@ class App extends React.Component {
     if (this.props.chromeID !== 'no chromeID') {
       return (
         <div>
-          <h5>Chart</h5>        
+          <h5>Chart</h5>
+          <Chart />
         </div>
       );
     } else {

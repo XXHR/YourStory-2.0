@@ -13,14 +13,6 @@ class DateOptions extends React.Component {
 
   constructor(props) {
     super(props);
-
-    console.log('props from date options', props);
-
-    this.state = {
-    }
-
-
-
   }
 
   // componentDidUpdate() {

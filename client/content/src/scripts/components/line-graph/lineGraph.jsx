@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import DateOptions from './dateOptions';
 import DomainList from './domainList';
-import XYAxis from './xyAxis';
+import Graph from './graph';
+
 
 
 const getHistoryByDate = (dates) => {
@@ -24,45 +25,78 @@ class LineGraph extends React.Component {
       endDay: 0,
       month: 0,
       year: 0,
-      dates: [],
+      startDate: null,
+      endDate: null,
+      max: null,
+      min: null
     };
   }
 
-
   handleStartDayChange(e) {
+    e.preventDefault();
     this.setState({ startDay: parseInt(e.target.value, 10) });
   }
 
   handleEndDayChange(e) {
+    e.preventDefault();
     this.setState({ endDay: parseInt(e.target.value, 10) });
   }  
 
   handleMonthChange(e) {
+    e.preventDefault();
     this.setState({ month: parseInt(e.target.value, 10) });
   }
 
   handleYearChange(e) {
+    e.preventDefault();
     this.setState({ year: parseInt(e.target.value, 10) });
   }
 
 
   handleSubmit(e) {
-    
-    console.log('props from submit', this.props);
 
     this.props.dispatch(getHistoryByDate(this.state));
 
+    console.log('historyByDate from submit', this.props.historyByDate);
+
+    return this.makeDataForXYAxis();
+
   }
 
-  makeDatesForXYAxis() {
-    let dates = [];
-      for (let domain in this.state.historyByDate) {
-        for (let domainDay of this.state.historyByDate[domain]) {
-          dates.push(domainDay.date.slice(0, 10));
-          this.setState({ dates });
+  makeDataForXYAxis() {
+    let data = this.props.historyByDate;
+    const startDate = {};
+    const endDate = {};
+    let max = 0;
+    let min = 0;
+    let totalDomainCount = [];
+
+    if (data) {
+      for (let domain in data) {
+        startDate.month = Number(data[domain][0].date.slice(5, 7));
+        startDate.day = Number(data[domain][0].date.slice(8, 10));
+        startDate.year = Number(data[domain][0].date.slice(0, 4));
+        
+        endDate.month = Number(data[domain][data[domain].length - 1].date.slice(5, 7));
+        endDate.day = Number(data[domain][data[domain].length - 1].date.slice(8, 10));
+        endDate.year = Number(data[domain][data[domain].length - 1].date.slice(0, 4));
+
+
+        break;
+      }
+
+      for (let domain in data) {
+        for (let date of data[domain]) {
+          totalDomainCount.push(date.count);
         }
       }
-    return dates;
+
+      max = Math.max(...totalDomainCount);
+      min = Math.min(...totalDomainCount);
+
+      this.setState({ startDate, endDate, max, min });
+    }
+
   }
 
 
@@ -91,7 +125,14 @@ class LineGraph extends React.Component {
           )}
         </div>*/}
 
-        <XYAxis data={this.props.historyByDate} />
+        <Graph 
+          startDate={this.state.startDate}
+          endDate={this.state.endDate}
+          max={this.state.max}
+          min={this.state.min}
+          data={this.props.historyByDate}
+        />
+
         
       </div>
     );

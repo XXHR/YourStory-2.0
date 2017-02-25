@@ -91,7 +91,7 @@ class App extends React.Component {
                 <div className="col-sm-11">
                   <h5>Most Visited Sites</h5>
                   <div className="data-parent-container">
-                    <History />
+                    {/*<History />*/}
                   </div>
                 </div>
                 <div className="col-sm-1"></div>
@@ -104,7 +104,7 @@ class App extends React.Component {
                 <div className="col-sm-11">
                   <h5>Sites By Category</h5>
                   <div className="data-parent-container">
-                    <Categories />
+                    {/* <Categories /> */}
                   </div>
                 </div>
               </div>

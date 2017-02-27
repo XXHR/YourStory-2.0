@@ -2,7 +2,7 @@ import throttle from 'lodash/throttle';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { alias, wrapStore } from 'react-chrome-redux';
-import rootReducer from './reducers';
+import rootReducer from './reducers/index';
 import aliases from './aliases';
 
 chrome.storage.local.get([

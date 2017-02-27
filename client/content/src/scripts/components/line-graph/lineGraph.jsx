@@ -64,29 +64,49 @@ class LineGraph extends React.Component {
   }
 
   makeDataForXYAxis() {
-    let data = this.props.historyByDate;
+    // let data = this.props.historyByDate;
+
+    const dummyData = { 'google.com':
+   [ { date: '2017-02-13T08:00:00.000Z', count: 1509 },
+     { date: '2017-02-14T08:00:00.000Z', count: 1468 } ],
+  'facebook.com':
+   [ { date: '2017-02-13T08:00:00.000Z', count: 800 },
+     { date: '2017-02-14T08:00:00.000Z', count: 801 } ],
+  'github.com':
+   [ { date: '2017-02-13T08:00:00.000Z', count: 714 },
+     { date: '2017-02-14T08:00:00.000Z', count: 743 } ],
+  'mail.google.com':
+   [ { date: '2017-02-13T08:00:00.000Z', count: 672 },
+     { date: '2017-02-14T08:00:00.000Z', count: 666 } ],
+  'medium.com':
+   [ { date: '2017-02-13T08:00:00.000Z', count: 12 },
+     { date: '2017-02-14T08:00:00.000Z', count: 12 } ]
+   }
+
+    // console.log('history by date data', data);
+
     const startDate = {};
     const endDate = {};
     let max = 0;
     let min = 0;
     let totalDomainCount = [];
 
-    if (data) {
-      for (let domain in data) {
-        startDate.month = Number(data[domain][0].date.slice(5, 7));
-        startDate.day = Number(data[domain][0].date.slice(8, 10));
-        startDate.year = Number(data[domain][0].date.slice(0, 4));
+    // if (data !== 'no history by date data yet') {
+      for (let domain in dummyData) {
+        startDate.month = Number(dummyData[domain][0].date.slice(5, 7));
+        startDate.day = Number(dummyData[domain][0].date.slice(8, 10));
+        startDate.year = Number(dummyData[domain][0].date.slice(0, 4));
         
-        endDate.month = Number(data[domain][data[domain].length - 1].date.slice(5, 7));
-        endDate.day = Number(data[domain][data[domain].length - 1].date.slice(8, 10));
-        endDate.year = Number(data[domain][data[domain].length - 1].date.slice(0, 4));
+        endDate.month = Number(dummyData[domain][dummyData[domain].length - 1].date.slice(5, 7));
+        endDate.day = Number(dummyData[domain][dummyData[domain].length - 1].date.slice(8, 10));
+        endDate.year = Number(dummyData[domain][dummyData[domain].length - 1].date.slice(0, 4));
 
 
         break;
       }
 
-      for (let domain in data) {
-        for (let date of data[domain]) {
+      for (let domain in dummyData) {
+        for (let date of dummyData[domain]) {
           totalDomainCount.push(date.count);
         }
       }
@@ -95,7 +115,9 @@ class LineGraph extends React.Component {
       min = Math.min(...totalDomainCount);
 
       this.setState({ startDate, endDate, max, min });
-    }
+    // }
+
+    console.log('line graph component state', this.state);
 
   }
 
@@ -130,7 +152,6 @@ class LineGraph extends React.Component {
           endDate={this.state.endDate}
           max={this.state.max}
           min={this.state.min}
-          data={this.props.historyByDate}
         />
 
         

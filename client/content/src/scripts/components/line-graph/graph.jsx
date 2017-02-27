@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import d3LineGraph from './d3LineGraph';
 
 class Graph extends React.Component {
@@ -9,11 +10,24 @@ class Graph extends React.Component {
     console.log('initial props in Graph', props);
   }
 
-  componentDidMount() {
-    const el = React.findDomNode(this);
-    const props = { top: 20, right: 80, bottom: 20, left: 50 }
+  shouldComponentUpdate(nextProps) {
+    console.log('props in graph', nextProps);
 
-    d3LineGraph.create(el, )
+    if (nextProps.endDate) {
+
+      const el = ReactDOM.findDOMNode(this);
+      console.log('React DOM Node', el);
+
+      const props = { top: 20, right: 80, bottom: 20, left: 50 }
+      const data = this.props;
+
+      d3LineGraph.create(el, props, nextProps);
+
+      return true;
+
+    } else {
+      return false;
+    }
   }
 
   render() {

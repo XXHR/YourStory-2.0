@@ -2,6 +2,7 @@
 # YourStory
 > Do you think you know how you spend your time on the web? YourStory allows you to securely and easily visualize your personal browsing habits.
 
+http://www.getyourstory.us
 
 ## Table of Contents
 1. [Requirements](#requirements)
@@ -37,7 +38,8 @@ Go into client/event directory and run the following command:
 webpack --watch
 ```
 
-Start a new instnce of the database.
+From your PostgreSQL terminal, create a database called 'testyourstory'
+
 
 Start the server from the root of the app by running the following command:
 ```sh

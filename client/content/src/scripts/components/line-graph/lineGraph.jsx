@@ -59,18 +59,13 @@ class LineGraph extends React.Component {
 
     console.log('historyByDate from submit', this.props.historyByDate);
 
-<<<<<<< HEAD
     // generate domain list after submit
 
     // return this.makeDataForXYAxis();
-=======
-    return this.makeDataForXYAxis();
->>>>>>> 2d3dc866f8a5ddbbb87fc5efcc563d8cf2f90474
 
   }
 
   makeDataForXYAxis() {
-<<<<<<< HEAD
     let data = this.props.historyByDate;
 
   //   const dummyData = { 'google.com':
@@ -89,26 +84,7 @@ class LineGraph extends React.Component {
   //  [ { date: '2017-02-13T08:00:00.000Z', count: 12 },
   //    { date: '2017-02-14T08:00:00.000Z', count: 12 } ]
   //  }
-=======
-    // let data = this.props.historyByDate;
-
-    const dummyData = { 'google.com':
-   [ { date: '2017-02-13T08:00:00.000Z', count: 1509 },
-     { date: '2017-02-14T08:00:00.000Z', count: 1468 } ],
-  'facebook.com':
-   [ { date: '2017-02-13T08:00:00.000Z', count: 800 },
-     { date: '2017-02-14T08:00:00.000Z', count: 801 } ],
-  'github.com':
-   [ { date: '2017-02-13T08:00:00.000Z', count: 714 },
-     { date: '2017-02-14T08:00:00.000Z', count: 743 } ],
-  'mail.google.com':
-   [ { date: '2017-02-13T08:00:00.000Z', count: 672 },
-     { date: '2017-02-14T08:00:00.000Z', count: 666 } ],
-  'medium.com':
-   [ { date: '2017-02-13T08:00:00.000Z', count: 12 },
-     { date: '2017-02-14T08:00:00.000Z', count: 12 } ]
-   }
->>>>>>> 2d3dc866f8a5ddbbb87fc5efcc563d8cf2f90474
+   // }
 
     // console.log('history by date data', data);
 

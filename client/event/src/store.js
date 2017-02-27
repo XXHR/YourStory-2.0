@@ -1,34 +1,41 @@
+import throttle from 'lodash/throttle';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { alias, wrapStore } from 'react-chrome-redux';
-import rootReducer from './reducers';
-// import loadTokenOnResponse from './auth/auth';
-// import fetchVisData from './actions/fetch_vis_data.js';
+import rootReducer from './reducers/index';
+import aliases from './aliases';
 
-const aliases = {
-  // this key is the name of the action to proxy, the value is the action
-  // creator that gets executed when the proxied action is received in the
-  // background
+chrome.storage.local.get([
+  'state',
+], ({ initialState }) => {
+  console.log('INITIAL STATE FROM CHROME', initialState);
 
-  // 'user-clicked-alias': function() {
-  //   // console.log("inside store")
-  //   const data = {
-  //     type: ADD_COUNT,
-  //     payload: {}
-  //   };
-  //   // this.props.dispatch({
-  //   //   type: ADD_COUNT
-  //   // })
-  //   return data;
-  // }
-};
+  const middleware = [alias(aliases), ReduxThunk];
 
-const createStoreWithMiddleware = applyMiddleware(
-  ReduxThunk, alias(aliases)
-)(createStore);
+  const store = createStore(rootReducer, applyMiddleware(
+  ...middleware), initialState);
 
-const store = createStoreWithMiddleware(rootReducer);
+  wrapStore(store, {
+    portName: 'YourStory',
+  });
 
-wrapStore(store, {
-  portName: 'YourStory',
+  const saveState = () => {
+    console.info('Saving state to chrome.storage.local');
+
+    const state = store.getState();
+
+    chrome.storage.local.set({
+      state,
+    });
+
+    chrome.storage.local.get(['state'], ({ state }) => {
+      console.log('STATE AFTER STORING', state);
+    })
+  };
+
+   // On new state, persist to local storage
+  const throttledSave = throttle(saveState, 5000, { trailing: true, leading: true });
+
+  store.subscribe(throttledSave);
 });
+// export default store;

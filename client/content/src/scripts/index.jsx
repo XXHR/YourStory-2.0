@@ -14,6 +14,7 @@ const proxyStore = new Store({
 
 const unsubscribe = proxyStore.subscribe(() => {
   unsubscribe(); // make sure to only fire once
+
   ReactDOM.render(
     <Provider store={proxyStore}>
       <App />

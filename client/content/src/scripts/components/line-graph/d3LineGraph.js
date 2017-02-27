@@ -65,7 +65,6 @@ const d3LineGraph = {
         .append('text') 
           .text('Visit Count');
       // .attr('fill', '#000')
-
   },
 
   makeLine(el, scale, data) {

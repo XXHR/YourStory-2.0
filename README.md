@@ -63,11 +63,11 @@ npm start
 
 ### Technology Stack
 <img src="http://pblackops.github.io/react/images/react.png" width="150px"> |<img src="https://raw.githubusercontent.com/reactjs/redux/master/logo/logo.png" width="150px"> | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/540px-Postgresql_elephant.svg.png" width="150px"> | <img src="http://i.imgur.com/hi6gCzf.png" width="150px">|<img src="http://i.imgur.com/jK9PTgu.png" width="150px">
---- | --- | --- | --- | --- |
+:---: | :---: | :---: | :---: | :---: |
 ReactJS|Redux|PostgreSQL|Nodejs|Express.js
 
 <img src="https://developer.chrome.com/static/images/chrome-logo_2x.png" width="150px"> |<img src="https://www.webshrinker.com/wp-content/uploads/2016/06/logo.png" width="150px"> | <img src="https://raw.githubusercontent.com/bgilham/HaveIBeenPwned-Alfred/master/docs/hibp_logo.png" width="150px"> 
---- | --- | --- |
+:---: | :---: | :---: |
 Chrome Platform APIs|WebShrinker API |haveibeenpwned API
 
 

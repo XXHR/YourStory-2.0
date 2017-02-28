@@ -1,6 +1,6 @@
 
 # YourStory
-> Do you think you know how you spend your time on the web? YourStory allows you to securely and easily visualize your personal browsing habits.
+#### Do you think you know how you spend your time on the web? YourStory allows you to securely and easily visualize your personal browsing habits.
 
 http://www.getyourstory.us
 
@@ -35,7 +35,7 @@ npm install
 
 ## Usage
 
-### Before loading the Public directory into your browser you will need to run the commands listed below. 
+#### Before loading the Public directory into your browser you will need to run the commands listed below. 
 
 Go into client/content directory and run the following command:
 ```sh
@@ -55,7 +55,7 @@ Start the server from the root of the app by running the following command:
 npm start
 ```
 
-###  Go to chrome://extensions/ in your Chrome browser. Select the 'Developer mode' option on the top right of the screen. Then click the 'Load unpack extension...' button and upload the Public directory.
+####  Go to chrome://extensions/ in your Chrome browser. Select the 'Developer mode' option on the top right of the screen. Then click the 'Load unpack extension...' button and upload the Public directory.
 
 <br>
 
@@ -66,6 +66,9 @@ npm start
 --- | --- | --- | --- | --- |
 ReactJS|Redux|PostgreSQL|Nodejs|Express.js
 
+<img src="https://developer.chrome.com/static/images/chrome-logo_2x.png" width="150px"> |<img src="https://www.webshrinker.com/wp-content/uploads/2016/06/logo.png" width="150px"> | <img src="https://raw.githubusercontent.com/bgilham/HaveIBeenPwned-Alfred/master/docs/hibp_logo.png" width="150px"> 
+--- | --- | --- |
+Chrome Platform APIs|WebShrinker API |haveibeenpwned API
 
 
 ## Backlog

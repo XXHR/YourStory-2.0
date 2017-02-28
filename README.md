@@ -21,7 +21,7 @@ http://www.getyourstory.us
 
 - Node    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;version 6.7.0+
 - PostgreSQL &ensp;&ensp;&ensp;&ensp;version 9.6.1+
-- Chrome &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;version 56.0.2924.87+
+- Chrome &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;version 56.0.2924.87+
 
 <br>
 

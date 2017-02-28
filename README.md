@@ -8,7 +8,7 @@ http://www.getyourstory.us
 1. [Requirements](#requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
-1. [Usage](#Usage)    
+1. [Usage](#usage)    
 
 <br>
 

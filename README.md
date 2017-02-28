@@ -36,27 +36,26 @@ npm install
 
 ## Usage
 
-#### Before loading the Public directory into your browser you will need to run the commands listed below. 
+#### Before uploading the Public directory into the browser you will need to run the commands listed below. 
 
-* Go into client/content directory and run the following command:
+Go into client/content directory and run the following command:
 ```sh
 webpack --watch
 ```
-
-* Go into client/event directory and run the following command: 
+<br>
+Go into client/event directory and run the following command: 
 ```sh
 webpack --watch
 ```
-
-* From your PostgreSQL terminal, create a database called 'testyourstory'
-
-
-* Start the server from the root of the app by running the following command:
+<br>
+From your PostgreSQL terminal, create a database called 'testyourstory'
+<br>
+Start the server from the root of the app by running the following command:
 ```sh
 npm start
 ```
-
-* Go to chrome://extensions/ in your Chrome browser. Select the 'Developer mode' option on the top right of the screen. Then click the 'Load unpack extension...' button and upload the Public directory.
+<br>
+Go to chrome://extensions/ in your Chrome browser. Select the 'Developer mode' option on the top right of the screen. Then click the 'Load unpack extension...' button and upload the Public directory.
 
 <br>
 

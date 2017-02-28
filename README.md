@@ -14,6 +14,7 @@ http://www.getyourstory.us
 
 <br>
 
+
 ## Requirements
 
 - Node    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;version 6.7.0+
@@ -55,20 +56,10 @@ webpack --watch
 npm start
 ```
 
-####  * Go to chrome://extensions/ in your Chrome browser. Select the 'Developer mode' option on the top right of the screen. Then click the 'Load unpack extension...' button and upload the Public directory.
+* Go to chrome://extensions/ in your Chrome browser. Select the 'Developer mode' option on the top right of the screen. Then click the 'Load unpack extension...' button and upload the Public directory.
 
 <br>
 
-## Overview
-
-### Technology Stack
-<img src="https://developer.chrome.com/static/images/chrome-logo_2x.png" width="150px">|<img src="http://pblackops.github.io/react/images/react.png" width="150px">|<img src="https://raw.githubusercontent.com/reactjs/redux/master/logo/logo.png" width="150px">|<img src="https://www.webshrinker.com/wp-content/uploads/2016/06/logo.png" width="150px"> | <img src="https://raw.githubusercontent.com/bgilham/HaveIBeenPwned-Alfred/master/docs/hibp_logo.png" width="150px"> 
-:---: | :---: | :---: | :---: | :---: |
-Chrome Platform APIs|ReactJS|Redux|WebShrinker API|haveibeenpwned API
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/540px-Postgresql_elephant.svg.png" width="150px"> | <img src="http://i.imgur.com/hi6gCzf.png" width="150px">|<img src="http://i.imgur.com/jK9PTgu.png" width="150px">
-:---: | :---: | :---: |
-PostgreSQL|Nodejs|Express.js
 
 
 ## Backlog

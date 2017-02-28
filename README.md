@@ -8,14 +8,16 @@ http://www.getyourstory.us
 1. [Requirements](#requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
-1. [Usage](#usage)    
+1. [Usage](#usage)
+1. [Overview](#overview)
+    1. [Technology Stack](#technology-stack)
 
 <br>
 
 ## Requirements
 
 - Node    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;version 6.7.0+
-- PostgreSQL &ensp;&ensp;&ensp;version 9.6.1+
+- PostgreSQL &ensp;&ensp;&ensp;&ensp;version 9.6.1+
 
 
 <br>
@@ -33,7 +35,7 @@ npm install
 
 ## Usage
 
-Before loading the Public directory into your browser you will need to run the commands listed below. 
+### Before loading the Public directory into your browser you will need to run the commands listed below. 
 
 Go into client/content directory and run the following command:
 ```sh
@@ -53,7 +55,17 @@ Start the server from the root of the app by running the following command:
 npm start
 ```
 
-Go to chrome://extensions/ in your Chrome browser. Select the 'Developer mode' option on the top right of the screen. Then click the 'Load unpack extension...' button and upload the Public directory.
+###  Go to chrome://extensions/ in your Chrome browser. Select the 'Developer mode' option on the top right of the screen. Then click the 'Load unpack extension...' button and upload the Public directory.
+
+<br>
+
+## Overview
+
+### Technology Stack
+<img src="http://pblackops.github.io/react/images/react.png"> |<img src="https://raw.githubusercontent.com/reactjs/redux/master/logo/logo.png"> | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/540px-Postgresql_elephant.svg.png"> | <img src="http://i.imgur.com/hi6gCzf.png">|<img src="http://i.imgur.com/jK9PTgu.png">
+--- | --- | --- | --- | --- |
+ReactJS|Redux|PostgreSQL|Nodejs|Express.js
+
 
 
 ## Backlog

@@ -11,7 +11,7 @@ http://www.getyourstory.us
 1. [Usage](#usage)
 1. [Overview](#overview)
     1. [Technology Stack](#technology-stack)
-    1. [Team](#team)
+    1. [Active Contributors](#active-contributors)
 1. [Contributing](#contributing)
 
 <br>

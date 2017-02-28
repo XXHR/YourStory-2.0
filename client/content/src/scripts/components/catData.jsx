@@ -3,14 +3,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
 
-@connect((store) => {
-  return {
-    catData: store.catData,
+const getCatDataFromBackground = () => {
+  const data = {
+    type: 'get-cat-data',
   };
-})
+  return data;
+};
 
-export default class Categories extends React.Component {
-  componentDidMount() {
+class Categories extends React.Component {
+  componentWillMount() {
+    this.props.dispatch(getCatDataFromBackground());
+  }
+
+  shouldComponentUpdate(nextProps) {
     const catParser = {
       uncategorized: 'Other',
       searchenginesandportals: 'Search Engines',
@@ -60,7 +65,7 @@ export default class Categories extends React.Component {
       });
     });
 
-    const dataset = datasetCreator(this.props.catData);
+    const dataset = datasetCreator(nextProps.catData);
     const width = 360;
     const height = 360;
     const radius = Math.min(width, height) / 2;
@@ -195,3 +200,10 @@ export default class Categories extends React.Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    catData: state.catData,
+  };
+};
+
+export default connect(mapStateToProps)(Categories);

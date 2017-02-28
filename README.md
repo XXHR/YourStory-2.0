@@ -21,7 +21,7 @@ http://www.getyourstory.us
 
 - Node    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;version 6.7.0+
 - PostgreSQL &ensp;&ensp;&ensp;&ensp;version 9.6.1+
-
+- PostgreSQL &ensp;&ensp;&ensp;&ensp;version 56.0.2924.87+
 
 <br>
 
@@ -80,11 +80,6 @@ PostgreSQL|Nodejs|Express.js
 :---: | :---:
 [LinkedIn](https://www.linkedin.com/in/melbamadrigal/) <br> [Github](https://github.com/melbee)| [LinkedIn](https://www.linkedin.com/in/natashathapliyal/)<br>[Github](https://github.com/natasha-t)
 
-
-<br>
-
-## Contributing
-See [CONTRIBUTING.md](_CONTRIBUTING.md) for contribution guidelines.
 
 <br>
 

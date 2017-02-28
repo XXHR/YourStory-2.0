@@ -1,6 +1,6 @@
 # YourStory
 
-#### Do you think you know how you spend your time on the web? YourStory allows you to securely and easily visualize your personal browsing habits.
+Do you think you know how you spend your time on the web? YourStory allows you to securely and easily visualize your personal browsing habits.
 
 http://www.getyourstory.us
 

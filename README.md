@@ -62,7 +62,7 @@ npm start
 ## Overview
 
 ### Technology Stack
-<img src="http://pblackops.github.io/react/images/react.png"> |<img src="https://raw.githubusercontent.com/reactjs/redux/master/logo/logo.png"> | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/540px-Postgresql_elephant.svg.png"> | <img src="http://i.imgur.com/hi6gCzf.png">|<img src="http://i.imgur.com/jK9PTgu.png">
+<img src="http://pblackops.github.io/react/images/react.png"> |<img src="https://raw.githubusercontent.com/reactjs/redux/master/logo/logo.png" width="100px"> | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/540px-Postgresql_elephant.svg.png"> | <img src="http://i.imgur.com/hi6gCzf.png">|<img src="http://i.imgur.com/jK9PTgu.png">
 --- | --- | --- | --- | --- |
 ReactJS|Redux|PostgreSQL|Nodejs|Express.js
 

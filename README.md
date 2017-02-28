@@ -75,10 +75,9 @@ PostgreSQL|Nodejs|Express.js
 
 
 ### Active Contributors
-[![MelbaMadrigal](https://drive.google.com/open?id=0B2Xw4V3X-KXpTzA0aG1jUUhvVHM)](https://github.com/melbee) <br>Melba Madrigal| [![NatashaThapliyal](https://drive.google.com/open?id=0B2Xw4V3X-KXpdWlDMlRFVzQwaTg)](https://github.com/natasha-t) <br>Natasha Thapliyal
-:---: | :---: |
-[LinkedIn](https://www.linkedin.com/in/melbamadrigal/)<br>| 
-[LinkedIn](https://www.linkedin.com/in/natashathapliyal/)<br>| 
+[![MelbaMadrigal](https://lh6.googleusercontent.com/s56NQmyb7njzlNHjQBdqy6--QJRAHvbZCYACGcuK7a5dQI90w84-udk4ghBbHy_ugOP_oXmiOmSQun0=w1275-h734)](https://github.com/melbee) <br>Melba Madrigal|[![NatashaThapliyal](https://lh5.googleusercontent.com/32HqRp4Y3-0zkcFqtgX3rWOQ3P3pigHPele129dT6mkQG8vM0eEHT-cyqx_QwE3KKb-LjxOX4NO7TKA=w1284-h599)](https://github.com/natasha-t) <br>Natasha Thapliyal
+:---: | :---:
+[LinkedIn](https://www.linkedin.com/in/melbamadrigal/)<br>| [LinkedIn](https://www.linkedin.com/in/natashathapliyal/)<br>
 
 
 <br>

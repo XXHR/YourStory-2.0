@@ -75,7 +75,7 @@ PostgreSQL|Nodejs|Express.js
 
 
 ### Active Contributors
-<img src="https://lh6.googleusercontent.com/s56NQmyb7njzlNHjQBdqy6--QJRAHvbZCYACGcuK7a5dQI90w84-udk4ghBbHy_ugOP_oXmiOmSQun0=w1275-h734" width="150px"> <br> ####Melba Madrigal|<img src="https://lh5.googleusercontent.com/32HqRp4Y3-0zkcFqtgX3rWOQ3P3pigHPele129dT6mkQG8vM0eEHT-cyqx_QwE3KKb-LjxOX4NO7TKA=w1284-h599" width="150px"> <br> ####Natasha Thapliyal
+<img src="https://lh6.googleusercontent.com/s56NQmyb7njzlNHjQBdqy6--QJRAHvbZCYACGcuK7a5dQI90w84-udk4ghBbHy_ugOP_oXmiOmSQun0=w1275-h734" width="150px"> <br> Melba Madrigal|<img src="https://lh5.googleusercontent.com/32HqRp4Y3-0zkcFqtgX3rWOQ3P3pigHPele129dT6mkQG8vM0eEHT-cyqx_QwE3KKb-LjxOX4NO7TKA=w1284-h599" width="150px"> <br> Natasha Thapliyal
 :---: | :---:
 [LinkedIn](https://www.linkedin.com/in/melbamadrigal/) <br> [Github](https://github.com/melbee)| [LinkedIn](https://www.linkedin.com/in/natashathapliyal/)<br>[Github](https://github.com/natasha-t)
 

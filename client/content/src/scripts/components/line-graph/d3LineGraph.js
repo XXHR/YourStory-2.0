@@ -26,7 +26,8 @@ const d3LineGraph = {
     // recompute the scales for x,y axis
     const axis = this.renderAxis(el, props, state);
 
-    // render
+    // pass axis into ._renderLine
+      // 
   },
 
   destroy(el) {

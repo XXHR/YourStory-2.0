@@ -54,7 +54,7 @@ class App extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    console.log("App componentWillReceiveProps this.props.chromeID: ", this.props.chromeID);    
+    console.log("App componentWillReceiveProps this.props.chromeID: ", this.props.chromeID); 
     console.log("App componentWillReceiveProps nextProps: ", nextProps.chromeID);    
 
     //if chromeID changes,re-render
@@ -71,6 +71,8 @@ class App extends React.Component {
         <div>
           <h5>Chart</h5>
           <Chart />
+
+          <LineGraph />
         </div>
       );
     } else {
@@ -150,7 +152,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("App state: ", state);
+  // console.log("App state: ", state);
   return {
     chromeID: state.chromeID,
   };

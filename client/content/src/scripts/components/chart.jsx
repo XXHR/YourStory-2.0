@@ -24,11 +24,11 @@ class Chart extends React.Component {
       width: '100%',
       height: '300px',
     });
-    console.log("el: ", el);
+    // console.log("el: ", el);
   }
 
   shouldComponentUpdate(nextProps) {
-    console.log("Chart componentWillReceiveProps nextProps: ", nextProps);
+   // console.log("Chart componentWillReceiveProps nextProps: ", nextProps);
     if (this.props.history !== nextProps.history) {      
       const domainNames = Object.keys(nextProps.history);
       const historyDataFunc = () => {
@@ -45,7 +45,7 @@ class Chart extends React.Component {
       const allHistory = historyDataFunc();
       // console.log('Chart componentWillReceiveProps props: ', allHistory);
       
-      const el = ReactDom.findDOMNode(this);    
+      const el = ReactDom.findDOMNode(this);
       d3Chart.destroy(el);
       d3Chart.update(el, allHistory.slice(0, 50));
       return true;

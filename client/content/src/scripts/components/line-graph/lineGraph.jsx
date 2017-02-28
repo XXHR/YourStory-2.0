@@ -28,9 +28,36 @@ class LineGraph extends React.Component {
       startDate: null,
       endDate: null,
       max: null,
-      min: null
+      min: null,
+      domains: [],
     };
   }
+
+  componentWillMount() {
+    console.log('line graph historyByDate state: ', this.props.historyByDate);
+  }
+
+  componentDidUpdate(prevProps) {
+    // change to comparing objects (deep equality)
+    if (JSON.stringify(prevProps.historyByDate) !== JSON.stringify(this.props.historyByDate)) {
+      console.log('data has come back for line graph', this.props.historyByDate);
+      return this.makeDomainList();
+    }
+  }
+
+  // shouldComponentUpdate(nextProps) {
+  //   console.log('history by date state', nextProps.historyByDate);
+
+  //   if (JSON.stringify(this.props.historyByDate) !== JSON.stringify(nextProps.historyByDate)) {
+  //     console.log('state was updated');
+  //     return true;
+  //   } else if(this.state.) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
 
   handleStartDayChange(e) {
     e.preventDefault();
@@ -55,14 +82,19 @@ class LineGraph extends React.Component {
 
   handleSubmit(e) {
 
+    console.log('inside handleSubmit');
+
     this.props.dispatch(getHistoryByDate(this.state));
 
-    console.log('historyByDate from submit', this.props.historyByDate);
+  }
 
-    // generate domain list after submit
+  makeDomainList() {
+    let data = this.props.historyByDate;
 
-    // return this.makeDataForXYAxis();
+    console.log('inside makeDomainList', this.props.historyByDate);
 
+    let domains = Object.keys(this.props.historyByDate);
+    this.setState({ domains });
   }
 
   makeDataForXYAxis() {
@@ -104,7 +136,6 @@ class LineGraph extends React.Component {
         endDate.day = Number(dummyData[domain][dummyData[domain].length - 1].date.slice(8, 10));
         endDate.year = Number(dummyData[domain][dummyData[domain].length - 1].date.slice(0, 4));
 
-
         break;
       }
 
@@ -144,11 +175,9 @@ class LineGraph extends React.Component {
           />
         </div>
 
-        {/*<div className='graph-options'>
-          {domainListData.map((domainList) =>
-            <DomainList list={domainList} />
-          )}
-        </div>*/}
+        <div className='graph-options'>
+          <DomainList domains={this.state.domains} />
+        </div>
 
         <Graph 
           startDate={this.state.startDate}

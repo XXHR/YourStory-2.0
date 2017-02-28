@@ -8,6 +8,7 @@ http://www.getyourstory.us
 1. [Requirements](#requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
+1. [Usage](#Usage)    
 
 <br>
 
@@ -22,11 +23,17 @@ http://www.getyourstory.us
 ## Development
 
 ### Installing Dependencies
-After downloading the project, from within the root directory, run the following commands:
+After downloading the project, from within the root directory, run the following command:
 
 ```sh
 npm install
 ```
+
+<br>
+
+## Usage
+
+Before loading the Public directory into your browser you will need to run the commands listed below. 
 
 Go into client/content directory and run the following command:
 ```sh
@@ -46,7 +53,7 @@ Start the server from the root of the app by running the following command:
 npm start
 ```
 
-Load the public directory into the chrome store
+Go to chrome://extensions/ in your Chrome browser. Select the 'Developer mode' option on the top right of the screen. Then click the 'Load unpack extension...' button and upload the Public directory.
 
 
 ## Backlog

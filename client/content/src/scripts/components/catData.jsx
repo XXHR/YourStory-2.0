@@ -15,7 +15,6 @@ const getCatDataFromBackground = () => {
 
 class Categories extends React.Component {
   componentWillMount() {
-    console.log("dispatching getCatDataFromBackground");
     this.props.dispatch(getCatDataFromBackground());
   }
 
@@ -23,15 +22,15 @@ class Categories extends React.Component {
     console.log("componentDidMount -- this.props.catData:", this.props.catData);
     if (this.props.catData !== 'no catData') {
       const el = ReactDom.findDOMNode(this);
-      console.log("el from componentDidMount: ", el);
+      // console.log("el from componentDidMount: ", el);
       d3catData.create(el, this.props.catData);
     }
   }
 
   shouldComponentUpdate(nextProps) {
     if (this.props.catData === 'no catData' && nextProps.catData !== 'no catData') {
-      console.log("shouldComponentUpdate -- nextProps.catData", nextProps.catData);
-      console.log("shouldComponentUpdate -- this.props.timecatDataLastFetched", this.props.timecatDataLastFetched);
+      // console.log("shouldComponentUpdate -- nextProps.catData", nextProps.catData);
+      // console.log("shouldComponentUpdate -- this.props.timecatDataLastFetched", this.props.timecatDataLastFetched);
       const el = ReactDom.findDOMNode(this);
       d3catData.create(el, nextProps.catData);
       return true;

@@ -27,8 +27,10 @@ class Chart extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    // console.log("Chart componentWillReceiveProps nextProps: ", nextProps);
-    if (this.props.history !== nextProps.history) {      
+    console.log("Chart componentWillReceiveProps nextProps: ", nextProps);
+    console.log("this.props.history", this.props.history);
+
+    if (this.props.history !== nextProps.history) { //need to fix this line
       const domainNames = Object.keys(nextProps.history);
       const historyDataFunc = () => {
         const historyData = [];

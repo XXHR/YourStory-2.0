@@ -19,6 +19,7 @@ export default function getHistoryByDates(dates) {
       url: `https://${HostPort}/api/historyByDate`,
       data: { dateRange: dates }
     }).then((response) => {
+      console.log("response history: ", response.data);
       dispatch(finalGetHistoryByDate(response.data));
     });
   };

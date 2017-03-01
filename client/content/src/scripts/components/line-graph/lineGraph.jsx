@@ -33,6 +33,9 @@ class LineGraph extends React.Component {
       selectedDomain2: '',
       selectedDomain3: '',
       selectedDomains: [],
+      selectValue1: '',
+      selectValue2: '',
+      selectValue3: '',
     };
   }
 
@@ -209,16 +212,19 @@ class LineGraph extends React.Component {
             id={1}
             domains={this.state.domains}
             handleChange={this.handleDomainListChange.bind(this)}
+            selectValue1={this.state.selectValue1}
           />
           <DomainList
             id={2}
             domains={this.state.domains}
             handleChange={this.handleDomainListChange.bind(this)}
+            selectValue2={this.state.selectValue2}
           />
           <DomainList
             id={3}
             domains={this.state.domains}
             handleChange={this.handleDomainListChange.bind(this)}
+            selectValue3={this.state.selectValue3}
           />
         </div>
 

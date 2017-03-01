@@ -3,10 +3,6 @@ import React from 'react';
 class DomainList extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      selectedValue: 'blahbalh',
-    }
   }
 
   shouldComponentUpdate(nextProps) {
@@ -22,7 +18,7 @@ class DomainList extends React.Component {
   render() {
     return (
       <div>
-        Domain List {this.props.id}: <select id={this.props.id} value={this.state.selectedValue} onChange={this.props.handleChange}>
+        Domain List {this.props.id}: <select id={this.props.id} value={this.props.selectValue} onChange={this.props.handleChange}>
           {this.props.domains.map((domain, index) =>
             <option key={index} value={domain}> {domain} </option>
           )}

@@ -16,7 +16,7 @@ export default function getHistoryByDates(dates) {
   return function (dispatch) {
     axios({
       method: 'post',
-      url: `http://${HostPort}/api/historyByDate`,
+      url: `https://${HostPort}/api/historyByDate`,
       data: { dateRange: dates }
     }).then((response) => {
       dispatch(finalGetHistoryByDate(response.data));

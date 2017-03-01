@@ -23,11 +23,11 @@ class Chart extends React.Component {
       width: '100%',
       height: '300px',
     });
-    console.log("el: ", el);
+    // console.log("el: ", el);
   }
 
   shouldComponentUpdate(nextProps) {
-    console.log("Chart componentWillReceiveProps nextProps: ", nextProps);
+    // console.log("Chart componentWillReceiveProps nextProps: ", nextProps);
     if (this.props.history !== nextProps.history) {      
       const domainNames = Object.keys(nextProps.history);
       const historyDataFunc = () => {

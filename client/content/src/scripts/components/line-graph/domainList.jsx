@@ -4,16 +4,15 @@ class DomainList extends React.Component {
   constructor(props) {
     super(props);
 
-    //add selected value to store 
     this.state = {
-      'selected-value': '',
+      selectedValue: 'blahbalh',
     }
   }
 
   shouldComponentUpdate(nextProps) {
-    if (nextProps.domains.length > 0) {
+    if (JSON.stringify(this.props.domains) !== JSON.stringify(nextProps.domains)) {
 
-      console.log('data has been passed to domainList', nextProps.domains);
+      console.log('data has been passed to domainList');
       return true;
     } else {
       return false;
@@ -23,9 +22,9 @@ class DomainList extends React.Component {
   render() {
     return (
       <div>
-        Domain List 1: <select>
-          {this.props.domains.map((domain) =>
-            <option value={this.props.domain}> {domain} </option>
+        Domain List {this.props.id}: <select id={this.props.id} value={this.state.selectedValue} onChange={this.props.handleChange}>
+          {this.props.domains.map((domain, index) =>
+            <option key={index} value={domain}> {domain} </option>
           )}
         </select>
 

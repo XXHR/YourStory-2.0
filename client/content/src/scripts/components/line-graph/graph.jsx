@@ -11,6 +11,7 @@ class Graph extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
+    console.log('nextProps in Graph component', nextProps);
     if (nextProps.endDate) {
 
       // const el = ReactDOM.findDOMNode(this);

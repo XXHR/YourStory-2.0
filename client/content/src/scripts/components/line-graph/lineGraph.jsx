@@ -8,7 +8,6 @@ import Graph from './graph';
 
 const getHistoryByDate = (dates) => {
   const data = {
-    blah: 'blah-blah',
     type: 'get-history-by-date',
     payload: dates,
   };
@@ -30,6 +29,10 @@ class LineGraph extends React.Component {
       max: null,
       min: null,
       domains: [],
+      selectedDomain1: '',
+      selectedDomain2: '',
+      selectedDomain3: '',
+      selectedDomains: [],
     };
   }
 
@@ -37,27 +40,20 @@ class LineGraph extends React.Component {
     console.log('line graph historyByDate state: ', this.props.historyByDate);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
+    console.log('line graph updated', this.state);
     // change to comparing objects (deep equality)
+    // look into alternate deep equality method 
     if (JSON.stringify(prevProps.historyByDate) !== JSON.stringify(this.props.historyByDate)) {
-      console.log('data has come back for line graph', this.props.historyByDate);
-      return this.makeDomainList();
+      this.makeDomainList();
+      this.makeDataForXYAxis();
+    } 
+
+    if (prevState.selectedDomain1 !== this.state.selectedDomain1 || prevState.selectedDomain2 !== this.state.selectedDomain2 || prevState.selectedDomain3 !== this.state.selectedDomain3) {
+      console.log('domain selected from dropdown');
+      this.makeDataForDomainLines();
     }
   }
-
-  // shouldComponentUpdate(nextProps) {
-  //   console.log('history by date state', nextProps.historyByDate);
-
-  //   if (JSON.stringify(this.props.historyByDate) !== JSON.stringify(nextProps.historyByDate)) {
-  //     console.log('state was updated');
-  //     return true;
-  //   } else if(this.state.) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
-
 
   handleStartDayChange(e) {
     e.preventDefault();
@@ -88,10 +84,26 @@ class LineGraph extends React.Component {
 
   }
 
+  handleDomainListChange(e) {
+
+    let domainSelectId = e.target.id;
+    
+    if (domainSelectId === '1') {
+      console.log('first select used');
+      this.setState({ selectedDomain1: e.target.value });
+    } else if (domainSelectId === '2') {
+      this.setState({ selectedDomain2: e.target.value });
+    } else {
+      this.setState({ selectedDomain3: e.target.value });
+    }
+    
+    console.log('selected domains: ', this.state.selectedDomain1, this.state.selectedDomain2, this.state.selectedDomain3);
+
+
+  }
+
   makeDomainList() {
     let data = this.props.historyByDate;
-
-    console.log('inside makeDomainList', this.props.historyByDate);
 
     let domains = Object.keys(this.props.historyByDate);
     this.setState({ domains });
@@ -127,20 +139,20 @@ class LineGraph extends React.Component {
     let totalDomainCount = [];
 
     // if (data !== 'no history by date data yet') {
-      for (let domain in dummyData) {
-        startDate.month = Number(dummyData[domain][0].date.slice(5, 7));
-        startDate.day = Number(dummyData[domain][0].date.slice(8, 10));
-        startDate.year = Number(dummyData[domain][0].date.slice(0, 4));
+      for (let domain in data) {
+        startDate.month = Number(data[domain][0].date.slice(5, 7));
+        startDate.day = Number(data[domain][0].date.slice(8, 10));
+        startDate.year = Number(data[domain][0].date.slice(0, 4));
         
-        endDate.month = Number(dummyData[domain][dummyData[domain].length - 1].date.slice(5, 7));
-        endDate.day = Number(dummyData[domain][dummyData[domain].length - 1].date.slice(8, 10));
-        endDate.year = Number(dummyData[domain][dummyData[domain].length - 1].date.slice(0, 4));
+        endDate.month = Number(data[domain][data[domain].length - 1].date.slice(5, 7));
+        endDate.day = Number(data[domain][data[domain].length - 1].date.slice(8, 10));
+        endDate.year = Number(data[domain][data[domain].length - 1].date.slice(0, 4));
 
         break;
       }
 
-      for (let domain in dummyData) {
-        for (let date of dummyData[domain]) {
+      for (let domain in data) {
+        for (let date of data[domain]) {
           totalDomainCount.push(date.count);
         }
       }
@@ -152,6 +164,23 @@ class LineGraph extends React.Component {
     // }
 
     console.log('line graph component state', this.state);
+
+  }
+
+  makeDataForDomainLines() {
+    // for any domain chosen from any dropdown menu, find associated data in historyByDate
+    // push domain's object value into this.state.selectedDomains array
+    let selectedDomains = [];
+
+    for (let domain in this.props.historyByDate) {
+      if (domain === this.state.selectedDomain1 || domain === this.state.selectedDomain2 || domain === this.state.selectedDomain3) {
+        let domainObj = {};
+        domainObj[domain] = this.props.historyByDate[domain];
+        selectedDomains.push(domainObj);
+      }
+    }
+
+    this.setState({ selectedDomains });
 
   }
 
@@ -176,7 +205,21 @@ class LineGraph extends React.Component {
         </div>
 
         <div className='graph-options'>
-          <DomainList domains={this.state.domains} />
+          <DomainList
+            id={1}
+            domains={this.state.domains}
+            handleChange={this.handleDomainListChange.bind(this)}
+          />
+          <DomainList
+            id={2}
+            domains={this.state.domains}
+            handleChange={this.handleDomainListChange.bind(this)}
+          />
+          <DomainList
+            id={3}
+            domains={this.state.domains}
+            handleChange={this.handleDomainListChange.bind(this)}
+          />
         </div>
 
         <Graph 
@@ -184,6 +227,8 @@ class LineGraph extends React.Component {
           endDate={this.state.endDate}
           max={this.state.max}
           min={this.state.min}
+          selectedDomains={this.state.selectedDomains}
+
         />
 
         

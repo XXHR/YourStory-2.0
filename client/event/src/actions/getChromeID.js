@@ -32,7 +32,7 @@ export default function getChromeID() {
         console.log('User info from chrome: ', userInfo);
         axios({
           method: 'post',
-          url: `http://${HostPort}/api/users`,
+          url: `https://${HostPort}/api/users`,
           data: { chromeID: userInfo.id, username: userInfo.name },
         })
         .then((response) => {

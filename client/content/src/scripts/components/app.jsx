@@ -46,7 +46,8 @@ const getChromeIDFromBackground = () => {
 
 class App extends React.Component {
   componentWillMount() {
-    //if chromeID does not exsists, dispatch getChromeID    
+    console.log('chrome id props', this.props.chromeID)
+        //if chrome)ID does not exsists, dispatch getChromeID    
     if (this.props.chromeID === 'no chromeID') {
       console.log("App componentWillMount getting chromeID: ");
       this.props.dispatch(getChromeIDFromBackground());

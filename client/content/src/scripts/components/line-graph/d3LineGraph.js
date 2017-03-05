@@ -3,28 +3,28 @@ import * as d3 from 'd3';
 
 const d3LineGraph = {
 
-  create(el, props, state) {
-    const margin = props;
-    // make svg
-    const svg = d3.select(el).append('svg')
-      .attr('class', 'history-by-date')
+  create(el, properties, state) {
 
-    const width = svg.attr('width') - margin.left - margin.right;
-    const height = svg.attr('height') - margin.top - margin.bottom;
+    const margin = properties;
+        
+    const width = 1000;
+    const height = 500;
+
+    const svg = d3.select(el).append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom);
 
     const g = svg.append('g')
-       .attr('class', 'graph')
-       .attr("transform", "translate(" + 0 + "," + margin.top + ")")
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    const propsForAxis = { width, height };
+    const widthHeight = { width, height };
 
-    this.update(g, propsForAxis, state);
+    this.update(g, widthHeight, state);
   },
 
-
-  update(el, props, state) {
+  update(el, properties, state) {
     // recompute the scales for x,y axis
-    const axis = this.renderAxis(el, props, state);
+    const axis = this.renderAxis(el, properties, state);
 
     // pass axis into ._renderLine
       // 
@@ -34,38 +34,40 @@ const d3LineGraph = {
 
   },
 
-  renderAxis(el, props, data) {
-    const width = props.width;
-    const height = props.height;
+  renderAxis(el, properties, data) {
 
-    // x axis
-    const xAxis = d3.scaleTime().domain([new Date(data.endDate.year, data.endDate.month, data.endDate.date), new Date(data.startDate.year, data.startDate.month, data.startDate.date)]).range([0, width]);
+    const startDate = data.startDate;
+    const endDate = data.endDate;
+    const min = data.min;
+    const max = data.max;
 
+    const minDate = new Date(endDate.year, endDate.month, endDate.day);
+    const maxDate = new Date(startDate.year, startDate.month, startDate.day);
+
+    const xScale = d3.scaleTime()
+      .domain([minDate, maxDate])
+      .range([0, properties.width]);
+
+    const yScale = d3.scaleLinear()
+      .domain([min, max])
+      .range([properties.height, 0]);
+
+    const xAxis = d3.axisBottom(xScale)
+      .tickFormat(d3.timeFormat('%d-%m-%Y'));
+
+    const yAxis = d3.axisLeft(yScale);
+
+    // add x axis
     el.append('g')
-        .attr('class', 'axis axis--x')
-        .attr('transform', 'translate(0,' + height + ')')
-        .call(d3.axisBottom(xAxis))
-        .attr('x', 40)
-        .attr('y', 30)
-        .attr('dx', '0.71em')
-        .attr('fill', '#000')
-        .append('text')
-          .text('Days');
-      // .attr('fill', '#000')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(0,' + properties.height + ')')
+      .call(xAxis)
 
-    // y axis
-    const yAxisLeft = d3.scaleLinear().domain([data.min, data.max]).range([height, 0]);
-
+    // add y axis
     el.append('g')
-        .attr('class', 'axis axis--y')
-        .call(d3.axisLeft(yAxisLeft))
-        .attr('transform', 'rotate(-90)')
-        .attr('y', 6)
-        .attr('dy', '0.71em')
-        .attr('fill', '#000')
-        .append('text') 
-          .text('Visit Count');
-      // .attr('fill', '#000')
+      .attr('class', 'y axis')
+      .call(yAxis);
+    
   },
 
   makeLine(el, scale, data) {

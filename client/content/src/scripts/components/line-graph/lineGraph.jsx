@@ -33,9 +33,9 @@ class LineGraph extends React.Component {
       selectedDomain2: '',
       selectedDomain3: '',
       selectedDomains: [],
-      selectValue1: '',
-      selectValue2: '',
-      selectValue3: '',
+      // selectValue1: '',
+      // selectValue2: '',
+      // selectValue3: '',
     };
   }
 
@@ -44,7 +44,7 @@ class LineGraph extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('line graph updated', this.state);
+      // console.log('line graph updated', this.state);
     // change to comparing objects (deep equality)
     // look into alternate deep equality method 
     if (JSON.stringify(prevProps.historyByDate) !== JSON.stringify(this.props.historyByDate)) {
@@ -93,16 +93,15 @@ class LineGraph extends React.Component {
     
     if (domainSelectId === '1') {
       console.log('first select used');
+      // this.setState({ selectValue1: e.target.value })
       this.setState({ selectedDomain1: e.target.value });
     } else if (domainSelectId === '2') {
+      // this.setState({ selectValue2: e.target.value })
       this.setState({ selectedDomain2: e.target.value });
     } else {
+      // this.setState({ selectValue3: e.target.value })
       this.setState({ selectedDomain3: e.target.value });
     }
-    
-    console.log('selected domains: ', this.state.selectedDomain1, this.state.selectedDomain2, this.state.selectedDomain3);
-
-
   }
 
   makeDomainList() {
@@ -114,24 +113,6 @@ class LineGraph extends React.Component {
 
   makeDataForXYAxis() {
     let data = this.props.historyByDate;
-
-  //   const dummyData = { 'google.com':
-  //  [ { date: '2017-02-13T08:00:00.000Z', count: 1509 },
-  //    { date: '2017-02-14T08:00:00.000Z', count: 1468 } ],
-  // 'facebook.com':
-  //  [ { date: '2017-02-13T08:00:00.000Z', count: 800 },
-  //    { date: '2017-02-14T08:00:00.000Z', count: 801 } ],
-  // 'github.com':
-  //  [ { date: '2017-02-13T08:00:00.000Z', count: 714 },
-  //    { date: '2017-02-14T08:00:00.000Z', count: 743 } ],
-  // 'mail.google.com':
-  //  [ { date: '2017-02-13T08:00:00.000Z', count: 672 },
-  //    { date: '2017-02-14T08:00:00.000Z', count: 666 } ],
-  // 'medium.com':
-  //  [ { date: '2017-02-13T08:00:00.000Z', count: 12 },
-  //    { date: '2017-02-14T08:00:00.000Z', count: 12 } ]
-  //  }
-   // }
 
     // console.log('history by date data', data);
 
@@ -166,8 +147,6 @@ class LineGraph extends React.Component {
       this.setState({ startDate, endDate, max, min });
     // }
 
-    console.log('line graph component state', this.state);
-
   }
 
   makeDataForDomainLines() {
@@ -191,7 +170,7 @@ class LineGraph extends React.Component {
   render() {
     // const domainListData = [this.state.domains, this.state.domains, this.state.domains];
     return (
-      <div>
+      <div className='lineGraph'>
         <div className='date-options'>
           <DateOptions
             handleStartDayChange={this.handleStartDayChange.bind(this)}
@@ -212,19 +191,19 @@ class LineGraph extends React.Component {
             id={1}
             domains={this.state.domains}
             handleChange={this.handleDomainListChange.bind(this)}
-            selectValue1={this.state.selectValue1}
+            selectValue={this.state.selectedDomain1}
           />
           <DomainList
             id={2}
             domains={this.state.domains}
             handleChange={this.handleDomainListChange.bind(this)}
-            selectValue2={this.state.selectValue2}
+            selectValue={this.state.selectedDomain2}
           />
           <DomainList
             id={3}
             domains={this.state.domains}
             handleChange={this.handleDomainListChange.bind(this)}
-            selectValue3={this.state.selectValue3}
+            selectValue={this.state.selectedDomain3}
           />
         </div>
 

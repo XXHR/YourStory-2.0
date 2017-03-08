@@ -10,26 +10,28 @@ class Graph extends React.Component {
     console.log('initial props in Graph', props);
   }
 
+  componentDidMount() {
+    const el = ReactDOM.findDOMNode(this);
+
+    const margin = { top: 20, right: 10, bottom: 20, left: 60 }
+    // const data = nextProps;
+
+    d3LineGraph.create(el, margin, this.props);
+  }
+
   shouldComponentUpdate(nextProps) {
-    // FIX THIS CONDITIONAL 
-    if (nextProps.endDate && JSON.stringify(nextProps.selectedDomains)) {
+    if (nextProps.selectedDomains) {
 
-      console.log("next props graph: ", nextProps);
+      console.log('selectedDomains', nextProps.selectedDomains)
 
-      const el = ReactDOM.findDOMNode(this);
-
-      const margin = { top: 20, right: 10, bottom: 20, left: 60 }
-      // const data = nextProps;
-
-      d3LineGraph.create(el, margin, nextProps);
+      d3LineGraph.update(nextProps);
 
       return true;
-
-    } else if (JSON.stringify(nextProps) === JSON.stringify(this.props)) {
-
-      return false;
+    } else {
+      return;
     }
   }
+
 
   render() {
     return (

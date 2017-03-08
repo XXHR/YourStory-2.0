@@ -32,7 +32,7 @@ class LineGraph extends React.Component {
       selectedDomain1: '',
       selectedDomain2: '',
       selectedDomain3: '',
-      selectedDomains: [],
+      selectedDomains: null,
       // selectValue1: '',
       // selectValue2: '',
       // selectValue3: '',
@@ -166,6 +166,21 @@ class LineGraph extends React.Component {
 
   }
 
+  renderGraph() {
+    if (this.state.startDate && this.state.endDate && this.state.max && this.state.min) {
+
+      return <Graph 
+        startDate={this.state.startDate}
+        endDate={this.state.endDate}
+        max={this.state.max}
+        min={this.state.min}
+        selectedDomains={this.state.selectedDomains}
+      /> 
+    } else {
+      return <div></div>
+    }
+  }
+
 
   render() {
     // const domainListData = [this.state.domains, this.state.domains, this.state.domains];
@@ -207,14 +222,7 @@ class LineGraph extends React.Component {
           />
         </div>
 
-        <Graph 
-          startDate={this.state.startDate}
-          endDate={this.state.endDate}
-          max={this.state.max}
-          min={this.state.min}
-          selectedDomains={this.state.selectedDomains}
-
-        />
+        {this.renderGraph()}
 
         
       </div>

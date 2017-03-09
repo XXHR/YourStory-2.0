@@ -1,5 +1,4 @@
 'use strict';
-
 import React from 'react';
 import ReactDom from 'react-dom';
 import { connect } from 'react-redux';
@@ -24,12 +23,14 @@ class Chart extends React.Component {
       width: '100%',
       height: '300px',
     });
-    console.log("el: ", el);
+    // console.log("el: ", el);
   }
 
   shouldComponentUpdate(nextProps) {
     console.log("Chart componentWillReceiveProps nextProps: ", nextProps);
-    if (this.props.history !== nextProps.history) {      
+    console.log("this.props.history", this.props.history);
+
+    if (this.props.history !== nextProps.history) { //need to fix this line
       const domainNames = Object.keys(nextProps.history);
       const historyDataFunc = () => {
         const historyData = [];

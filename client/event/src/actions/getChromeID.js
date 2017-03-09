@@ -32,7 +32,7 @@ export default function getChromeID() {
         console.log('User info from chrome: ', userInfo);
         axios({
           method: 'post',
-          url: `http://${HostPort}/api/users`,
+          url: `https://${HostPort}/api/users`,
           data: { chromeID: userInfo.id, username: userInfo.name },
         })
         .then((response) => {
@@ -53,7 +53,7 @@ export default function getChromeID() {
             console.log('CHROME HISTORY', chromeHistoryArray);
             axios({
               method: 'post',
-              url: `http://${HostPort}/api/history`,
+              url: `https://${HostPort}/api/history`,
               data: { history: chromeHistoryArray },
             }).then((response) => {
               dispatch(getHistoryByDate());

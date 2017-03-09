@@ -116,21 +116,27 @@ class LineGraph extends React.Component {
 
     // console.log('history by date data', data);
 
-    const startDate = {};
-    const endDate = {};
+    // const startDate = {};
+    // const endDate = {};
     let max = 0;
     let min = 0;
     let totalDomainCount = [];
 
+    let startDate = 0;
+    let endDate = 0;
+
     // if (data !== 'no history by date data yet') {
       for (let domain in data) {
-        startDate.month = Number(data[domain][0].date.slice(5, 7));
-        startDate.day = Number(data[domain][0].date.slice(8, 10));
-        startDate.year = Number(data[domain][0].date.slice(0, 4));
+        // startDate.month = Number(data[domain][0].date.slice(5, 7));
+        // startDate.day = Number(data[domain][0].date.slice(8, 10));
+        // startDate.year = Number(data[domain][0].date.slice(0, 4));
         
-        endDate.month = Number(data[domain][data[domain].length - 1].date.slice(5, 7));
-        endDate.day = Number(data[domain][data[domain].length - 1].date.slice(8, 10));
-        endDate.year = Number(data[domain][data[domain].length - 1].date.slice(0, 4));
+        // endDate.month = Number(data[domain][data[domain].length - 1].date.slice(5, 7));
+        // endDate.day = Number(data[domain][data[domain].length - 1].date.slice(8, 10));
+        // endDate.year = Number(data[domain][data[domain].length - 1].date.slice(0, 4));
+
+        startDate = data[domain][0].date;
+        endDate = data[domain][data[domain].length - 1].date;
 
         break;
       }

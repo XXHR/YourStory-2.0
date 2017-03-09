@@ -44,8 +44,10 @@ const d3LineGraph = {
     const min = data.min;
     const max = data.max;
 
-    const minDate = new Date(endDate.year, endDate.month, endDate.day);
-    const maxDate = new Date(startDate.year, startDate.month, startDate.day);
+    const minDate = new Date(startDate.year, startDate.month, startDate.day);
+    const maxDate = new Date(endDate.year, endDate.month, endDate.day);
+
+    console.log('minDate: ', minDate, 'maxDate: ', maxDate);
 
     this.xScale = d3.scaleTime()
       .domain([minDate, maxDate])
@@ -87,24 +89,25 @@ const d3LineGraph = {
 
     const domainLine = d3.line()
             .x((d) => {
-              let slicedDate = d.date.slice(0, 10);
-              let formattedDate = new Date(slicedDate.slice(0, 4), slicedDate.slice(5, 7), slicedDate.slice(8))
-
-              return xScale(formattedDate); 
+              console.log('date x: ', d.date);
+              return xScale(new Date(d.date));
              })
             .y((d) => { 
-              console.log('typeof y: ', d.count) 
+              console.log('count y: ', d.count);
               return yScale(d.count); 
             });
 
     console.log('INSIDE renderDomainLines', data);
 
+    const colors = ['#909BBD', '#DAB4C6', '#E8BFBB', '#8DB8CB', '#6B8EB9']
+
     data.forEach((domain) => {
       console.log('domain', domain);
       for (let domainName in domain) {
         console.log('domain name', domain[domainName]);
-        this.svg.append('path')
+        this.g.append('path')
                 .attr('class', 'domain-line')
+                .style("stroke", colors.pop())
                 .attr('d', domainLine(domain[domainName]));
       }
     })

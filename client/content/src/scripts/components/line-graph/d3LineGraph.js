@@ -44,8 +44,9 @@ const d3LineGraph = {
     const min = data.min;
     const max = data.max;
 
-    const minDate = new Date(startDate.year, startDate.month, startDate.day);
-    const maxDate = new Date(endDate.year, endDate.month, endDate.day);
+    // [year-month-day]
+    const minDate = new Date(endDate.year, endDate.month - 1, endDate.day);
+    const maxDate = new Date(startDate.year, startDate.month - 1, startDate.day);
 
     console.log('minDate: ', minDate, 'maxDate: ', maxDate);
 
@@ -58,7 +59,7 @@ const d3LineGraph = {
       .range([properties.height, 0]);
 
     const xAxis = d3.axisBottom(this.xScale)
-      .tickFormat(d3.timeFormat('%d-%m-%Y'));
+      .tickFormat(d3.timeFormat('%Y-%m-%d'));
 
     const yAxis = d3.axisLeft(this.yScale);
 
@@ -92,10 +93,19 @@ const d3LineGraph = {
               console.log('date x: ', d.date);
               return xScale(new Date(d.date));
              })
-            .y((d) => { 
+            .y((d) => {
               console.log('count y: ', d.count);
-              return yScale(d.count); 
+              return yScale(d.count);
             });
+
+    const domainDotCx = (d) => {
+      console.log('d in domainDotCx', d);
+      return xScale(d.date);
+    };
+
+    const domainDotCy = (d) => {
+      return yScale(d.count);
+    }
 
     console.log('INSIDE renderDomainLines', data);
 
@@ -103,14 +113,27 @@ const d3LineGraph = {
 
     data.forEach((domain) => {
       console.log('domain', domain);
+
       for (let domainName in domain) {
         console.log('domain name', domain[domainName]);
-        this.g.append('path')
-                .attr('class', 'domain-line')
-                .style("stroke", colors.pop())
-                .attr('d', domainLine(domain[domainName]));
+
+        // if domain has more than one data point, render path
+        if (domain[domainName].length >= 2) {
+          this.g.append('path')
+                  .attr('class', 'domain-line')
+                  .style("stroke", colors.pop())
+                  .attr('d', domainLine(domain[domainName]));
+        } else {
+          console.log('domain CIRCLE: ', domain[domainName]);
+          // if domain only has one data point, render circle
+          this.g.append('circle')
+            .attr('class', 'domain-circle')
+            .attr('r', 5)
+            .attr('cx', domainDotCx)
+            .attr('cy', domainDotCy);
+        }
       }
-    })
+    });
 
   },
 

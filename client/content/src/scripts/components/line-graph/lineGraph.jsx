@@ -44,10 +44,11 @@ class LineGraph extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-      // console.log('line graph updated', this.state);
+      console.log('line graph updated');
     // change to comparing objects (deep equality)
     // look into alternate deep equality method 
     if (JSON.stringify(prevProps.historyByDate) !== JSON.stringify(this.props.historyByDate)) {
+      console.log('inside componentDidUpdate lineGraph');
       this.makeDomainList();
       this.makeDataForXYAxis();
     } 
@@ -114,31 +115,40 @@ class LineGraph extends React.Component {
   makeDataForXYAxis() {
     let data = this.props.historyByDate;
 
-    // console.log('history by date data', data);
+     console.log('inside makeDataForXYAxis');
 
-    // const startDate = {};
-    // const endDate = {};
     let max = 0;
     let min = 0;
     let totalDomainCount = [];
 
-    let startDate = 0;
-    let endDate = 0;
-
     // if (data !== 'no history by date data yet') {
-      for (let domain in data) {
-        // startDate.month = Number(data[domain][0].date.slice(5, 7));
-        // startDate.day = Number(data[domain][0].date.slice(8, 10));
-        // startDate.year = Number(data[domain][0].date.slice(0, 4));
+      // for (let domain in data) {
+      //   startDate.month = Number(data[domain][0].date.slice(5, 7));
+      //   startDate.day = Number(data[domain][0].date.slice(8, 10));
+      //   startDate.year = Number(data[domain][0].date.slice(0, 4));
         
-        // endDate.month = Number(data[domain][data[domain].length - 1].date.slice(5, 7));
-        // endDate.day = Number(data[domain][data[domain].length - 1].date.slice(8, 10));
-        // endDate.year = Number(data[domain][data[domain].length - 1].date.slice(0, 4));
+      //   endDate.month = Number(data[domain][data[domain].length - 1].date.slice(5, 7));
+      //   endDate.day = Number(data[domain][data[domain].length - 1].date.slice(8, 10));
+      //   endDate.year = Number(data[domain][data[domain].length - 1].date.slice(0, 4));
 
-        startDate = data[domain][0].date;
-        endDate = data[domain][data[domain].length - 1].date;
+      //   // startDate = data[domain][0].date;
+      //   // endDate = data[domain][data[domain].length - 1].date;
+      //   console.log('startDate from Line Graph: ', startDate, 'endDate from line graph: ', endDate);
 
-        break;
+      //   break;
+      // }
+
+      const startDate = {
+        day: this.state.startDay,
+        month: this.state.month,
+        year: this.state.year
+      };
+
+      // calculate month based on startDate day and month
+      const endDate = {
+        day: this.state.startDay - this.state.endDay,
+        month: this.state.month,
+        year: this.state.year
       }
 
       for (let domain in data) {

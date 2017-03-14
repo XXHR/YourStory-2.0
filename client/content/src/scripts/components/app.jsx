@@ -63,9 +63,25 @@ class App extends React.Component {
     if (this.props.chromeID !== 'no chromeID') {
       return (
         <div>
+          <br />
+          <br />
           <div className="row">
-            <div className="col-sm-1"></div>
+            <div className="col-sm-12">
+              <div className="row">
+                <div className="col-sm-1"></div>
+                <div className="col-sm-5">
+                  <img src="./assets/logo-yourstory.png" height="40px" />
+                </div>
+                <div className="col-sm-5">
+                  Welcome back, Melba!
+                </div>
+                <div className="col-sm-1"></div>
+              </div>
+            </div>
           </div>
+          <br />
+          <br />
+
           <div className="row">
             <div className="col-sm-1"></div>
             <div className="col-sm-5">
@@ -92,7 +108,10 @@ class App extends React.Component {
               </div>
             </div>
             <div className="col-sm-1"></div>
-          </div>      
+          </div>     
+          <br />
+          <br />
+           
           <div className="row">
             <div className="col-sm-12">
               <div className="row">

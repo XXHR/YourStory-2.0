@@ -46,8 +46,8 @@ d3Chart.create = function (el, props) {
     illegalcontent: 'Illegal Content',
     contentserver: 'Content Servers',
   };
-  console.log("el in d3catData: ", el);
-  console.log("props in d3catData: ", props);
+  // console.log("el in d3catData: ", el);
+  // console.log("props in d3catData: ", props);
 
     const datasetCreator = ((data) => {
       return data.map((item) => {
@@ -176,23 +176,8 @@ d3Chart.create = function (el, props) {
             };
           }));
 
-        // const refresher = d3.select('#catDataChart')
-        //   .append('div')
-        //   .text('REFRESH')
-        //   .attr('id', 'refreshHandler');
-
-        // console.log("refresher", refresher);
-
-        // refresher.on('click', d => {
-        //   console.log("inside refresher event handler")
-          // const el = d3.select('.catDataSVG');
-          // const oldTooltips = d3.select('.tooltipD3');
-          // this.destroy(el, oldTooltips);
-          
-          // const newEl = d3.select('#catDataChart');          
-
-          // this.create(newEl);
-        // })
+        // d3.select('#refreshCatDataChart')
+        //   .style('display', 'inline');
       });
 
       let newLabel = svg.append('text')

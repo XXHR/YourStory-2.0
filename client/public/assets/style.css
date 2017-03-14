@@ -19,6 +19,11 @@ body {
   position:relative;
 }
 
+#refreshCatDataChart {
+  /*display: none;*/
+  float: right;
+}
+
 .graph-svg {
   padding-left: 50px;
 }

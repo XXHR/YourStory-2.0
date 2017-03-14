@@ -39,9 +39,10 @@ class Categories extends React.Component {
   }
 
   handleRefreshCatDataChart() {
-    console.log("catData React Component handleRefreshCatDataChart --- ");
+    console.log("catData React Component handleRefreshCatDataChart");
     const el = ReactDom.findDOMNode(this);
-    d3catData.update();
+    console.log("el in handleRefreshCatDataChart: ", el)
+    d3catData.update(el, this.props.catData);
   }
 
   render() {

@@ -19,6 +19,10 @@
   position:relative;
 }
 
+#refreshCatDataChart {
+  display: none;
+}
+
 .graph-svg {
   padding-left: 50px;
 }

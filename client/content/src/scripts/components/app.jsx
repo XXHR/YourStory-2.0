@@ -65,6 +65,9 @@ class App extends React.Component {
         <div>
           <div className="row">
             <div className="col-sm-1"></div>
+          </div>
+          <div className="row">
+            <div className="col-sm-1"></div>
             <div className="col-sm-5">
               <div className="row">
                 <div className="col-sm-11">

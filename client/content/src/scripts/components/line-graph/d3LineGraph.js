@@ -111,29 +111,37 @@ const d3LineGraph = {
 
     const colors = ['#909BBD', '#DAB4C6', '#E8BFBB', '#8DB8CB', '#6B8EB9']
 
-    data.forEach((domain) => {
-      console.log('domain', domain);
+     const domainStyling = {
+      '0': { color: colors.pop() },
+      '1': { color: colors.pop() },
+      '2': { color: colors.pop() }
+    }
+
+    data.forEach((domain, index) => {
+      console.log('domain index', index);
 
       for (let domainName in domain) {
         console.log('domain name', domain[domainName]);
 
         // if domain has more than one data point, render path
-        if (domain[domainName].length >= 2) {
-          this.g.append('path')
-                  .attr('class', 'domain-line')
-                  .style("stroke", colors.pop())
-                  .attr('d', domainLine(domain[domainName]));
-        } else {
-          console.log('domain CIRCLE: ', domain[domainName]);
+        // if (domain[domainName].length >= 2) {
+    
+        // } else {
           // if domain only has one data point, render circle
+        this.g.append('path')
+          .attr('class', 'domain-line')
+          .style("stroke", domainStyling[index.toString()].color)
+          .attr('d', domainLine(domain[domainName]));
+          
           this.g.selectAll('domainDots')
             .data(domain[domainName])
               .enter().append('circle')
                 .attr('class', 'domain-circle')
                 .attr('r', 5)
-                .attr('cx', (d) => { return xScale(new Date(d.date)) })
-                .attr('cy', (d) => { return yScale(d.count) });
-        }
+                .attr('cx', (d) => { return xScale(new Date(d.date)); })
+                .attr('cy', (d) => { return yScale(d.count); })
+                .style('fill', domainStyling[index.toString()].color)
+        // }
       }
     });
 

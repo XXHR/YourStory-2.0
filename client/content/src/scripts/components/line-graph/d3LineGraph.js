@@ -126,11 +126,13 @@ const d3LineGraph = {
         } else {
           console.log('domain CIRCLE: ', domain[domainName]);
           // if domain only has one data point, render circle
-          this.g.append('circle')
-            .attr('class', 'domain-circle')
-            .attr('r', 5)
-            .attr('cx', domainDotCx)
-            .attr('cy', domainDotCy);
+          this.g.selectAll('domainDots')
+            .data(domain[domainName])
+              .enter().append('circle')
+                .attr('class', 'domain-circle')
+                .attr('r', 5)
+                .attr('cx', (d) => { return xScale(new Date(d.date)) })
+                .attr('cy', (d) => { return yScale(d.count) });
         }
       }
     });

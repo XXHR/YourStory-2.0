@@ -82,6 +82,7 @@ d3Chart.create = function (el, props) {
       .append('svg')
       .attr('width', width)
       .attr('height', height)
+      .attr('id', 'catDataSVG')
       .append('g')
       .attr('transform', 'translate(' + (width / 2) +
         ',' + (height / 2 ) + ')');
@@ -90,7 +91,7 @@ d3Chart.create = function (el, props) {
         .innerRadius(radius - donutWidth)
         .outerRadius(radius)
         .padAngle(0.013)
-        .cornerRadius(8);
+        .cornerRadius(0);
 
       let pie = d3.pie()
         .value(((d) => { return d.count; }))
@@ -143,6 +144,7 @@ d3Chart.create = function (el, props) {
 
         if(!d.data.domains){ console.log('Path.onClick: It should have been redirected'); return };
 
+
         let temp = svg.selectAll('path')
         .data(pie(d.data.domains))
 
@@ -174,26 +176,44 @@ d3Chart.create = function (el, props) {
             };
           }));
 
-        temp.exit()
-          .remove();
+        // const refresher = d3.select('#catDataChart')
+        //   .append('div')
+        //   .text('REFRESH')
+        //   .attr('id', 'refreshHandler');
+
+        // console.log("refresher", refresher);
+
+        // refresher.on('click', d => {
+        //   console.log("inside refresher event handler")
+          // const el = d3.select('.catDataSVG');
+          // const oldTooltips = d3.select('.tooltipD3');
+          // this.destroy(el, oldTooltips);
+          
+          // const newEl = d3.select('#catDataChart');          
+
+          // this.create(newEl);
+        // })
       });
-        let newLabel = svg.append('text')
-          .attr('text-anchor', 'middle')
-          .attr('class', 'domain')
-          .text("")
-        newLabel.on('click', (() => {
-          console.log('clicked');
-        }));
+
+      let newLabel = svg.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('class', 'domain')
+        .text("")
+      newLabel.on('click', (() => {
+        console.log('clicked');
+      }));
 };
 
-d3Chart.update = function (el, state) {
-
+d3Chart.update = function (el, props) {
+  this.destroy();
+  this.create(el, props);
 };
 
-d3Chart.destroy = function (el) {  
-  const g = d3.select(el).selectAll('');  
-  console.log("d3Chart.destroy g", g);
-  g.remove();
+d3Chart.destroy = function () {
+  const el = d3.select('#catDataSVG');
+  const oldTooltips = d3.select('.tooltipD3');
+  el.remove();
+  oldTooltips.remove();
 };
 
 d3Chart._drawPoints = function (el, data) {

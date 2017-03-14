@@ -58,21 +58,12 @@ class App extends React.Component {
   }
 
   render () {
-    // if (this.props.chromeID !== 'no chromeID') {
-    //   return (
-    //     <div>
-    //       <h5>Chart</h5>
-    //       <Chart />
-    //     </div>
-    //   );
-    // } else {
-    //   return (
-    //     <div>no chromeid</div>
-    //   )
-    // }
     if (this.props.chromeID !== 'no chromeID') {
       return (
         <div>
+          <div className="row">
+            <div className="col-sm-1"></div>
+          </div>
           <div className="row">
             <div className="col-sm-1"></div>
             <div className="col-sm-5">

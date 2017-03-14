@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import History from './history';
 import Categories from './catData';
+import LineGraph from './line-graph/lineGraph';
 import SplashLandingPage from './splashLandingpage';
 import Footer from './footer';
 import Chart from './chart';
@@ -39,14 +40,15 @@ const getChromeIDFromBackground = () => {
 
 class App extends React.Component {
   componentWillMount() {
-    //if chromeID does not exsists, dispatch getChromeID    
+    console.log('chrome id props', this.props.chromeID)
+        //if chrome)ID does not exsists, dispatch getChromeID    
     if (this.props.chromeID === 'no chromeID') {
       this.props.dispatch(getChromeIDFromBackground());
     }
   }
 
   shouldComponentUpdate(nextProps) {
-    console.log("App componentWillReceiveProps this.props.chromeID: ", this.props.chromeID);    
+    console.log("App componentWillReceiveProps this.props.chromeID: ", this.props.chromeID); 
     console.log("App componentWillReceiveProps nextProps: ", nextProps.chromeID);    
 
     //if chromeID changes,re-render
@@ -58,18 +60,6 @@ class App extends React.Component {
   }
 
   render () {
-    // if (this.props.chromeID !== 'no chromeID') {
-    //   return (
-    //     <div>
-    //       <h5>Chart</h5>
-    //       <Chart />
-    //     </div>
-    //   );
-    // } else {
-    //   return (
-    //     <div>no chromeid</div>
-    //   )
-    // }
     if (this.props.chromeID !== 'no chromeID') {
       return (
         <div>
@@ -80,7 +70,7 @@ class App extends React.Component {
                 <div className="col-sm-11">
                   <h5>Most Visited Sites</h5>
                   <div className="data-parent-container">
-                  
+                  <Chart />
                   </div>
                 </div>
                 <div className="col-sm-1"></div>
@@ -105,7 +95,6 @@ class App extends React.Component {
               <div className="row">
                 <div className="col-sm-1"></div>
                 <div className="col-sm-10">
-                  <h5>Sites Visited This Week</h5>
                 </div>
                 <div className="col-sm-1"></div>
               </div>
@@ -116,8 +105,8 @@ class App extends React.Component {
               <div className="row">
                 <div className="col-sm-1"></div>
                 <div className="col-sm-10">
-                  <h5>Chart</h5>
-                  <Chart />
+                  <h5>Sites Visited This Week</h5>
+                  <LineGraph />
                 </div>
                 <div className="col-sm-1"></div>
               </div>

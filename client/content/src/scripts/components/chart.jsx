@@ -46,7 +46,7 @@ class Chart extends React.Component {
       const allHistory = historyDataFunc();
       // console.log('Chart componentWillReceiveProps props: ', allHistory);
       
-      const el = ReactDom.findDOMNode(this);    
+      const el = ReactDom.findDOMNode(this);
       d3Chart.destroy(el);
       d3Chart.update(el, allHistory.slice(0, 50));
       return true;

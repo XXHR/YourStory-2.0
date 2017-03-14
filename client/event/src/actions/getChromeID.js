@@ -56,7 +56,7 @@ export default function getChromeID() {
               url: `https://${HostPort}/api/history`,
               data: { history: chromeHistoryArray },
             }).then((response) => {
-              dispatch(getHistoryByDate());
+              // dispatch(getHistoryByDate());
               dispatch(finalHistory(response.data));
               dispatch(getCatData());
             });

@@ -134,3 +134,11 @@ rect {
   width:90%;
   vertical-align: middle;
 }
+
+/*Line Graph Component */
+
+.domain-line {
+  fill: none;
+  stroke-width: 2px;
+  stroke: steelblue;
+}

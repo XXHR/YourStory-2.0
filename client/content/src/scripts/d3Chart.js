@@ -18,19 +18,25 @@ d3Chart.create = function (el, props) {
 };
 
 d3Chart.update = function (el, state) {
+
   // console.log("d3Chart.update (state)", state);
+  //console.log("d3Chart.update (state)", state);
   this._drawPoints(el, state);
 };
 
 d3Chart.destroy = function (el) {  
   const g = d3.select(el).selectAll('.rectangles');
+
   // console.log("d3Chart.destroy g", g);
+  //console.log("d3Chart.destroy g", g);
   const bars = g.selectAll('rect')
   bars.remove();
 };
 
 d3Chart._drawPoints = function (el, data) {
+
   // console.log("d3Chart._drawingPoints", el, data);
+  //console.log("d3Chart._drawingPoints", el, data);
   //Width and height
   const w = 500;
   const h = 100;

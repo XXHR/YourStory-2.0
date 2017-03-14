@@ -105,7 +105,14 @@ class DateRange {
         }
       }
 
-      finalDateArray.push(year + '-' + month + '-' + day);
+      const singleDigitMonths = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+      if(singleDigitMonths.includes(month)) {
+        finalDateArray.push(year + '-0' + month + '-' + day);
+      } else {
+        finalDateArray.push(year + '-' + month + '-' + day);
+      }
+      
     }
     return finalDateArray;
   }

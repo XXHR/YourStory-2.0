@@ -8,7 +8,7 @@ import aliases from './aliases';
 chrome.storage.local.get([
   'state',
 ], ({ initialState }) => {
-  console.log('INITIAL STATE FROM CHROME', initialState);
+  console.log('INITIAL STATE FROM CHROME', { initialState });
 
   const middleware = [alias(aliases), ReduxThunk];
 

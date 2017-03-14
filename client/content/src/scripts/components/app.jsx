@@ -70,6 +70,7 @@ class App extends React.Component {
                 <div className="col-sm-11">
                   <h5>Most Visited Sites</h5>
                   <div className="data-parent-container">
+                  <Chart />
                   </div>
                 </div>
                 <div className="col-sm-1"></div>
@@ -94,8 +95,6 @@ class App extends React.Component {
               <div className="row">
                 <div className="col-sm-1"></div>
                 <div className="col-sm-10">
-                  <h5>Sites Visited This Week</h5>
-                  <LineGraph />
                 </div>
                 <div className="col-sm-1"></div>
               </div>
@@ -106,8 +105,8 @@ class App extends React.Component {
               <div className="row">
                 <div className="col-sm-1"></div>
                 <div className="col-sm-10">
-                  <h5>Chart</h5>
-                  <Chart />
+                  <h5>Sites Visited This Week</h5>
+                  <LineGraph />
                 </div>
                 <div className="col-sm-1"></div>
               </div>

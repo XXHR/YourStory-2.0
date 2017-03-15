@@ -7,15 +7,12 @@ const d3Chart = {};
 d3Chart.create = function (el, props) {
   const reduceData = props.reduce((accum, value) => {
     return accum + value.totalCount;
-  }, 0)
-  console.log("reduced data: ", reduceData)
+  }, 0);
 
   const datasetCreator = ((data) => {
     const updatedData = [];
     data.map((item) => {
-      // console.log("item: ", item, "percent: ", (item.totalCount / reduceData) * 100);
       if (((item.totalCount / reduceData) * 100) > 1) {
-        console.log("item.domains: ", item.domains);
         updatedData.push({
           label: catParser[item.category],
           count: item.totalCount,
@@ -26,9 +23,8 @@ d3Chart.create = function (el, props) {
 
     return updatedData;
   });
-  const dataset = datasetCreator(props);
-  console.log("dataset -- ", dataset);
 
+  const dataset = datasetCreator(props);
   const width = 450;
   const height = 320;
   const radius = Math.min(width, height) / 2;
@@ -127,31 +123,35 @@ d3Chart.create = function (el, props) {
       return d.count;
     }));
     const percent = Math.round(1000 * d.data.count / total) / 10;
-    svg.select('.domain')
+    svg.select('.domain');
     tooltipD3.select('.label').html(d.data.label);
     tooltipD3.select('.count').html(d.data.count);
     tooltipD3.select('.percent').html(percent + '%');
     tooltipD3.style('display', 'block');
   }));
 
-  path.on('mouseout', (() => {                              
+  path.on('mouseout', (() => {
     tooltipD3.style('display', 'none');
   }));
 
   path.on('click', d => {
+    d3.selectAll('.legend')
+      .remove()
+      
     svg.selectAll('path')
-      .remove()
+      .remove();
     d3.select('.tooltipD3')
-      .remove()
+      .remove();
 
-    this.createDomainPie(d, svg, pie, arc, color);
+    this.createDomainPie(d, svg, pie, arc, tooltipD3);
   });
 };
 
-d3Chart.createDomainPie = function (d, svg, pie, arc, color) {
-  // console.log('d.data.domains --- ', d.data.domains);
+d3Chart.createDomainPie = function (d, svg, pie, arc, tooltipD3) {
   const newDomainData = [];
   const noDuplicatesObj = {};
+  const color = d3.scaleOrdinal(d3.schemeCategory20b);
+
   d.data.domains.map((domainObj) => {
     if (!noDuplicatesObj[domainObj.label]) {
       noDuplicatesObj[domainObj.label] = domainObj.count;
@@ -164,25 +164,21 @@ d3Chart.createDomainPie = function (d, svg, pie, arc, color) {
     newDomainData.push({
       label: key,
       count: noDuplicatesObj[key],
-    })
+    });
   }
 
-  console.log("there should be no dups: ", newDomainData);
-  console.log("d.data.domains: ", d.data.domains);
-
   const temp = svg.selectAll('path')
-   .data(pie(newDomainData))
+   .data(pie(newDomainData));
 
   temp
     .attr('d', arc)
     .attr('fill', ((d, i) => {
-      console.log("indside fill: ", d);
       return color(d.data.label);
     }))
     .transition()
     .duration(2000)
     .attrTween('d', (d) => {
-      const interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
+      var interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
       return (t) => {
         return arc(interpolate(t));
       };
@@ -193,16 +189,61 @@ d3Chart.createDomainPie = function (d, svg, pie, arc, color) {
     .append('path')
     .attr('d', arc)
     .attr('fill', ((d, i) => {
-      console.log("d ==", d);
       return color(d.data.label);
-    })).transition()
+    }))
+    .transition()
     .duration(2000)
     .attrTween('d', ((d) => {
       const interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
-      return function(t) {
+      return (t) => {
         return arc(interpolate(t));
       };
     }));
+
+  const legendRectSize = 10;
+  const legendSpacing = 5;
+
+  const legend = svg.selectAll('.legend')
+    .data(color.domain())
+    .enter()
+    .append('g')
+    .attr('class', 'legend')
+    .attr('transform', (d, i) => {
+      const height = legendRectSize + legendSpacing;
+      const offset =  height * color.domain().length / 2;
+      const horz = 18 * legendRectSize;
+      const vert = i * height - offset;
+      return 'translate(' + horz + ',' + vert + ')';
+    });
+
+  legend.append('rect')
+    .attr('width', legendRectSize)
+    .attr('height', legendRectSize)
+    .style('fill', color)
+    .style('stroke', color);
+
+  legend.append('text')
+    .attr('x', legendRectSize + legendSpacing)
+    .attr('y', legendRectSize - legendSpacing + 3)
+    .text(d => d);
+
+  temp.on('mouseover', (() => {
+    console.log("mouseover");
+    const total = d3.sum(newDomainData.map((d) => {
+      return d.count;
+    }));
+    const percent = Math.round(1000 * d.data.count / total) / 10;
+    svg.select('.domain');
+    tooltipD3.select('.label').html(d.data.label);
+    tooltipD3.select('.count').html(d.data.count);
+    tooltipD3.select('.percent').html(percent + '%');
+    tooltipD3.style('display', 'block');
+  }));
+
+  temp.on('mouseout', (() => {
+    console.log("mouseout");
+    tooltipD3.style('display', 'none');
+  }));
 };
 
 d3Chart.update = function (el, props) {

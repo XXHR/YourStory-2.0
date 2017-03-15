@@ -40,11 +40,11 @@ class LineGraph extends React.Component {
   }
 
   componentWillMount() {
-    console.log('line graph historyByDate state: ', this.props.historyByDate);
+    // console.log('line graph historyByDate state: ', this.props.historyByDate);
   }
 
   componentDidUpdate(prevProps, prevState) {
-      console.log('line graph updated');
+      // console.log('line graph updated');
     // change to comparing objects (deep equality)
     // look into alternate deep equality method 
     if (JSON.stringify(prevProps.historyByDate) !== JSON.stringify(this.props.historyByDate)) {
@@ -82,7 +82,7 @@ class LineGraph extends React.Component {
 
   handleSubmit(e) {
 
-    console.log('inside handleSubmit');
+    // console.log('inside handleSubmit');
 
     this.props.dispatch(getHistoryByDate(this.state));
 

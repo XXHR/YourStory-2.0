@@ -49,7 +49,7 @@ rect {
 
 .tooltipD3 {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background: #eee;
+  /*background: #eee;*/
 /*  border-radius: 5px;*/
   color: #333;
   display: none;

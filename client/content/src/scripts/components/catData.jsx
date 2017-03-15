@@ -48,7 +48,7 @@ class Categories extends React.Component {
   render() {
     return (
       <div id="catDataChart">
-        <div id="refreshCatDataChart" onClick={this.handleRefreshCatDataChart.bind(this)}>refresh</div>
+        <button id="refreshCatDataChart" className="btn btn-primary btn-small" onClick={this.handleRefreshCatDataChart.bind(this)}>Start Over</button>
       </div>
     );
   }

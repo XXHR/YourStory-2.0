@@ -12,18 +12,24 @@ const getFinalDatesDataObject = require('./getFinalDatesDataObject');
 
 
 const readHistoryByDate = (chromeID, dateRange) => {
+  console.log('date range from client', dateRange);
+
   let dates;
 
-  if (dateRange === 'week') {
-    dates = new DateRange().createDateArray();
-  } else {
-    const startDate = dateRange.startDate;
-    const endDate = startDate - dateRange.endDate;
-    const year = dateRange.year;
-    const month = dateRange.month;
+  // if (dateRange === 'week') {
+  //   dates = new DateRange().createDateArray();
+  // } else {
+    let startDay = dateRange.startDay;
+    let endDay = startDay - dateRange.endDay;
+    let year = dateRange.year;
+    let month = dateRange.month;
 
-    dates = new DateRange(startDate, month, year, endDate).createDateArray();
-  }
+    console.log('startDate', startDay, 'endDate', endDay, 'year', year, 'month', month);
+
+    dates = new DateRange(startDay, month, year, endDay).createDateArray();
+  // }
+
+  console.log('dateRange', dates);
 
   return getUser(chromeID)
     .then((userID) => {

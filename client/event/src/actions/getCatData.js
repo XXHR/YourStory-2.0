@@ -12,13 +12,27 @@ function finalGetCatData (catData) {
   return data;
 }
 
+function getTimeHistoryLastFetched (time) {
+  const data = {
+    type: 'CATDATA_LAST_FETCHED',
+    payload: time,
+  };
+
+  return data;
+}
+
 export default function getCatData() {
-  return function (dispatch) {
+  console.log("getting cat data");
+  return function (dispatch) {    
     axios({
       method: 'get',
-      url: `http://${HostPort}/api/catData`,
+      url: `https://${HostPort}/api/catData`,
     }).then((response) => {
+      console.log("response: ", response.data);
       dispatch(finalGetCatData(response.data));
+      const time = (new Date).getTime();
+      console.log("time from getCatData action: ");
+      dispatch(getTimeHistoryLastFetched(time));
     });
   };
 }

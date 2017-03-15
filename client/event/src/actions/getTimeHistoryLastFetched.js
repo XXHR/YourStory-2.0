@@ -14,5 +14,5 @@ export default function getTimeHistoryLastFetched() {
     const time = (new Date).getTime();
     // console.log("time: ", time);
     dispatch(finalGetTimeHistoryLastFetched(time));
-  }
-}
+  };
+};

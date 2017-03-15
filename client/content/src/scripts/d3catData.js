@@ -161,6 +161,7 @@ d3Chart.create = function (el, props) {
     d3.select('#catDataChart').selectAll('svg').remove();
     d3.select('.tooltipD3').remove();
     const ele = d3.select('#catDataChart');
+    d3.selectAll('text').remove();
     d3.select('#catDataChart')
       .append('text')
       .text('Category: ' + d.data.label);
@@ -279,6 +280,7 @@ d3Chart.destroy = function () {
   const oldTooltips = d3.select('.tooltipD3');
   el.remove();
   oldTooltips.remove();
+  d3.selectAll('text').remove();
 };
 
 

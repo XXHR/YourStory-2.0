@@ -19,11 +19,15 @@ body {
   position:relative;
 }
 
-#refreshCatDataChart {
-  /*display: none;*/
-  float: right;
+#catDataChart {
+  height: 320;
+  width: 450;
+  position: relative;
 }
 
+#refreshCatDataChart {
+  float: right;
+}
 .graph-svg {
   padding-left: 50px;
 }
@@ -48,18 +52,17 @@ rect {
 
 .tooltipD3 {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background: #eee;
-  box-shadow: -3px 3px 15px #888888;
-  border-radius: 8px 8px 8px 8px;
+  /*background: #eee;*/
+/*  border-radius: 5px;*/
   color: #333;
   display: none;
   font-size: 11px;
-  left: 130px;
+  left: 115px;
   padding: 7px;
   position: absolute;
   text-align: center;
-  top: 95px;
-  width: 80px;
+  top: 155px;
+  width: 100px;
   z-index: 10;
 }
 
@@ -68,9 +71,17 @@ rect {
   float: right;
 }
 
-.legend {
+/*.legend {
   font-size: 10px;
   color: white;
+}*/
+
+.legend {
+  font-size: 12px;
+}
+
+rect {
+  stroke-width: 2;
 }
 
 .line {

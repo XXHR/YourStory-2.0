@@ -19,7 +19,7 @@ class Categories extends React.Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount -- this.props.catData:", this.props.catData);
+    // console.log("componentDidMount -- this.props.catData:", this.props.catData);
     if (this.props.catData !== 'no catData') {
       const el = ReactDom.findDOMNode(this);
       console.log("el from componentDidMount: ", el);
@@ -31,7 +31,7 @@ class Categories extends React.Component {
     if (this.props.catData === 'no catData' && nextProps.catData !== 'no catData') {
       // console.log("shouldComponentUpdate -- nextProps.catData", nextProps.catData);
       // console.log("shouldComponentUpdate -- this.props.timecatDataLastFetched", this.props.timecatDataLastFetched);
-      const el = ReactDom.findDOMNode(this);
+      const el = ReactDom.findDOMNode(this);      
       d3catData.create(el, nextProps.catData);
       return true;
     }
@@ -39,16 +39,16 @@ class Categories extends React.Component {
   }
 
   handleRefreshCatDataChart() {
-    console.log("catData React Component handleRefreshCatDataChart");
+    // console.log("catData React Component handleRefreshCatDataChart");
     const el = ReactDom.findDOMNode(this);
-    console.log("el in handleRefreshCatDataChart: ", el)
+    // console.log("el in handleRefreshCatDataChart: ", el)
     d3catData.update(el, this.props.catData);
   }
 
   render() {
     return (
       <div id="catDataChart">
-        <div id="refreshCatDataChart" onClick={this.handleRefreshCatDataChart.bind(this)}>refresh</div>
+        <button id="refreshCatDataChart" className="btn btn-primary btn-small" onClick={this.handleRefreshCatDataChart.bind(this)}>Start Over</button>
       </div>
     );
   }

@@ -72,7 +72,8 @@ class App extends React.Component {
                 <div className="col-sm-5">
                   <img src="./assets/logo-yourstory.png" height="40px" />
                 </div>
-                <div className="col-sm-5">
+                <div className="col-sm-2"></div>
+                <div className="col-sm-2">
                   Welcome back, Melba!
                 </div>
                 <div className="col-sm-1"></div>
@@ -111,7 +112,7 @@ class App extends React.Component {
           </div>     
           <br />
           <br />
-           
+
           <div className="row">
             <div className="col-sm-12">
               <div className="row">

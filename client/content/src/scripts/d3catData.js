@@ -11,6 +11,7 @@ d3Chart.create = function (el, props) {
 
   const datasetCreator = ((data) => {
     const updatedData = [];
+    if (data[0] === 'secondset') return data[1];
     data.map((item) => {
       if (((item.totalCount / reduceData) * 100) > 1) {
         updatedData.push({
@@ -73,7 +74,7 @@ d3Chart.create = function (el, props) {
   tooltipD3.append('div')
     .attr('class', 'percent');
 
-  let path = svg.selectAll('path')
+  const path = svg.selectAll('path')
     .data(pie(dataset))
     .enter()
     .append('path')
@@ -135,15 +136,33 @@ d3Chart.create = function (el, props) {
   }));
 
   path.on('click', d => {
-    d3.selectAll('.legend')
-      .remove()
-      
-    svg.selectAll('path')
-      .remove();
-    d3.select('.tooltipD3')
-      .remove();
+    const newDomainData = [];
+    const noDuplicatesObj = {};
+    const color = d3.scaleOrdinal(d3.schemeCategory20b);
 
-    this.createDomainPie(d, svg, pie, arc, tooltipD3);
+    d.data.domains.map((domainObj) => {
+      if (!noDuplicatesObj[domainObj.label]) {
+        noDuplicatesObj[domainObj.label] = domainObj.count;
+      } else {
+        noDuplicatesObj[domainObj.label] =  noDuplicatesObj[domainObj.label] + domainObj.count;
+      }
+    });
+
+    for (let key in noDuplicatesObj) {
+      newDomainData.push({
+        label: key,
+        count: noDuplicatesObj[key],
+      });
+    }
+
+    d3.selectAll('.legend').remove();
+    svg.selectAll('path').remove();
+    d3.select('#catDataChart').selectAll('svg').remove();
+    d3.select('.tooltipD3').remove();
+    const ele = d3.select('#catDataChart');
+    console.log("ele", ele._groups[0][0]);
+    d3Chart.create(ele._groups[0][0], ['secondset', newDomainData]);
+    // this.createDomainPie(d, svg, pie, arc, tooltipD3);
   });
 };
 

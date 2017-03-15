@@ -1,6 +1,6 @@
 //d3 Line Graph object
 import * as d3 from 'd3';
-import DateRange from '../../../../../../server/routeHandlers/helpers/createDateArray';
+
 
 const d3LineGraph = {
 

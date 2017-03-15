@@ -54,10 +54,26 @@ class LineGraph extends React.Component {
       this.makeDataForXYAxis();
     } 
 
-    if (prevState.selectedDomain1 !== this.state.selectedDomain1 || prevState.selectedDomain2 !== this.state.selectedDomain2 || prevState.selectedDomain3 !== this.state.selectedDomain3) {
-      console.log('domain selected from dropdown');
-      this.makeDataForDomainLines();
+    // if (prevState.selectedDomain1 !== this.state.selectedDomain1 || prevState.selectedDomain2 !== this.state.selectedDomain2 || prevState.selectedDomain3 !== this.state.selectedDomain3) {
+    //   console.log('domain selected from dropdown');
+    //   this.makeDataForDomainLines(selectedDomain);
+    // }
+
+    if (prevState.selectedDomain1 !== this.state.selectedDomain1) {
+      console.log('change selectedDomain1');
+      this.makeDataForDomainLines(this.state.selectedDomain1);
     }
+
+     if (prevState.selectedDomain2 !== this.state.selectedDomain2) {
+      console.log('change selectedDomain2');
+      this.makeDataForDomainLines(this.state.selectedDomain2);
+    }
+
+     if (prevState.selectedDomain3 !== this.state.selectedDomain3) {
+      console.log('change selectedDomain3');
+      this.makeDataForDomainLines(this.state.selectedDomain3);
+    }
+
   }
 
   handleStartDayChange(e) {
@@ -195,24 +211,19 @@ class LineGraph extends React.Component {
 
   }
 
-  makeDataForDomainLines() {
+  makeDataForDomainLines(selectedDomain) {
 
     // for any domain chosen from any dropdown menu, find associated data in historyByDate
     // push domain's object value into this.state.selectedDomains array
     let selectedDomains = [];
 
     for (let domain in this.props.historyByDate) {
-      if (domain === this.state.selectedDomain1 || domain === this.state.selectedDomain2 || domain === this.state.selectedDomain3) {
-        let domainObj = {};
-        domainObj[domain] = this.props.historyByDate[domain];
+        if (domain === selectedDomain) {
+          let domainObj = {};
+          domainObj[domain] = this.props.historyByDate[domain];
 
-        // add {count: 0, date: (date that's not included)}
-        // iterate through array
-          // 
-
-
-        selectedDomains.push(this.addMissingDates(domainObj));
-      }
+          selectedDomains.push(this.addMissingDates(domainObj));
+        }
     }
 
     this.setState({ selectedDomains });
@@ -222,13 +233,13 @@ class LineGraph extends React.Component {
   renderGraph() {
     if (this.state.startDate && this.state.endDate && this.state.max && this.state.min) {
 
-      return <Graph 
+      return <Graph
         startDate={this.state.startDate}
         endDate={this.state.endDate}
         max={this.state.max}
         min={this.state.min}
         selectedDomains={this.state.selectedDomains}
-      /> 
+      />
     } else {
       return <div></div>
     }

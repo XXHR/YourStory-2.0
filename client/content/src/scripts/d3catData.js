@@ -13,14 +13,17 @@ d3Chart.create = function (el, props) {
   const datasetCreator = ((data) => {
     const updatedData = [];
     data.map((item) => {
-      console.log("item: ", item, "percent: ", (item.totalCount / reduceData) * 100);
+      // console.log("item: ", item, "percent: ", (item.totalCount / reduceData) * 100);
       if (((item.totalCount / reduceData) * 100) > 1) {
-        updatedData.push({ label: catParser[item.category],
-                 count: item.totalCount,
-                 domains: item.domains,
-               });
+        console.log("item.domains: ", item.domains);
+        updatedData.push({
+          label: catParser[item.category],
+          count: item.totalCount,
+          domains: item.domains,
+        });
       }
     });
+
     return updatedData;
   });
   const dataset = datasetCreator(props);
@@ -125,8 +128,6 @@ d3Chart.create = function (el, props) {
     }));
     const percent = Math.round(1000 * d.data.count / total) / 10;
     svg.select('.domain')
-    .text(d.data.label + ': ' + percent + '%');
-
     tooltipD3.select('.label').html(d.data.label);
     tooltipD3.select('.count').html(d.data.count);
     tooltipD3.select('.percent').html(percent + '%');
@@ -137,53 +138,71 @@ d3Chart.create = function (el, props) {
     tooltipD3.style('display', 'none');
   }));
 
-  // path.on('click', d => {
+  path.on('click', d => {
+    svg.selectAll('path')
+      .remove()
+    d3.select('.tooltipD3')
+      .remove()
 
-  //   if(!d.data.domains){ 
-  //     // console.log('Path.onClick: It should have been redirected'); return 
-  //   };
+    this.createDomainPie(d, svg, pie, arc, color);
+  });
+};
 
+d3Chart.createDomainPie = function (d, svg, pie, arc, color) {
+  // console.log('d.data.domains --- ', d.data.domains);
+  const newDomainData = [];
+  const noDuplicatesObj = {};
+  d.data.domains.map((domainObj) => {
+    if (!noDuplicatesObj[domainObj.label]) {
+      noDuplicatesObj[domainObj.label] = domainObj.count;
+    } else {
+      noDuplicatesObj[domainObj.label] =  noDuplicatesObj[domainObj.label] + domainObj.count;
+    }
+  });
 
-  //   let temp = svg.selectAll('path')
-  //   .data(pie(d.data.domains))
+  for (let key in noDuplicatesObj) {
+    newDomainData.push({
+      label: key,
+      count: noDuplicatesObj[key],
+    })
+  }
 
-  //   temp
-  //     .attr('d', arc)
-  //     .attr('fill', ((d, i) => {
-  //       return color(d.data.label);
-  //     }))
-  //     .transition()
-  //     .duration(2000)
-  //     .attrTween('d', function(d) {
-  //       var interpolate = d3.interpolate({startAngle: 0, endAngle: 0}, d);
-  //       return function(t) {
-  //         return arc(interpolate(t));
-  //       };
-  //     });
+  console.log("there should be no dups: ", newDomainData);
+  console.log("d.data.domains: ", d.data.domains);
 
-  //   temp
-  //     .enter()
-  //     .append('path')
-  //     .attr('d', arc)
-  //     .attr('fill', ((d, i) => {
-  //       return color(d.data.label);
-  //     })).transition()
-  //     .duration(2000)
-  //     .attrTween('d', ((d) => {
-  //       const interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
-  //       return function(t) {
-  //         return arc(interpolate(t));
-  //       };
-  //     }));
-  // });
+  const temp = svg.selectAll('path')
+   .data(pie(newDomainData))
 
-  // let newLabel = svg.append('text')
-  //   .attr('text-anchor', 'middle')
-  //   .attr('class', 'domain')
-  //   .text("")
-  // newLabel.on('click', (() => {
-  //   console.log('clicked');
-  // }));
+  temp
+    .attr('d', arc)
+    .attr('fill', ((d, i) => {
+      console.log("indside fill: ", d);
+      return color(d.data.label);
+    }))
+    .transition()
+    .duration(2000)
+    .attrTween('d', (d) => {
+      const interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
+      return (t) => {
+        return arc(interpolate(t));
+      };
+    });
+
+  temp
+    .enter()
+    .append('path')
+    .attr('d', arc)
+    .attr('fill', ((d, i) => {
+      console.log("d ==", d);
+      return color(d.data.label);
+    })).transition()
+    .duration(2000)
+    .attrTween('d', ((d) => {
+      const interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
+      return function(t) {
+        return arc(interpolate(t));
+      };
+    }));
 };
 
 d3Chart.update = function (el, props) {

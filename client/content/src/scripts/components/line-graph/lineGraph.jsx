@@ -21,11 +21,8 @@ class LineGraph extends React.Component {
     super(props);
 
     this.state = {
-      startDay: 0,
-      endDay: 0,
-      month: 0,
-      year: 0,
       startDate: null,
+      daysAgo: 0,
       endDate: null,
       max: null,
       min: null,
@@ -45,11 +42,10 @@ class LineGraph extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-      console.log('line graph updated');
+      console.log('START DATE PROPS', this.state.startDate, 'DAYS AGO PROPS: ', this.state.daysAgo);
     // change to comparing objects (deep equality)
     // look into alternate deep equality method 
     if (JSON.stringify(prevProps.historyByDate) !== JSON.stringify(this.props.historyByDate)) {
-      console.log('inside componentDidUpdate lineGraph');
       this.makeDomainList();
       this.makeDataForXYAxis();
     } 
@@ -76,26 +72,25 @@ class LineGraph extends React.Component {
 
   }
 
-  handleStartDayChange(e) {
+  handleStartDateChange(e) {
     e.preventDefault();
-    this.setState({ startDay: parseInt(e.target.value, 10) });
+    console.log('START DAY TEST VALUE FORMAT: ', e.target.value)
+
+    const date = e.target.value;
+
+    const startDate = {
+      day: parseInt(date.slice(8, 10), 10),
+      month: parseInt(date.slice(5, 7), 10),
+      year: parseInt(date.slice(0, 4), 10)
+    }
+
+    this.setState({ startDate })
   }
 
-  handleEndDayChange(e) {
+  handleDaysAgoChange(e) {
     e.preventDefault();
-    this.setState({ endDay: parseInt(e.target.value, 10) });
+    this.setState({ daysAgo: parseInt(e.target.value, 10) });
   }  
-
-  handleMonthChange(e) {
-    e.preventDefault();
-    this.setState({ month: parseInt(e.target.value, 10) });
-  }
-
-  handleYearChange(e) {
-    e.preventDefault();
-    this.setState({ year: parseInt(e.target.value, 10) });
-  }
-
 
   handleSubmit(e) {
 
@@ -132,23 +127,17 @@ class LineGraph extends React.Component {
   makeDataForXYAxis() {
     let data = this.props.historyByDate;
 
-     console.log('inside makeDataForXYAxis');
+     console.log('inside makeDataForXYAxis: ', data);
 
     let max = 0;
     let min = 0;
     let totalDomainCount = []
 
-      const startDate = {
-        day: this.state.startDay,
-        month: this.state.month,
-        year: this.state.year
-      };
-
       // calculate month based on startDate day and month
       const endDate = {
-        day: this.state.startDay - this.state.endDay,
-        month: this.state.month,
-        year: this.state.year
+        day: this.state.startDate.day - this.state.daysAgo,
+        month: this.state.startDate.month,
+        year: this.state.startDate.year
       }
 
       for (let domain in data) {
@@ -160,19 +149,17 @@ class LineGraph extends React.Component {
       max = Math.max(...totalDomainCount);
       min = Math.min(...totalDomainCount);
 
-      this.setState({ startDate, endDate, max, min });
+      this.setState({ endDate, max, min });
     // }
 
   }
 
   addMissingDates(domain) {
-   console.log('DOMAIN IN addMissingDates: ', domain);
 
    let includedDates;
 
     for (let domainData in domain) {
       includedDates = domain[domainData].map((countDate) => {
-        console.log('COUNT DATE INSIDE addMissingDates: ', countDate);
         return countDate.date.slice(0, 10);
       })
     }
@@ -252,15 +239,12 @@ class LineGraph extends React.Component {
       <div className='lineGraph'>
         <div className='date-options'>
           <DateOptions
-            handleStartDayChange={this.handleStartDayChange.bind(this)}
-            handleEndDayChange={this.handleEndDayChange.bind(this)}
-            handleMonthChange={this.handleMonthChange.bind(this)}
-            handleYearChange={this.handleYearChange.bind(this)}
+            handleStartDateChange={this.handleStartDateChange.bind(this)}
+            handleDaysAgoChange={this.handleDaysAgoChange.bind(this)}
 
-            startDayValue={this.state.startDay}
-            endDayValue={this.state.endDay}
-            monthValue={this.state.month}
-            yearValue={this.state.year}
+            startDateTest={this.state.startDateTest}
+            daysAgoValue={this.state.daysAgo}
+     
             handleSubmit={this.handleSubmit.bind(this)}
           />
         </div>

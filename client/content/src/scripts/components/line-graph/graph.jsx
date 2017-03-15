@@ -20,8 +20,7 @@ class Graph extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    console.log('next props in graph: ', nextProps.startDate, nextProps.endDate);
-    if (nextProps.selectedDomains) {
+    if (JSON.stringify(nextProps.selectedDomains) !== JSON.stringify(this.props.selectedDomains)) {
 
       console.log('selectedDomains', nextProps.selectedDomains)
 

@@ -18,15 +18,15 @@ const readHistoryByDate = (chromeID, dateRange) => {
 
   // if (dateRange === 'week') {
   //   dates = new DateRange().createDateArray();
-  // } else {
-    let startDay = dateRange.startDay;
-    let endDay = startDay - dateRange.endDay;
-    let year = dateRange.year;
-    let month = dateRange.month;
+// } else {
+  let startDay = dateRange.startDate.day;
+  let endDay = startDay - dateRange.daysAgo;
+  let year = dateRange.startDate.year;
+  let month = dateRange.startDate.month;
 
-    console.log('startDate', startDay, 'endDate', endDay, 'year', year, 'month', month);
+  console.log('startDate', startDay, 'endDate', endDay, 'year', year, 'month', month);
 
-    dates = new DateRange(startDay, month, year, endDay).createDateArray();
+  dates = new DateRange(startDay, month, year, endDay).createDateArray();
   // }
 
   console.log('dateRange', dates);

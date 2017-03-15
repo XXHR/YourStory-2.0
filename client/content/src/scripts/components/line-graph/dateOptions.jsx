@@ -23,10 +23,10 @@ class DateOptions extends React.Component {
     return (
       <div>
        
-          Start Day: <input type='number' value={this.props.startDayValue} name='startDay' onChange={this.props.handleStartDayChange} />
-          End Day: <input type='number' value={this.props.endDayValue} name='EndDay' onChange={this.props.handleEndDayChange} />
-          Month: <input type='number' value={this.props.monthValue} name='Month' onChange={this.props.handleMonthChange} />
-          Year: <input type='number' value={this.props.yearValue} name='Year' onChange={this.props.handleYearChange} />
+          <input type='date' value={this.props.startDate} onChange={this.props.handleStartDateChange}/>
+
+          How many days ago would you like to see your browsing acitivty? <input type='number' value={this.props.daysAgo} onChange={this.props.handleDaysAgoChange} />
+
           <button onClick={this.props.handleSubmit}> Sumbit </button>
       
       </div>

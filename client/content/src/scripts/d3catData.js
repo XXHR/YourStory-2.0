@@ -5,19 +5,31 @@ import catParser from './categoriesList';
 const d3Chart = {};
 
 d3Chart.create = function (el, props) {
+  const reduceData = props.reduce((accum, value) => {
+    return accum + value.totalCount;
+  }, 0)
+  console.log("reduced data: ", reduceData)
+
   const datasetCreator = ((data) => {
-    return data.map((item) => {
-      return { label: catParser[item.category],
-        count: item.totalCount,
-        domains: item.domains };
+    const updatedData = [];
+    data.map((item) => {
+      console.log("item: ", item, "percent: ", (item.totalCount / reduceData) * 100);
+      if (((item.totalCount / reduceData) * 100) > 1) {
+        updatedData.push({ label: catParser[item.category],
+                 count: item.totalCount,
+                 domains: item.domains,
+               });
+      }
     });
+    return updatedData;
   });
   const dataset = datasetCreator(props);
+  console.log("dataset -- ", dataset);
 
-  const width = 320;
+  const width = 450;
   const height = 320;
   const radius = Math.min(width, height) / 2;
-  const donutWidth = 45;
+  const donutWidth = 60;
   const colorArray = [
     'rgb(84, 135, 182)',
     'rgb(98, 140, 184)',
@@ -26,7 +38,7 @@ d3Chart.create = function (el, props) {
     'rgb(227, 182, 199)',
     'rgb(241, 187, 201)',
     'rgb(255, 192, 203)'];
-  const color = d3.scaleOrdinal(colorArray);
+  const color = d3.scaleOrdinal(d3.schemeCategory20b);
 
   const svg = d3.select(el)
     .append('svg')
@@ -34,7 +46,7 @@ d3Chart.create = function (el, props) {
       .attr('height', height)
       .attr('id', 'catDataSVG')
     .append('g')
-      .attr('transform', 'translate(' + (width / 2) +
+      .attr('transform', 'translate(' + (width / 2.75) +
         ',' + (height / 2 ) + ')');
 
   // create radius function
@@ -71,6 +83,33 @@ d3Chart.create = function (el, props) {
       return color(d.data.label);
     }));
 
+  const legendRectSize = 10;
+  const legendSpacing = 5;
+
+  const legend = svg.selectAll('.legend')
+    .data(color.domain())
+    .enter()
+    .append('g')
+    .attr('class', 'legend')
+    .attr('transform', (d, i) => {
+      const height = legendRectSize + legendSpacing;
+      const offset =  height * color.domain().length / 2;
+      const horz = 18 * legendRectSize;
+      const vert = i * height - offset;
+      return 'translate(' + horz + ',' + vert + ')';
+    });
+
+  legend.append('rect')
+    .attr('width', legendRectSize)
+    .attr('height', legendRectSize)
+    .style('fill', color)
+    .style('stroke', color);
+
+  legend.append('text')
+    .attr('x', legendRectSize + legendSpacing)
+    .attr('y', legendRectSize - legendSpacing + 3)
+    .text(d => d);
+
   path.transition()
     .duration(2000)
     .attrTween('d', function(d) {
@@ -87,60 +126,64 @@ d3Chart.create = function (el, props) {
     const percent = Math.round(1000 * d.data.count / total) / 10;
     svg.select('.domain')
     .text(d.data.label + ': ' + percent + '%');
-    // .text(d.data.label + ': ' + percent + '%');
+
+    tooltipD3.select('.label').html(d.data.label);
+    tooltipD3.select('.count').html(d.data.count);
+    tooltipD3.select('.percent').html(percent + '%');
+    tooltipD3.style('display', 'block');
   }));
 
   path.on('mouseout', (() => {                              
-    svg.selectAll('text').text("");
+    tooltipD3.style('display', 'none');
   }));
 
-  path.on('click', d => {
+  // path.on('click', d => {
 
-    if(!d.data.domains){ 
-      // console.log('Path.onClick: It should have been redirected'); return 
-    };
+  //   if(!d.data.domains){ 
+  //     // console.log('Path.onClick: It should have been redirected'); return 
+  //   };
 
 
-    let temp = svg.selectAll('path')
-    .data(pie(d.data.domains))
+  //   let temp = svg.selectAll('path')
+  //   .data(pie(d.data.domains))
 
-    temp
-      .attr('d', arc)
-      .attr('fill', ((d, i) => {
-        return color(d.data.label);
-      }))
-      .transition()
-      .duration(2000)
-      .attrTween('d', function(d) {
-        var interpolate = d3.interpolate({startAngle: 0, endAngle: 0}, d);
-        return function(t) {
-          return arc(interpolate(t));
-        };
-      });
+  //   temp
+  //     .attr('d', arc)
+  //     .attr('fill', ((d, i) => {
+  //       return color(d.data.label);
+  //     }))
+  //     .transition()
+  //     .duration(2000)
+  //     .attrTween('d', function(d) {
+  //       var interpolate = d3.interpolate({startAngle: 0, endAngle: 0}, d);
+  //       return function(t) {
+  //         return arc(interpolate(t));
+  //       };
+  //     });
 
-    temp
-      .enter()
-      .append('path')
-      .attr('d', arc)
-      .attr('fill', ((d, i) => {
-        return color(d.data.label);
-      })).transition()
-      .duration(2000)
-      .attrTween('d', ((d) => {
-        const interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
-        return function(t) {
-          return arc(interpolate(t));
-        };
-      }));
-  });
+  //   temp
+  //     .enter()
+  //     .append('path')
+  //     .attr('d', arc)
+  //     .attr('fill', ((d, i) => {
+  //       return color(d.data.label);
+  //     })).transition()
+  //     .duration(2000)
+  //     .attrTween('d', ((d) => {
+  //       const interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
+  //       return function(t) {
+  //         return arc(interpolate(t));
+  //       };
+  //     }));
+  // });
 
-  let newLabel = svg.append('text')
-    .attr('text-anchor', 'middle')
-    .attr('class', 'domain')
-    .text("")
-  newLabel.on('click', (() => {
-    console.log('clicked');
-  }));
+  // let newLabel = svg.append('text')
+  //   .attr('text-anchor', 'middle')
+  //   .attr('class', 'domain')
+  //   .text("")
+  // newLabel.on('click', (() => {
+  //   console.log('clicked');
+  // }));
 };
 
 d3Chart.update = function (el, props) {

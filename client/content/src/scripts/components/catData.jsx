@@ -49,6 +49,7 @@ class Categories extends React.Component {
     return (
       <div id="catDataChart">
         <div id="refreshCatDataChart" onClick={this.handleRefreshCatDataChart.bind(this)}>refresh</div>
+        <div id="legend-div"></div>
       </div>
     );
   }

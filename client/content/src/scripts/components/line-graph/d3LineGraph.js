@@ -1,5 +1,6 @@
 //d3 Line Graph object
 import * as d3 from 'd3';
+import DateRange from '../../../../../../server/routeHandlers/helpers/createDateArray';
 
 const d3LineGraph = {
 
@@ -80,9 +81,9 @@ const d3LineGraph = {
   },
 
   renderDomainLines(data) {
-    // for every domain key in data, 
-      // pass array of date/count objects into svg.append('path')
-        // in .attr('d', domainLine) ===> domainLine being a function that maps x and y to date and count 
+
+    console.log('renderDomainLines data format: ', data);
+
     const xScale = this.xScale;
     const yScale = this.yScale;
 
@@ -98,17 +99,6 @@ const d3LineGraph = {
               return yScale(d.count);
             });
 
-    const domainDotCx = (d) => {
-      console.log('d in domainDotCx', d);
-      return xScale(d.date);
-    };
-
-    const domainDotCy = (d) => {
-      return yScale(d.count);
-    }
-
-    console.log('INSIDE renderDomainLines', data);
-
     const colors = ['#909BBD', '#DAB4C6', '#E8BFBB', '#8DB8CB', '#6B8EB9']
 
      const domainStyling = {
@@ -123,25 +113,19 @@ const d3LineGraph = {
       for (let domainName in domain) {
         console.log('domain name', domain[domainName]);
 
-        // if domain has more than one data point, render path
-        // if (domain[domainName].length >= 2) {
-    
-        // } else {
-          // if domain only has one data point, render circle
         this.g.append('path')
           .attr('class', 'domain-line')
           .style("stroke", domainStyling[index.toString()].color)
           .attr('d', domainLine(domain[domainName]));
-          
-          this.g.selectAll('domainDots')
-            .data(domain[domainName])
-              .enter().append('circle')
-                .attr('class', 'domain-circle')
-                .attr('r', 5)
-                .attr('cx', (d) => { return xScale(new Date(d.date)); })
-                .attr('cy', (d) => { return yScale(d.count); })
-                .style('fill', domainStyling[index.toString()].color)
-        // }
+
+        this.g.selectAll('domainDots')
+          .data(domain[domainName])
+            .enter().append('circle')
+              .attr('class', 'domain-circle')
+              .attr('r', 5)
+              .attr('cx', (d) => { return xScale(new Date(d.date)); })
+              .attr('cy', (d) => { return yScale(d.count); })
+              .style('fill', domainStyling[index.toString()].color)
       }
     });
 

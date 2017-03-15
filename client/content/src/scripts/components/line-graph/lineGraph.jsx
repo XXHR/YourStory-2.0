@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import DateOptions from './dateOptions';
 import DomainList from './domainList';
 import Graph from './graph';
-
+import moment from 'moment';
+import DateRange from '../../../../../../server/routeHandlers/helpers/createDateArray';
 
 
 const getHistoryByDate = (dates) => {
@@ -119,24 +120,7 @@ class LineGraph extends React.Component {
 
     let max = 0;
     let min = 0;
-    let totalDomainCount = [];
-
-    // if (data !== 'no history by date data yet') {
-      // for (let domain in data) {
-      //   startDate.month = Number(data[domain][0].date.slice(5, 7));
-      //   startDate.day = Number(data[domain][0].date.slice(8, 10));
-      //   startDate.year = Number(data[domain][0].date.slice(0, 4));
-        
-      //   endDate.month = Number(data[domain][data[domain].length - 1].date.slice(5, 7));
-      //   endDate.day = Number(data[domain][data[domain].length - 1].date.slice(8, 10));
-      //   endDate.year = Number(data[domain][data[domain].length - 1].date.slice(0, 4));
-
-      //   // startDate = data[domain][0].date;
-      //   // endDate = data[domain][data[domain].length - 1].date;
-      //   console.log('startDate from Line Graph: ', startDate, 'endDate from line graph: ', endDate);
-
-      //   break;
-      // }
+    let totalDomainCount = []
 
       const startDate = {
         day: this.state.startDay,
@@ -165,7 +149,54 @@ class LineGraph extends React.Component {
 
   }
 
+  addMissingDates(domain) {
+   console.log('DOMAIN IN addMissingDates: ', domain);
+
+   let includedDates;
+
+    for (let domainData in domain) {
+      includedDates = domain[domainData].map((countDate) => {
+        console.log('COUNT DATE INSIDE addMissingDates: ', countDate);
+        return countDate.date.slice(0, 10);
+      })
+    }
+
+    const dateArray = new DateRange(this.state.startDate.day, this.state.startDate.month, this.state.startDate.year, this.state.endDate.day).createDateArray();
+
+    const missingDates = dateArray.filter((date) => {
+      return !includedDates.includes(date);
+    });
+
+    const countZeroObjs = missingDates.map((date) => {
+      return { count: 0, date };
+    });
+
+    for (let domainData in domain) {
+      domain[domainData].push(countZeroObjs);
+      
+      domain[domainData] = domain[domainData].reduce((a, b) => {
+        return a.concat(b);
+      }, []).map((countDateObj) => {
+        if (countDateObj.date.length > 11) {
+          return { count: countDateObj.count, date: countDateObj.date.slice(0, 10) };
+        } else {
+          return countDateObj;
+        }
+      });
+
+      domain[domainData].sort((a, b) => {
+        return new Date(a.date) - new Date(b.date);
+      })
+
+    }
+
+
+    return domain;
+
+  }
+
   makeDataForDomainLines() {
+
     // for any domain chosen from any dropdown menu, find associated data in historyByDate
     // push domain's object value into this.state.selectedDomains array
     let selectedDomains = [];
@@ -174,7 +205,13 @@ class LineGraph extends React.Component {
       if (domain === this.state.selectedDomain1 || domain === this.state.selectedDomain2 || domain === this.state.selectedDomain3) {
         let domainObj = {};
         domainObj[domain] = this.props.historyByDate[domain];
-        selectedDomains.push(domainObj);
+
+        // add {count: 0, date: (date that's not included)}
+        // iterate through array
+          // 
+
+
+        selectedDomains.push(this.addMissingDates(domainObj));
       }
     }
 

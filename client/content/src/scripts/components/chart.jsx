@@ -23,8 +23,26 @@ class Chart extends React.Component {
       width: '100%',
       height: '300px',
     });
-    // console.log("el: ", el);
-    // if()
+    if (this.props.history !== null) {
+      const domainNames = Object.keys(this.props.history);
+      const historyDataFunc = () => {
+        const historyData = [];
+
+        domainNames.map((domain) => {
+          return historyData.push({
+            domain,
+            visits: this.props.history[domain],
+          });
+        });
+        return historyData;
+      };
+      const allHistory = historyDataFunc();
+      // console.log('Chart componentWillReceiveProps props: ', allHistory);
+      
+      const el = ReactDom.findDOMNode(this);
+      d3Chart.destroy(el);
+      d3Chart.update(el, allHistory.slice(0, 50));
+    }
   }
 
   shouldComponentUpdate(nextProps) {

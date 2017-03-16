@@ -41,10 +41,10 @@ class LineGraph extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-      console.log('START DATE PROPS', this.state.startDate, 'DAYS AGO PROPS: ', this.state.daysAgo);
-    // change to comparing objects (deep equality)
-    // look into alternate deep equality method 
+    console.log('LINE GRAPH PREVPROPS: ', prevProps, 'LINE GRAPH PREVSTATE: ', prevState);
+
     if (JSON.stringify(prevProps.historyByDate) !== JSON.stringify(this.props.historyByDate)) {
+      console.log('new data coming in line graph')
       this.makeDomainList();
       this.makeDataForXYAxis();
     }
@@ -126,7 +126,8 @@ class LineGraph extends React.Component {
 
     let max = 0;
     let min = 0;
-    let totalDomainCount = []
+    let totalDomainCount = [];
+
 
       // calculate month based on startDate day and month
       const endDate = {
@@ -150,7 +151,6 @@ class LineGraph extends React.Component {
   }
 
   addMissingDates(domain) {
-    console.log('INSIDE addMissingDates');
 
    let includedDates;
 

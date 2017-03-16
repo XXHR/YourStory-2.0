@@ -22,8 +22,6 @@ class Graph extends React.Component {
   shouldComponentUpdate(nextProps) {
     if (JSON.stringify(nextProps.selectedDomains) !== JSON.stringify(this.props.selectedDomains)) {
 
-      console.log('selectedDomains', nextProps.selectedDomains)
-
       d3LineGraph.update(nextProps);
 
       return true;

@@ -49,8 +49,6 @@ const d3LineGraph = {
     const minDate = new Date(endDate.year, endDate.month - 1, endDate.day);
     const maxDate = new Date(startDate.year, startDate.month - 1, startDate.day);
 
-    console.log('minDate: ', minDate, 'maxDate: ', maxDate);
-
     this.xScale = d3.scaleTime()
       .domain([minDate, maxDate])
       .range([0, properties.width]);

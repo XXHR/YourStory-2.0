@@ -16,11 +16,10 @@ export function finalGetTimeHistoryLastFetched(time) {
 }
 
 export function postHistory(originalAction) {
-  console.log('fetched elapsed time --- ', (Date.now() - originalAction.time));
   return function (dispatch) {
     chrome.history.search({
-      'text': '', // Return every history item....
-      'startTime': (originalAction.time), // need to subtract now from timeHistoryLastFetched 
+      'text': '',
+      'startTime': originalAction.time,
     }, (chromeHistoryArray) => {
       console.log("chromeHistoryArray should be same: ", chromeHistoryArray);
       axios({

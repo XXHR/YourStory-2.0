@@ -32,10 +32,14 @@ class Graph extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    d3LineGraph.destroy();
+  }
+
 
   render() {
     return (
-      <div className='graph'>
+      <div className='graph' id='graph'>
         
     
       </div>

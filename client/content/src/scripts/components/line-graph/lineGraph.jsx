@@ -31,10 +31,9 @@ class LineGraph extends React.Component {
       selectedDomain2: '',
       selectedDomain3: '',
       selectedDomains: null,
-      // selectValue1: '',
-      // selectValue2: '',
-      // selectValue3: '',
     };
+
+    this.baseState = this.state;
   }
 
   componentWillMount() {
@@ -48,7 +47,7 @@ class LineGraph extends React.Component {
     if (JSON.stringify(prevProps.historyByDate) !== JSON.stringify(this.props.historyByDate)) {
       this.makeDomainList();
       this.makeDataForXYAxis();
-    } 
+    }
 
     // if (prevState.selectedDomain1 !== this.state.selectedDomain1 || prevState.selectedDomain2 !== this.state.selectedDomain2 || prevState.selectedDomain3 !== this.state.selectedDomain3) {
     //   console.log('domain selected from dropdown');
@@ -74,7 +73,6 @@ class LineGraph extends React.Component {
 
   handleStartDateChange(e) {
     e.preventDefault();
-    console.log('START DAY TEST VALUE FORMAT: ', e.target.value)
 
     const date = e.target.value;
 
@@ -94,8 +92,6 @@ class LineGraph extends React.Component {
 
   handleSubmit(e) {
 
-    console.log('inside handleSubmit');
-
     this.props.dispatch(getHistoryByDate(this.state));
 
   }
@@ -105,7 +101,6 @@ class LineGraph extends React.Component {
     let domainSelectId = e.target.id;
     
     if (domainSelectId === '1') {
-      console.log('first select used');
       // this.setState({ selectValue1: e.target.value })
       this.setState({ selectedDomain1: e.target.value });
     } else if (domainSelectId === '2') {
@@ -155,6 +150,7 @@ class LineGraph extends React.Component {
   }
 
   addMissingDates(domain) {
+    console.log('INSIDE addMissingDates');
 
    let includedDates;
 
@@ -217,6 +213,36 @@ class LineGraph extends React.Component {
 
   }
 
+  renderDomainLists() {
+    if (this.state.domains.length > 0) {
+
+    return <div className='graph-options'>
+            <p> Pick up to 3 sites to view on the graph! </p>
+            <DomainList
+              id={1}
+              domains={this.state.domains}
+              handleChange={this.handleDomainListChange.bind(this)}
+              selectValue={this.state.selectedDomain1}
+            />
+            <DomainList
+              id={2}
+              domains={this.state.domains}
+              handleChange={this.handleDomainListChange.bind(this)}
+              selectValue={this.state.selectedDomain2}
+            />
+            <DomainList
+              id={3}
+              domains={this.state.domains}
+              handleChange={this.handleDomainListChange.bind(this)}
+              selectValue={this.state.selectedDomain3}
+            />
+          </div>
+
+      } else {
+        return <div></div>
+      }
+  }
+
   renderGraph() {
     if (this.state.startDate && this.state.endDate && this.state.max && this.state.min) {
 
@@ -232,6 +258,9 @@ class LineGraph extends React.Component {
     }
   }
 
+  refresh() {
+    this.setState(this.baseState);
+  }
 
   render() {
     // const domainListData = [this.state.domains, this.state.domains, this.state.domains];
@@ -249,30 +278,14 @@ class LineGraph extends React.Component {
           />
         </div>
 
-        <div className='graph-options'>
-          <DomainList
-            id={1}
-            domains={this.state.domains}
-            handleChange={this.handleDomainListChange.bind(this)}
-            selectValue={this.state.selectedDomain1}
-          />
-          <DomainList
-            id={2}
-            domains={this.state.domains}
-            handleChange={this.handleDomainListChange.bind(this)}
-            selectValue={this.state.selectedDomain2}
-          />
-          <DomainList
-            id={3}
-            domains={this.state.domains}
-            handleChange={this.handleDomainListChange.bind(this)}
-            selectValue={this.state.selectedDomain3}
-          />
+        <div className='refresh'>
+          <button onClick={this.refresh.bind(this)}> Start Over! </button>
         </div>
 
-        {this.renderGraph()}
+        {this.renderDomainLists()}
 
-        
+        {this.renderGraph()}
+  
       </div>
     );
   }

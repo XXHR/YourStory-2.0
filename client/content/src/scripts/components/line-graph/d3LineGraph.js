@@ -137,8 +137,9 @@ const d3LineGraph = {
 
   },
 
-  destroy(el) {
-
+  destroy() {
+    this.domainCount = [2, 1, 0];
+    this.svg.remove();
   },
 
 }

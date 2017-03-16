@@ -33,9 +33,8 @@ const d3LineGraph = {
 
   update(state) {
 
-    this.renderDomainLines(state.selectedDomains)
+    this.renderDomainLines(state.selectedDomains);
   },
-
 
 
   renderAxis(el, properties, data) {

@@ -16,7 +16,7 @@ const getHistoryByDate = (dates) => {
   return data;
 };
 
-class LineGraph extends React.Component {
+class LineGraphParent extends React.Component {
   constructor(props) {
     super(props);
 
@@ -297,4 +297,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(LineGraph);
+export default connect(mapStateToProps)(LineGraphParent);

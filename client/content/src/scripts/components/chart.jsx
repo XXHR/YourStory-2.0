@@ -5,16 +5,17 @@ import { connect } from 'react-redux';
 
 import d3Chart from '../d3Chart';
 
-const postHistoryFromBackground = () => {
+const postHistoryFromBackground = (time) => {
   const data = {
     type: 'post-history',
+    time,
   };
   return data;
 };
 
 class Chart extends React.Component {
   componentWillMount() {
-    this.props.dispatch(postHistoryFromBackground());
+    this.props.dispatch(postHistoryFromBackground(this.props.timeHistoryLastFetched));
   }
 
   componentDidMount() {
@@ -23,7 +24,8 @@ class Chart extends React.Component {
       width: '100%',
       height: '300px',
     });
-    if (this.props.history !== null) {
+
+    if (this.props.history !== null) {      
       const domainNames = Object.keys(this.props.history);
       const historyDataFunc = () => {
         const historyData = [];
@@ -46,12 +48,16 @@ class Chart extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    console.log("props string", JSON.stringify(this.props.history));
-    console.log("nextProps string", JSON.stringify(nextProps.history));
-    console.log(JSON.stringify(this.props.history) === JSON.stringify(nextProps.history))
+    // console.log("props string", JSON.stringify(this.props.history));
+    // console.log("nextProps string", JSON.stringify(nextProps.history));
+    console.log("Chart props - ", this.props, nextProps);
+    console.log("new Date).getTime()", (new Date).getTime());
+    console.log("do props equal eachother in shouldComponentUpdate?", JSON.stringify(this.props.history) === JSON.stringify(nextProps.history))
 
     if (JSON.stringify(this.props.history) !== JSON.stringify(nextProps.history)) { //need to fix this line
-      console.log("Chart componentWillReceiveProps nextProps: ", nextProps.history);
+      // console.log("Chart componentWillReceiveProps nextProps: ", nextProps.history);
+      console.log("this.props", this.props.history);
+      console.log("nextProps", nextProps.history);
       const domainNames = Object.keys(nextProps.history);
       const historyDataFunc = () => {
         const historyData = [];
@@ -88,9 +94,10 @@ class Chart extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state) => {  
   return {
     history: state.history,
+    timeHistoryLastFetched: state.timeHistoryLastFetched,
   };
 };
 

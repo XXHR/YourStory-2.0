@@ -1,7 +1,7 @@
 import getChromeID from './actions/getChromeID';
 import getTimeHistoryLastFetched from './actions/getTimeHistoryLastFetched';
 import getHistoryByDate from './actions/getHistoryByDate';
-import postHistory from './actions/postHistory';
+import { postHistory } from './actions/postHistory';
 import getCatData from './actions/getCatData';
 
 export default {

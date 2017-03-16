@@ -1,7 +1,7 @@
-const tenMinutes = 1000 * 60 * 60 * 72;
-const tenMinutesAgo = (new Date).getTime() - tenMinutes;
+// const tenMinutes = 1000 * 60 * 60 * 72;
+// const tenMinutesAgo = (new Date).getTime() - tenMinutes;
 
-const initialState = tenMinutesAgo;
+const initialState = Date.now();
 
 export default (state = initialState, action) => {
   switch (action.type) {

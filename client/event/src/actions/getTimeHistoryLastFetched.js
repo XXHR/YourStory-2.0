@@ -12,7 +12,7 @@ const finalGetTimeHistoryLastFetched = (time) => {
 export default function getTimeHistoryLastFetched() {
   return function (dispatch) {
     const time = (new Date).getTime();
-    // console.log("time: ", time);
+    console.log("time: ", time);
     dispatch(finalGetTimeHistoryLastFetched(time));
   };
 };

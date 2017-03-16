@@ -29,7 +29,7 @@ export default function getChromeID() {
       x.open('GET', 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + token);
       x.onload = function () {
         const userInfo = JSON.parse(x.response);
-        console.log('User info from chrome: ', userInfo);
+        // console.log('User info from chrome: ', userInfo);
         axios({
           method: 'post',
           url: `https://${HostPort}/api/users`,
@@ -50,15 +50,15 @@ export default function getChromeID() {
           'text': '', // Return every history item....
           'startTime': oneWeekAgo.setDate(oneWeekAgo.getDate() - 7), // need to subtract now from timeHistoryLastFetched 
           }, (chromeHistoryArray) => {
-            console.log('CHROME HISTORY', chromeHistoryArray);
+            // console.log('CHROME HISTORY', chromeHistoryArray);
             axios({
               method: 'post',
               url: `https://${HostPort}/api/history`,
               data: { history: chromeHistoryArray },
             }).then((response) => {
               // dispatch(getHistoryByDate());
-              dispatch(finalHistory(response.data));
-              dispatch(getCatData());
+              // dispatch(finalHistory(response.data));
+              // dispatch(getCatData());
             });
           });
         })

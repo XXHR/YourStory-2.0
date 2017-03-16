@@ -40,7 +40,7 @@ const getChromeIDFromBackground = () => {
 
 class App extends React.Component {
   componentWillMount() {
-    console.log('chrome id props', this.props.chromeID)
+    // console.log('chrome id props', this.props.chromeID)
         //if chrome)ID does not exsists, dispatch getChromeID    
     if (this.props.chromeID === 'no chromeID') {
       this.props.dispatch(getChromeIDFromBackground());
@@ -48,8 +48,8 @@ class App extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    console.log("App componentWillReceiveProps this.props.chromeID: ", this.props.chromeID); 
-    console.log("App componentWillReceiveProps nextProps: ", nextProps.chromeID);    
+    // console.log("App componentWillReceiveProps this.props.chromeID: ", this.props.chromeID); 
+    // console.log("App componentWillReceiveProps nextProps: ", nextProps.chromeID);    
 
     //if chromeID changes,re-render
     if (this.props.chromeID !== nextProps.chromeID) {

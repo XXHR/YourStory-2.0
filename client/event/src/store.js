@@ -5,10 +5,11 @@ import { alias, wrapStore } from 'react-chrome-redux';
 import rootReducer from './reducers/index';
 import aliases from './aliases';
 
+
 chrome.storage.local.get([
   'state',
 ], ({ initialState }) => {
-  console.log('INITIAL STATE FROM CHROME', { initialState });
+  // console.log('INITIAL STATE FROM CHROME', { initialState });
 
   const middleware = [alias(aliases), ReduxThunk];
 
@@ -20,7 +21,7 @@ chrome.storage.local.get([
   });
 
   const saveState = () => {
-    console.info('Saving state to chrome.storage.local');
+    // console.info('Saving state to chrome.storage.local');
 
     const state = store.getState();
 
@@ -29,7 +30,7 @@ chrome.storage.local.get([
     });
 
     chrome.storage.local.get(['state'], ({ state }) => {
-      console.log('STATE AFTER STORING', state);
+      // console.log('STATE AFTER STORING', state);
     })
   };
 
@@ -38,4 +39,3 @@ chrome.storage.local.get([
 
   store.subscribe(throttledSave);
 });
-// export default store;

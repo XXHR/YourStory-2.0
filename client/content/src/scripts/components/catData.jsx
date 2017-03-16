@@ -22,7 +22,7 @@ class Categories extends React.Component {
     // console.log("componentDidMount -- this.props.catData:", this.props.catData);
     if (this.props.catData !== 'no catData') {
       const el = ReactDom.findDOMNode(this);
-      console.log("el from componentDidMount: ", el);
+      // console.log("el from componentDidMount: ", el);
       d3catData.create(el, this.props.catData);
     }
   }

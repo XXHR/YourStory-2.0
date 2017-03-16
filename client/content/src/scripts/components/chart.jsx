@@ -24,13 +24,16 @@ class Chart extends React.Component {
       height: '300px',
     });
     // console.log("el: ", el);
+    // if()
   }
 
   shouldComponentUpdate(nextProps) {
-    // console.log("Chart componentWillReceiveProps nextProps: ", nextProps);
-    // console.log("this.props.history", this.props.history);
+    console.log("props string", JSON.stringify(this.props.history));
+    console.log("nextProps string", JSON.stringify(nextProps.history));
+    console.log(JSON.stringify(this.props.history) === JSON.stringify(nextProps.history))
 
-    if (this.props.history !== nextProps.history) { //need to fix this line
+    if (JSON.stringify(this.props.history) !== JSON.stringify(nextProps.history)) { //need to fix this line
+      console.log("Chart componentWillReceiveProps nextProps: ", nextProps.history);
       const domainNames = Object.keys(nextProps.history);
       const historyDataFunc = () => {
         const historyData = [];

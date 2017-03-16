@@ -136,7 +136,7 @@ d3Chart.create = function (el, props) {
   }));
 
   path.on('click', d => {
-    console.log("d", d.data.label);
+    // console.log("d", d.data.label);
     const newDomainData = [];
     const noDuplicatesObj = {};
     const color = d3.scaleOrdinal(d3.schemeCategory20b);
@@ -160,8 +160,8 @@ d3Chart.create = function (el, props) {
     svg.selectAll('path').remove();
     d3.select('#catDataChart').selectAll('svg').remove();
     d3.select('.tooltipD3').remove();
-    const ele = d3.select('#catDataChart');
     d3.selectAll('text').remove();
+    const ele = d3.select('#catDataChart');    
     d3.select('#catDataChart')
       .append('text')
       .text('Category: ' + d.data.label);

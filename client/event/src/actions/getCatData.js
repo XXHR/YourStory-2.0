@@ -26,7 +26,7 @@ export default function getCatData() {
   return function (dispatch) {    
     axios({
       method: 'get',
-      url: `https://${HostPort}/api/catData`,
+      url: `${HostPort}/api/catData`,
     }).then((response) => {
       // console.log("response: ", response.data);
       dispatch(finalGetCatData(response.data));

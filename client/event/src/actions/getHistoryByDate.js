@@ -17,10 +17,10 @@ export default function getHistoryByDate(dates, chromeID) {
     // console.log('dates from line graph action', dates);
     axios({
       method: 'post',
-      url: `https://${HostPort}/api/historyByDate`,
+      url: `${HostPort}/api/historyByDate`,
       data: { dateRange: dates }
     }).then((response) => {
-      // console.log("response history: ", response.data);
+      console.log("response history: ", response.data);
       dispatch(finalGetHistoryByDate(response.data));
     });
   };

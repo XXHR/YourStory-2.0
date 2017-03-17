@@ -13,20 +13,34 @@ class DateOptions extends React.Component {
 
   constructor(props) {
     super(props);
+
   }
 
-  // componentDidUpdate() {
-  //   console.log('Date Options state', this.state);
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+
+    // if (nextProps.startDate !== this.props.startDate) {
+
+    //   console.log('start date different date options');
+
+    //   this.setState({ startDate: nextProps.startDate, daysAgo: nextProps.daysAgo })
+    //   return true;
+    // }
+
+    if (nextProps.daysAgo !== this.props.daysAgo && nextProps.startDate !== this.props.startDate) {
+      return true;
+    } else {
+      return true;
+    }
+
+  }
 
   render() {
     return (
-      <div>
-       
-          Start Day: <input type='number' value={this.props.startDayValue} name='startDay' onChange={this.props.handleStartDayChange} />
-          End Day: <input type='number' value={this.props.endDayValue} name='EndDay' onChange={this.props.handleEndDayChange} />
-          Month: <input type='number' value={this.props.monthValue} name='Month' onChange={this.props.handleMonthChange} />
-          Year: <input type='number' value={this.props.yearValue} name='Year' onChange={this.props.handleYearChange} />
+      <div id='date-options'>
+          <input type='date' value={this.props.startDate} onChange={this.props.handleStartDateChange}/>
+
+          How many days ago would you like to see your browsing acitivty? <input type='number' value={this.props.daysAgo} onChange={this.props.handleDaysAgoChange} />
+
           <button onClick={this.props.handleSubmit}> Sumbit </button>
       
       </div>

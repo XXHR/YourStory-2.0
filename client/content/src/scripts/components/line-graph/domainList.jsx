@@ -8,8 +8,6 @@ class DomainList extends React.Component {
   shouldComponentUpdate(nextProps) {
     // console.log('domain list next props', nextProps);
     if (JSON.stringify(this.props.domains) !== JSON.stringify(nextProps.domains)) {
-
-      console.log('data has been passed to domainList');
       return true;
     } else {
       return true;

@@ -66,6 +66,32 @@ rect {
   z-index: 10;
 }
 
+.bar-graph-tooltipD3 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #eee;
+  color: #333;
+  display: none;
+  font-size: 11px;
+  /*left: 115px;*/
+  padding: 7px;
+  /*position: absolute;*/
+  text-align: left;
+  /*top: 155px;*/
+  width: 150px;
+  /*z-index: 10;*/
+}
+
+.bar-domain-name {
+
+}
+
+.bar-visits {
+
+}
+.bar-graph-fill:hover {
+  fill: red;
+}
+
 .graph-row {
   width: 15%;
   float: right;

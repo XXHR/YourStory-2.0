@@ -2,9 +2,9 @@
 import * as d3 from 'd3';
 import catParser from './categoriesList';
 
-const d3Chart = {};
+const d3PieChart = {};
 
-d3Chart.create = function (el, props) {
+d3PieChart.create = function (el, props) {
   const reduceData = props.reduce((accum, value) => {
     return accum + value.totalCount;
   }, 0);
@@ -136,7 +136,7 @@ d3Chart.create = function (el, props) {
   }));
 
   path.on('click', d => {
-    console.log("d", d.data.label);
+    // console.log("d", d.data.label);
     const newDomainData = [];
     const noDuplicatesObj = {};
     const color = d3.scaleOrdinal(d3.schemeCategory20b);
@@ -160,122 +160,22 @@ d3Chart.create = function (el, props) {
     svg.selectAll('path').remove();
     d3.select('#catDataChart').selectAll('svg').remove();
     d3.select('.tooltipD3').remove();
-    const ele = d3.select('#catDataChart');
     d3.selectAll('text').remove();
+    const ele = d3.select('#catDataChart');    
     d3.select('#catDataChart')
       .append('text')
       .text('Category: ' + d.data.label);
-    console.log("ele", ele._groups[0][0]);
-    d3Chart.create(ele._groups[0][0], ['secondset', newDomainData]);
-    // this.createDomainPie(d, svg, pie, arc, tooltipD3);
+    // console.log("ele", ele._groups[0][0]);
+    d3PieChart.create(ele._groups[0][0], ['secondset', newDomainData]);
   });
 };
 
-// d3Chart.createDomainPie = function (d, svg, pie, arc, tooltipD3) {
-//   const newDomainData = [];
-//   const noDuplicatesObj = {};
-//   const color = d3.scaleOrdinal(d3.schemeCategory20b);
-
-//   d.data.domains.map((domainObj) => {
-//     if (!noDuplicatesObj[domainObj.label]) {
-//       noDuplicatesObj[domainObj.label] = domainObj.count;
-//     } else {
-//       noDuplicatesObj[domainObj.label] =  noDuplicatesObj[domainObj.label] + domainObj.count;
-//     }
-//   });
-
-//   for (let key in noDuplicatesObj) {
-//     newDomainData.push({
-//       label: key,
-//       count: noDuplicatesObj[key],
-//     });
-//   }
-
-//   const temp = svg.selectAll('path')
-//    .data(pie(newDomainData));
-
-//   temp
-//     .attr('d', arc)
-//     .attr('fill', ((d, i) => {
-//       return color(d.data.label);
-//     }))
-//     .transition()
-//     .duration(2000)
-//     .attrTween('d', (d) => {
-//       var interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
-//       return (t) => {
-//         return arc(interpolate(t));
-//       };
-//     });
-
-//   temp
-//     .enter()
-//     .append('path')
-//     .attr('d', arc)
-//     .attr('fill', ((d, i) => {
-//       return color(d.data.label);
-//     }))
-//     .transition()
-//     .duration(2000)
-//     .attrTween('d', ((d) => {
-//       const interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
-//       return (t) => {
-//         return arc(interpolate(t));
-//       };
-//     }));
-
-//   const legendRectSize = 10;
-//   const legendSpacing = 5;
-
-//   const legend = svg.selectAll('.legend')
-//     .data(color.domain())
-//     .enter()
-//     .append('g')
-//     .attr('class', 'legend')
-//     .attr('transform', (d, i) => {
-//       const height = legendRectSize + legendSpacing;
-//       const offset =  height * color.domain().length / 2;
-//       const horz = 18 * legendRectSize;
-//       const vert = i * height - offset;
-//       return 'translate(' + horz + ',' + vert + ')';
-//     });
-
-//   legend.append('rect')
-//     .attr('width', legendRectSize)
-//     .attr('height', legendRectSize)
-//     .style('fill', color)
-//     .style('stroke', color);
-
-//   legend.append('text')
-//     .attr('x', legendRectSize + legendSpacing)
-//     .attr('y', legendRectSize - legendSpacing + 3)
-//     .text(d => d);
-
-//   temp.on('mouseover', (() => {
-//     console.log("mouseover");
-//     const total = d3.sum(newDomainData.map((d) => {
-//       return d.count;
-//     }));
-//     const percent = Math.round(1000 * d.data.count / total) / 10;
-//     svg.select('.domain');
-//     tooltipD3.select('.label').html(d.data.label);
-//     tooltipD3.select('.count').html(d.data.count);
-//     tooltipD3.select('.percent').html(percent + '%');
-//     tooltipD3.style('display', 'block');
-//   }));
-
-//   temp.on('mouseout', (() => {
-//     console.log("mouseout");
-//     tooltipD3.style('display', 'none');
-//   }));
-// };
-
-d3Chart.update = function (el, props) {
+d3PieChart.update = function (el, props) {
   this.destroy();
   this.create(el, props);
 };
 
-d3Chart.destroy = function () {
+d3PieChart.destroy = function () {
   const el = d3.select('#catDataSVG');
   const oldTooltips = d3.select('.tooltipD3');
   el.remove();
@@ -284,4 +184,4 @@ d3Chart.destroy = function () {
 };
 
 
-module.exports = d3Chart;
+module.exports = d3PieChart;

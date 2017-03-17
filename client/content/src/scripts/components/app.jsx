@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import History from './history';
-import Categories from './catData';
+import History from './barGraph';
+import Categories from './pieGraph';
 import LineGraph from './line-graph/lineGraph';
 import SplashLandingPage from './splashLandingpage';
 import Footer from './footer';
-import Chart from './chart';
 
 // ********************************************************
 // *************** START MOCK ACTIONS *********************
@@ -40,7 +39,7 @@ const getChromeIDFromBackground = () => {
 
 class App extends React.Component {
   componentWillMount() {
-    console.log('chrome id props', this.props.chromeID)
+    // console.log('chrome id props', this.props.chromeID)
         //if chrome)ID does not exsists, dispatch getChromeID    
     if (this.props.chromeID === 'no chromeID') {
       this.props.dispatch(getChromeIDFromBackground());
@@ -48,8 +47,8 @@ class App extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    console.log("App componentWillReceiveProps this.props.chromeID: ", this.props.chromeID); 
-    console.log("App componentWillReceiveProps nextProps: ", nextProps.chromeID);    
+    // console.log("App componentWillReceiveProps this.props.chromeID: ", this.props.chromeID); 
+    // console.log("App componentWillReceiveProps nextProps: ", nextProps.chromeID);    
 
     //if chromeID changes,re-render
     if (this.props.chromeID !== nextProps.chromeID) {
@@ -90,7 +89,7 @@ class App extends React.Component {
                 <div className="col-sm-11">
                   <h5>Most Visited Sites</h5>
                   <div className="data-parent-container">
-                  <Chart />
+                  <History />
                   </div>
                 </div>
                 <div className="col-sm-1"></div>

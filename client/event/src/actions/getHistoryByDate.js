@@ -14,13 +14,13 @@ function finalGetHistoryByDate(historyByDateData) {
 
 export default function getHistoryByDate(dates, chromeID) {
   return function (dispatch) {
-    console.log('dates from line graph action', dates);
+    // console.log('dates from line graph action', dates);
     axios({
       method: 'post',
       url: `https://${HostPort}/api/historyByDate`,
       data: { dateRange: dates }
     }).then((response) => {
-      console.log("response history: ", response.data);
+      // console.log("response history: ", response.data);
       dispatch(finalGetHistoryByDate(response.data));
     });
   };

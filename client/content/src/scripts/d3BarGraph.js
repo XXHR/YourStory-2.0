@@ -30,6 +30,7 @@ d3BarGraph.destroy = function (el) {
 
 d3BarGraph._drawPoints = function (el, data) {
   console.log('d3BarGraph._drawingPoints', el, data);
+  const color = d3.scaleOrdinal(d3.schemeCategory20b);
   const w = 500;
   const h = 100;
   const g = d3.select(el).selectAll('.rectangles');
@@ -39,7 +40,9 @@ d3BarGraph._drawPoints = function (el, data) {
      .data(data)
      .enter()
      .append('rect')
-     .attr('fill', 'teal')
+     .attr('fill', ((d, i) => {
+       return color(d.visits);
+     }))
      .attr('class', 'bar-graph-fill')
      .attr('x', (d, i) =>
       i * ((w / data.length) - spaceBetweenBars)
@@ -63,16 +66,16 @@ d3BarGraph._drawPoints = function (el, data) {
     .duration(2000)
     .delay(100)
     .attr('y', d =>
-      h - (d.visits * 4) // Height minus data value
+      h - (d.visits / 6) // Height minus data value
     )
     .attr('height', d =>
-       d.visits * 4
+       d.visits / 6
     );
 
   bars
     .on('mouseover', ((d) => {
       tooltipD3.select('.bar-domain-name').html(d.domain);
-      tooltipD3.select('.bar-visits').html(d.visits);
+      tooltipD3.select('.bar-visits').html('visits: ' + d.visits);
       tooltipD3.style('display', 'block');
     }));
 

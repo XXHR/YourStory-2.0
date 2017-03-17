@@ -89,7 +89,8 @@ rect {
 
 }
 .bar-graph-fill:hover {
-  fill: red;
+  /*fill: red;*/
+  opacity: 0.5;
 }
 
 .graph-row {

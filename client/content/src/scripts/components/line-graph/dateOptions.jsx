@@ -19,7 +19,6 @@ class DateOptions extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log('DateOptions PROPS CHANGED', nextProps, 'DateOptions CURRENT PROPS', this.props);
 
     // if (nextProps.startDate !== this.props.startDate) {
 

@@ -35,10 +35,11 @@ class LineGraphParent extends React.Component {
     console.log('line graph historyByDate state: ', this.state.historyByDate);
   }
 
+
   componentDidUpdate(prevProps, prevState) {
     console.log('LINE GRAPH CURRENT STATE: ', this.state);
 
-    if (typeof this.state.historyByDate === 'object' && Object.keys(this.state.historyByDate).length !== 0) {
+    if (JSON.stringify(prevState.historyByDate) !== JSON.stringify(this.state.historyByDate) && Object.keys(this.state.historyByDate).length !== 0) {
       console.log('new data coming in line graph to make d3')
       this.makeDomainList();
       this.makeDataForXYAxis();
@@ -61,13 +62,6 @@ class LineGraphParent extends React.Component {
 
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextState.domains.length > 0) {
-      return true;
-    } else {
-      return true;
-    }
-  }
 
 
   handleStartDateChange(e) {
@@ -230,10 +224,24 @@ class LineGraphParent extends React.Component {
 
   }
 
-  renderDomainLists() {
-    // if (this.state.domains.length > 0) {
+  renderDateOptions() {
+       return ( <div className='lineGraph'>
+            <DateOptions
+              handleStartDateChange={this.handleStartDateChange.bind(this)}
+              handleDaysAgoChange={this.handleDaysAgoChange.bind(this)}
 
-    return <div className='graph-options'>
+              startDate={this.state.startDate}
+              daysAgo={this.state.daysAgo}
+       
+              handleSubmit={this.handleSubmit.bind(this)}
+            />
+          </div>
+        )
+  }
+
+  renderDomainLists() {
+    if (this.state.domains.length > 0) {
+      return <div className='graph-options'>
             <p> Pick up to 3 sites to view on the graph! </p>
             <DomainList
               id={1}
@@ -255,13 +263,13 @@ class LineGraphParent extends React.Component {
             />
           </div>
 
-      // } else {
-      //   return <div></div>
-      // }
+      } else {
+        return <div></div>
+      }
   }
 
   renderGraph() {
-    // if (this.state.startDate && this.state.endDate && this.state.max && this.state.min) {
+    if (this.state.startDate && this.state.endDate && this.state.max && this.state.min) {
 
       return <Graph
         startDate={this.state.startDate}
@@ -270,85 +278,44 @@ class LineGraphParent extends React.Component {
         min={this.state.min}
         selectedDomains={this.state.selectedDomains}
       />
-    // }
+    }
   }
 
   refresh() {
     this.setState(this.baseState);
   }
 
+  renderRefresh() {
+    return (
+      <div className='refresh'>
+        <button onClick={this.refresh.bind(this)}> Start Over! </button>
+      </div>
+    )
+  }
+
   renderNoDataToShow() {
-    return <p> No data to show for these dates! </p>
+    if (typeof this.state.historyByDate === 'object' && Object.keys(this.state.historyByDate).length === 0) {
+      return <p> No data to show for these dates! </p>
+    }
   }
 
   render() {
     // const domainListData = [this.state.domains, this.state.domains, this.state.domains];
 
-    // 
-    if (this.state.historyByDate === '') {
-      console.log('DATA IS EMPTY STRING');
-      return (
-        <div className='lineGraph'>
-            <DateOptions
-              handleStartDateChange={this.handleStartDateChange.bind(this)}
-              handleDaysAgoChange={this.handleDaysAgoChange.bind(this)}
-
-              startDate={this.state.startDate}
-              daysAgo={this.state.daysAgo}
-       
-              handleSubmit={this.handleSubmit.bind(this)}
-            />
-          </div>
-        );
-      // if there is data to show, render 
-    } else if (Object.keys(this.state.historyByDate).length === 0) {
-      console.log('NOTHING TO RENDER NO DATA')
-      return (
+    return (
         <div>
-          <div className='lineGraph'>
-            <DateOptions
-              handleStartDateChange={this.handleStartDateChange.bind(this)}
-              handleDaysAgoChange={this.handleDaysAgoChange.bind(this)}
+          {this.renderDateOptions()}
 
-              startDate={this.state.startDate}
-              daysAgo={this.state.daysAgo}
-       
-              handleSubmit={this.handleSubmit.bind(this)}
-            />
-          </div>
-          <div className='refresh'>
-            <button onClick={this.refresh.bind(this)}> Start Over! </button>
-          </div>
-          {this.renderNoDataToShow()}
-        </div>
-      );
-      
-    } else {
-      console.log('DATA TO RENDER');
-      return (
-        <div>
-        <div className='lineGraph'>
-            <DateOptions
-              handleStartDateChange={this.handleStartDateChange.bind(this)}
-              handleDaysAgoChange={this.handleDaysAgoChange.bind(this)}
-
-              startDate={this.state.startDate}
-              daysAgo={this.state.daysAgo}
-       
-              handleSubmit={this.handleSubmit.bind(this)}
-            />
-          </div>
-          <div className='refresh'>
-            <button onClick={this.refresh.bind(this)}> Start Over! </button>
-          </div>
+          {this.renderRefresh()}
 
           {this.renderDomainLists()}
 
-          {/* {this.renderGraph()} */}
+          {this.renderGraph()}
+
+          {this.renderNoDataToShow()}
         </div>
-      );
+      )
     }
-  }
 };
 
 export default LineGraphParent;

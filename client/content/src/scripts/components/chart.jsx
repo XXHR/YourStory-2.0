@@ -1,4 +1,5 @@
 'use strict';
+
 import React from 'react';
 import ReactDom from 'react-dom';
 import { connect } from 'react-redux';
@@ -26,7 +27,6 @@ class Chart extends React.Component {
     });
 
     if (this.props.history !== null) {
-      // console.log("component did mount");
       const el = ReactDom.findDOMNode(this);
       d3Chart.destroy(el);
       d3Chart.update(el, this.props.history);
@@ -34,11 +34,7 @@ class Chart extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    // console.log("Chart props - ", this.props, nextProps);
-    // console.log("do props equal eachother in shouldComponentUpdate?", JSON.stringify(this.props.history) === JSON.stringify(nextProps.history))
-    if (JSON.stringify(this.props.history) !== JSON.stringify(nextProps.history)) {
-      // console.log("this.props", this.props.history);
-      // console.log("nextProps", nextProps.history);
+    if (JSON.stringify(this.props.history) !== JSON.stringify(nextProps.history)) {      
       const el = ReactDom.findDOMNode(this);
       d3Chart.destroy(el);
       d3Chart.update(el, nextProps.history);
@@ -55,7 +51,7 @@ class Chart extends React.Component {
 
   render() {
     return (
-      <div className='Chart' />
+      <div className="Chart" />
     );
   }
 }

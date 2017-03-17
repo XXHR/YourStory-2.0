@@ -21,13 +21,12 @@ export function postHistory(originalAction) {
       'text': '',
       'startTime': originalAction.time,
     }, (chromeHistoryArray) => {
-      console.log("chromeHistoryArray should be same: ", chromeHistoryArray);
+      console.log("History from Chrome API request - ", chromeHistoryArray)
       axios({
         method: 'post',
         url: `https://${HostPort}/api/history`,
         data: { history: chromeHistoryArray },
       }).then((response) => {
-        console.log("post history action response ----- ", response);
         // const domainNames = Object.keys(nextProps.history);
         // const historyDataFunc = () => {
         //   const historyData = [];
@@ -41,9 +40,9 @@ export function postHistory(originalAction) {
         //   return historyData;
         // };
         // const allHistory = historyDataFunc();
+
         dispatch(finalHistory(response.data));
-        const dateX = Date.now();        
-        dispatch(finalGetTimeHistoryLastFetched(dateX));
+        dispatch(finalGetTimeHistoryLastFetched(Date.now()));
       });
     });
   };

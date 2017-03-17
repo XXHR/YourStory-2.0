@@ -40,7 +40,7 @@ class Chart extends React.Component {
       };
       const allHistory = historyDataFunc();
       // console.log('Chart componentWillReceiveProps props: ', allHistory);
-      
+
       const el = ReactDom.findDOMNode(this);
       d3Chart.destroy(el);
       d3Chart.update(el, allHistory.slice(0, 50));
@@ -48,14 +48,10 @@ class Chart extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    // console.log("props string", JSON.stringify(this.props.history));
-    // console.log("nextProps string", JSON.stringify(nextProps.history));
     console.log("Chart props - ", this.props, nextProps);
-    console.log("new Date).getTime()", (new Date).getTime());
     console.log("do props equal eachother in shouldComponentUpdate?", JSON.stringify(this.props.history) === JSON.stringify(nextProps.history))
 
-    if (JSON.stringify(this.props.history) !== JSON.stringify(nextProps.history)) { //need to fix this line
-      // console.log("Chart componentWillReceiveProps nextProps: ", nextProps.history);
+    if (JSON.stringify(this.props.history) !== JSON.stringify(nextProps.history)) {
       console.log("this.props", this.props.history);
       console.log("nextProps", nextProps.history);
       const domainNames = Object.keys(nextProps.history);
@@ -72,7 +68,6 @@ class Chart extends React.Component {
       };
       const allHistory = historyDataFunc();
       // console.log('Chart componentWillReceiveProps props: ', allHistory);
-      
       const el = ReactDom.findDOMNode(this);
       d3Chart.destroy(el);
       d3Chart.update(el, allHistory.slice(0, 50));
@@ -94,7 +89,7 @@ class Chart extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {  
+const mapStateToProps = (state) => {
   return {
     history: state.history,
     timeHistoryLastFetched: state.timeHistoryLastFetched,

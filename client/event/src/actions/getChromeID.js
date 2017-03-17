@@ -1,9 +1,6 @@
 'use strict';
 
 import axios from 'axios';
-import getHistoryByDate from './getHistoryByDate';
-import { finalHistory } from './postHistory';
-import getCatData from './getCatData';
 import HostPort from './hostPort';
 
 const finalGetChromeID = (chromeID) => {

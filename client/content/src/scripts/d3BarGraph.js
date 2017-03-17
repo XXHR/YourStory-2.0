@@ -11,7 +11,9 @@ d3BarGraph.create = function (el, props) {
     .attr('height', props.height);
 
   svg.append('g')
-    .attr('class', 'rectangles');
+    .attr('class', 'rectangles')
+    .attr("transform", "translate(" + 0 + "," + 200 + ")");
+
 };
 
 d3BarGraph.update = function (el, state) {

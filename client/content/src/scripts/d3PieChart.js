@@ -2,9 +2,9 @@
 import * as d3 from 'd3';
 import catParser from './categoriesList';
 
-const d3Chart = {};
+const d3PieChart = {};
 
-d3Chart.create = function (el, props) {
+d3PieChart.create = function (el, props) {
   const reduceData = props.reduce((accum, value) => {
     return accum + value.totalCount;
   }, 0);
@@ -166,16 +166,16 @@ d3Chart.create = function (el, props) {
       .append('text')
       .text('Category: ' + d.data.label);
     // console.log("ele", ele._groups[0][0]);
-    d3Chart.create(ele._groups[0][0], ['secondset', newDomainData]);
+    d3PieChart.create(ele._groups[0][0], ['secondset', newDomainData]);
   });
 };
 
-d3Chart.update = function (el, props) {
+d3PieChart.update = function (el, props) {
   this.destroy();
   this.create(el, props);
 };
 
-d3Chart.destroy = function () {
+d3PieChart.destroy = function () {
   const el = d3.select('#catDataSVG');
   const oldTooltips = d3.select('.tooltipD3');
   el.remove();
@@ -184,4 +184,4 @@ d3Chart.destroy = function () {
 };
 
 
-module.exports = d3Chart;
+module.exports = d3PieChart;

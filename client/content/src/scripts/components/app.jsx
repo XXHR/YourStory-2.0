@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import History from './history';
-import Categories from './catData';
+import History from './barGraph';
+import Categories from './pieGraph';
 import LineGraph from './line-graph/lineGraph';
 import SplashLandingPage from './splashLandingpage';
 import Footer from './footer';
-import Chart from './chart';
 
 // ********************************************************
 // *************** START MOCK ACTIONS *********************
@@ -90,7 +89,7 @@ class App extends React.Component {
                 <div className="col-sm-11">
                   <h5>Most Visited Sites</h5>
                   <div className="data-parent-container">
-                  <Chart />
+                  <History />
                   </div>
                 </div>
                 <div className="col-sm-1"></div>

@@ -4,7 +4,7 @@ import ReactDom from 'react-dom';
 import { connect } from 'react-redux';
 
 // import * as d3 from 'd3';
-import d3catData from '../d3catData';
+import d3PieChart from '../d3PieChart';
 
 const getCatDataFromBackground = () => {
   const data = {
@@ -23,7 +23,7 @@ class Categories extends React.Component {
     if (this.props.catData !== 'no catData') {
       const el = ReactDom.findDOMNode(this);
       // console.log("el from componentDidMount: ", el);
-      d3catData.create(el, this.props.catData);
+      d3PieChart.create(el, this.props.catData);
     }
   }
 
@@ -32,7 +32,7 @@ class Categories extends React.Component {
       // console.log("shouldComponentUpdate -- nextProps.catData", nextProps.catData);
       // console.log("shouldComponentUpdate -- this.props.timecatDataLastFetched", this.props.timecatDataLastFetched);
       const el = ReactDom.findDOMNode(this);      
-      d3catData.create(el, nextProps.catData);
+      d3PieChart.create(el, nextProps.catData);
       return true;
     }
     return false;
@@ -42,7 +42,7 @@ class Categories extends React.Component {
     // console.log("catData React Component handleRefreshCatDataChart");
     const el = ReactDom.findDOMNode(this);
     // console.log("el in handleRefreshCatDataChart: ", el)
-    d3catData.update(el, this.props.catData);
+    d3PieChart.update(el, this.props.catData);
   }
 
   render() {

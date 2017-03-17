@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import { connect } from 'react-redux';
 
-import d3Chart from '../d3Chart';
+import d3BarGraph from '../d3BarGraph';
 
 const postHistoryFromBackground = (time) => {
   const data = {
@@ -21,23 +21,23 @@ class Chart extends React.Component {
 
   componentDidMount() {
     const el = ReactDom.findDOMNode(this);
-    d3Chart.create(el, {
+    d3BarGraph.create(el, {
       width: '100%',
       height: '300px',
     });
 
     if (this.props.history !== null) {
       const el = ReactDom.findDOMNode(this);
-      d3Chart.destroy(el);
-      d3Chart.update(el, this.props.history);
+      d3BarGraph.destroy(el);
+      d3BarGraph.update(el, this.props.history);
     }
   }
 
   shouldComponentUpdate(nextProps) {
     if (JSON.stringify(this.props.history) !== JSON.stringify(nextProps.history)) {      
       const el = ReactDom.findDOMNode(this);
-      d3Chart.destroy(el);
-      d3Chart.update(el, nextProps.history);
+      d3BarGraph.destroy(el);
+      d3BarGraph.update(el, nextProps.history);
       return true;
     }
 
@@ -46,7 +46,7 @@ class Chart extends React.Component {
 
   componentWillUnmount() {
     const el = ReactDom.findDOMNode(this);
-    d3Chart.destroy(el);
+    d3BarGraph.destroy(el);
   }
 
   render() {

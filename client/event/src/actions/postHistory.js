@@ -27,21 +27,22 @@ export function postHistory(originalAction) {
         url: `https://${HostPort}/api/history`,
         data: { history: chromeHistoryArray },
       }).then((response) => {
-        // const domainNames = Object.keys(nextProps.history);
-        // const historyDataFunc = () => {
-        //   const historyData = [];
+        console.log("response ---- ", response.data);
+        const domainNames = Object.keys(response.data);
+        const historyDataFunc = () => {
+          const historyData = [];
 
-        //   domainNames.map((domain) => {
-        //     return historyData.push({
-        //       domain,
-        //       visits: nextProps.history[domain],
-        //     });
-        //   });
-        //   return historyData;
-        // };
-        // const allHistory = historyDataFunc();
-
-        dispatch(finalHistory(response.data));
+          domainNames.map((domain) => {
+            return historyData.push({
+              domain,
+              visits: response.data[domain],
+            });
+          });
+          return historyData;
+        };
+        const allHistory = historyDataFunc().slice(0, 50);
+        console.log("postHistory Action allHistory: ", allHistory);
+        dispatch(finalHistory(allHistory));
         dispatch(finalGetTimeHistoryLastFetched(Date.now()));
       });
     });

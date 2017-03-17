@@ -25,52 +25,23 @@ class Chart extends React.Component {
       height: '300px',
     });
 
-    if (this.props.history !== null) {      
-      const domainNames = Object.keys(this.props.history);
-      const historyDataFunc = () => {
-        const historyData = [];
-
-        domainNames.map((domain) => {
-          return historyData.push({
-            domain,
-            visits: this.props.history[domain],
-          });
-        });
-        return historyData;
-      };
-      const allHistory = historyDataFunc();
-      // console.log('Chart componentWillReceiveProps props: ', allHistory);
-
+    if (this.props.history !== null) {
+      // console.log("component did mount");
       const el = ReactDom.findDOMNode(this);
       d3Chart.destroy(el);
-      d3Chart.update(el, allHistory.slice(0, 50));
+      d3Chart.update(el, this.props.history);
     }
   }
 
   shouldComponentUpdate(nextProps) {
-    console.log("Chart props - ", this.props, nextProps);
-    console.log("do props equal eachother in shouldComponentUpdate?", JSON.stringify(this.props.history) === JSON.stringify(nextProps.history))
-
+    // console.log("Chart props - ", this.props, nextProps);
+    // console.log("do props equal eachother in shouldComponentUpdate?", JSON.stringify(this.props.history) === JSON.stringify(nextProps.history))
     if (JSON.stringify(this.props.history) !== JSON.stringify(nextProps.history)) {
-      console.log("this.props", this.props.history);
-      console.log("nextProps", nextProps.history);
-      const domainNames = Object.keys(nextProps.history);
-      const historyDataFunc = () => {
-        const historyData = [];
-
-        domainNames.map((domain) => {
-          return historyData.push({
-            domain,
-            visits: nextProps.history[domain],
-          });
-        });
-        return historyData;
-      };
-      const allHistory = historyDataFunc();
-      // console.log('Chart componentWillReceiveProps props: ', allHistory);
+      // console.log("this.props", this.props.history);
+      // console.log("nextProps", nextProps.history);
       const el = ReactDom.findDOMNode(this);
       d3Chart.destroy(el);
-      d3Chart.update(el, allHistory.slice(0, 50));
+      d3Chart.update(el, nextProps.history);
       return true;
     }
 

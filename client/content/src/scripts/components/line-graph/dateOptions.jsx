@@ -30,7 +30,6 @@ class DateOptions extends React.Component {
     // }
 
     if (nextProps.daysAgo !== this.props.daysAgo && nextProps.startDate !== this.props.startDate) {
-      console.log('CHECKING DateOptions STATE', this.props);
       return true;
     } else {
       return true;

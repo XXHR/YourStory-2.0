@@ -20,10 +20,7 @@ class Graph extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    console.log('next props in graph: ', nextProps.startDate, nextProps.endDate);
-    if (nextProps.selectedDomains) {
-
-      console.log('selectedDomains', nextProps.selectedDomains)
+    if (JSON.stringify(nextProps.selectedDomains) !== JSON.stringify(this.props.selectedDomains)) {
 
       d3LineGraph.update(nextProps);
 
@@ -33,10 +30,14 @@ class Graph extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    d3LineGraph.destroy();
+  }
+
 
   render() {
     return (
-      <div className='graph'>
+      <div className='graph' id='graph'>
         
     
       </div>

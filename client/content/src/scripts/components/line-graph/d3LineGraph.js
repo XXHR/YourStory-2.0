@@ -1,6 +1,7 @@
 //d3 Line Graph object
 import * as d3 from 'd3';
 
+
 const d3LineGraph = {
 
   svg: null,
@@ -32,9 +33,8 @@ const d3LineGraph = {
 
   update(state) {
 
-    this.renderDomainLines(state.selectedDomains)
+    this.renderDomainLines(state.selectedDomains);
   },
-
 
 
   renderAxis(el, properties, data) {
@@ -47,8 +47,6 @@ const d3LineGraph = {
     // [year-month-day]
     const minDate = new Date(endDate.year, endDate.month - 1, endDate.day);
     const maxDate = new Date(startDate.year, startDate.month - 1, startDate.day);
-
-    console.log('minDate: ', minDate, 'maxDate: ', maxDate);
 
     this.xScale = d3.scaleTime()
       .domain([minDate, maxDate])
@@ -79,10 +77,12 @@ const d3LineGraph = {
     
   },
 
+  domainCount: [2, 1, 0],
+
   renderDomainLines(data) {
-    // for every domain key in data, 
-      // pass array of date/count objects into svg.append('path')
-        // in .attr('d', domainLine) ===> domainLine being a function that maps x and y to date and count 
+
+    console.log('renderDomainLines data format: ', data);
+
     const xScale = this.xScale;
     const yScale = this.yScale;
 
@@ -98,47 +98,45 @@ const d3LineGraph = {
               return yScale(d.count);
             });
 
-    const domainDotCx = (d) => {
-      console.log('d in domainDotCx', d);
-      return xScale(d.date);
-    };
-
-    const domainDotCy = (d) => {
-      return yScale(d.count);
+    const domainStyling = {
+      0: '#909BBD',
+      1: '#8DB8CB',
+      2: '#DAB4C6'
     }
 
-    console.log('INSIDE renderDomainLines', data);
-
-    const colors = ['#909BBD', '#DAB4C6', '#E8BFBB', '#8DB8CB', '#6B8EB9']
-
-    data.forEach((domain) => {
-      console.log('domain', domain);
+    data.forEach((domain, index) => {
 
       for (let domainName in domain) {
         console.log('domain name', domain[domainName]);
 
-        // if domain has more than one data point, render path
-        if (domain[domainName].length >= 2) {
-          this.g.append('path')
-                  .attr('class', 'domain-line')
-                  .style("stroke", colors.pop())
-                  .attr('d', domainLine(domain[domainName]));
-        } else {
-          console.log('domain CIRCLE: ', domain[domainName]);
-          // if domain only has one data point, render circle
-          this.g.append('circle')
-            .attr('class', 'domain-circle')
-            .attr('r', 5)
-            .attr('cx', domainDotCx)
-            .attr('cy', domainDotCy);
-        }
+        let domainCount = this.domainCount.pop()
+
+        let domainColor = domainStyling[domainCount];
+
+        this.g.append('path')
+          .attr('id', 'domain-line-' + domainCount)
+          .style("stroke", domainColor)
+          .style("fill", 'none')
+          .style("stroke-width", '2px')
+          .attr('d', domainLine(domain[domainName]));
+
+        this.g.selectAll('domainDots-' + domainCount)
+          .data(domain[domainName])
+            .enter().append('circle')
+              .attr('class', 'domain-circle-' + domainCount)
+              .attr('r', 6)
+              .attr('cx', (d) => { return xScale(new Date(d.date)); })
+              .attr('cy', (d) => { return yScale(d.count); })
+              .style('fill', domainColor)
       }
     });
 
+
   },
 
-  destroy(el) {
-
+  destroy() {
+    this.domainCount = [2, 1, 0];
+    this.svg.remove();
   },
 
 }

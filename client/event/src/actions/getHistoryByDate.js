@@ -20,7 +20,7 @@ export default function getHistoryByDate(dates, chromeID) {
       url: `${HostPort}/api/historyByDate`,
       data: { dateRange: dates }
     }).then((response) => {
-      // console.log("response history: ", response.data);
+      console.log("response history: ", response.data);
       dispatch(finalGetHistoryByDate(response.data));
     });
   };

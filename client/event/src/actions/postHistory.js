@@ -24,7 +24,7 @@ export function postHistory(originalAction) {
       console.log("History from Chrome API request - ", chromeHistoryArray);
       axios({
         method: 'post',
-        url: `https://${HostPort}/api/history`,
+        url: `${HostPort}/api/history`,
         data: { history: chromeHistoryArray },
       }).then((response) => {
         console.log("response ---- ", response.data);

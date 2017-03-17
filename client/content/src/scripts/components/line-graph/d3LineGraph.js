@@ -81,8 +81,6 @@ const d3LineGraph = {
 
   renderDomainLines(data) {
 
-    console.log('renderDomainLines data format: ', data);
-
     const xScale = this.xScale;
     const yScale = this.yScale;
 
@@ -90,11 +88,9 @@ const d3LineGraph = {
 
     const domainLine = d3.line()
             .x((d) => {
-              console.log('date x: ', d.date);
               return xScale(new Date(d.date));
              })
             .y((d) => {
-              console.log('count y: ', d.count);
               return yScale(d.count);
             });
 
@@ -107,7 +103,6 @@ const d3LineGraph = {
     data.forEach((domain, index) => {
 
       for (let domainName in domain) {
-        console.log('domain name', domain[domainName]);
 
         let domainCount = this.domainCount.pop()
 

@@ -6,7 +6,7 @@ module.exports = (req, res) => {
 
   console.log('DATES FROM CLIENT', req.body.dateRange);
 
-  const chromeID = req.session.chromeID || 'DPf6HkUP8DdlqQQfbb7flgP8Myo=';
+  const chromeID = req.session.chromeID;
   const dateRange = req.body.dateRange;
 
   readHistoryByDate(chromeID, dateRange)

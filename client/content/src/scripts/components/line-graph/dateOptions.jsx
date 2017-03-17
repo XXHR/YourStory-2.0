@@ -14,8 +14,6 @@ class DateOptions extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('DateOptions props', props);
-
   }
 
   shouldComponentUpdate(nextProps, nextState) {

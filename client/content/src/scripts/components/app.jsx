@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 
 import History from './barGraph';
 import Categories from './pieGraph';
-import History from './history';
-import Categories from './catData';
 import LineGraphParent from './line-graph/lineGraphParent';
 import SplashLandingPage from './splashLandingpage';
 import Footer from './footer';

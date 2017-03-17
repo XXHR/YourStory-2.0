@@ -32,31 +32,25 @@ class LineGraphParent extends React.Component {
 
   componentWillMount() {
     // make axios call to retrieve data from a week ago (default)
-    console.log('line graph historyByDate state: ', this.state.historyByDate);
   }
 
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('LINE GRAPH CURRENT STATE: ', this.state);
 
     if (JSON.stringify(prevState.historyByDate) !== JSON.stringify(this.state.historyByDate) && Object.keys(this.state.historyByDate).length !== 0) {
-      console.log('new data coming in line graph to make d3')
       this.makeDomainList();
       this.makeDataForXYAxis();
     }
 
     if (prevState.selectedDomain1 !== this.state.selectedDomain1) {
-      console.log('change selectedDomain1');
       this.makeDataForDomainLines(this.state.selectedDomain1);
     }
 
      if (prevState.selectedDomain2 !== this.state.selectedDomain2) {
-      console.log('change selectedDomain2');
       this.makeDataForDomainLines(this.state.selectedDomain2);
     }
 
      if (prevState.selectedDomain3 !== this.state.selectedDomain3) {
-      console.log('change selectedDomain3');
       this.makeDataForDomainLines(this.state.selectedDomain3);
     }
 
@@ -93,7 +87,7 @@ class LineGraphParent extends React.Component {
       url: `${HostPort}/api/historyByDate`,
       data: { dateRange: { startDate, daysAgo: this.state.daysAgo } },
     }).then((response) => {
-      console.log('response getHistoryByDate: ', response.data);
+      console.log('response from line graph parent: ', response);
       this.setState({ historyByDate: response.data });
     });
 
@@ -124,8 +118,6 @@ class LineGraphParent extends React.Component {
 
   makeDataForXYAxis() {
     let data = this.state.historyByDate;
-
-     console.log('inside makeDataForXYAxis: ', data);
 
     let max = 0;
     let min = 0;

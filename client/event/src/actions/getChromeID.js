@@ -36,31 +36,9 @@ export default function getChromeID() {
           data: { chromeID: userInfo.id, username: userInfo.name },
         })
         .then((response) => {
-
           const chromeID = response.data;
           dispatch(finalGetChromeID(chromeID));
-          
-          //record store's time state
-          //store dispatches individual actions to post history and fetch data
-        })
-        .then(() => {
-          let oneWeekAgo = new Date();
-
-          chrome.history.search({
-          'text': '', // Return every history item....
-          'startTime': oneWeekAgo.setDate(oneWeekAgo.getDate() - 7), // need to subtract now from timeHistoryLastFetched 
-          }, (chromeHistoryArray) => {
-            // console.log('CHROME HISTORY', chromeHistoryArray);
-            axios({
-              method: 'post',
-              url: `https://${HostPort}/api/history`,
-              data: { history: chromeHistoryArray },
-            }).then((response) => {
-              // dispatch(getHistoryByDate());
-              // dispatch(finalHistory(response.data));
-              // dispatch(getCatData());
-            });
-          });
+          // TODO record store's time state
         })
         .catch((error) => {
           console.log(error);

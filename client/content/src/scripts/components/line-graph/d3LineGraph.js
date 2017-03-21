@@ -77,9 +77,12 @@ const d3LineGraph = {
     
   },
 
-  domainCount: [2, 1, 0],
-
   renderDomainLines(data) {
+
+    const domainId = data[0];
+    const domain = data[1];
+
+    console.log('domainId: ', domainId, 'domain: ', domain);
 
     const xScale = this.xScale;
     const yScale = this.yScale;
@@ -88,7 +91,6 @@ const d3LineGraph = {
 
     const domainLine = d3.line()
             .x((d) => {
-              console.log('d3 line graph d attr: ', d);
               return xScale(new Date(d.date));
              })
             .y((d) => {
@@ -96,44 +98,51 @@ const d3LineGraph = {
             });
 
     const domainStyling = {
-      0: '#909BBD',
-      1: '#8DB8CB',
-      2: '#DAB4C6'
+      1: '#909BBD',
+      2: '#8DB8CB',
+      3: '#DAB4C6'
     }
 
-    data.forEach((domain, index) => {
 
-      for (let domainName in domain) {
+    for (let domainName in domain) {
 
-        const domainCount = this.domainCount.pop();
+      const domainColor = domainStyling[domainId];
 
-        const domainColor = domainStyling[domainCount];
+      // if domainId already exists, destroy path element then create again
 
-        this.g.append('path')
-          .attr('id', 'domain-line-' + domainCount)
-          .style("stroke", domainColor)
-          .style("fill", 'none')
-          .style("stroke-width", '2px')
-          .attr('d', domainLine(domain[domainName]));
+      console.log('d3LineGraph path element: ', d3.select('.domain-line-' + domainId));
 
-        this.g.selectAll('domainDots-' + domainCount)
-          .data(domain[domainName])
-            .enter().append('circle')
-              .attr('class', 'domain-circle-' + domainCount)
-              .attr('r', 6)
-              .attr('cx', (d) => { return xScale(new Date(d.date)); })
-              .attr('cy', (d) => { return yScale(d.count); })
-              .style('fill', domainColor)
+      if (d3.selectAll('#domain-line-' + domainId)) {
+        d3.select('#domain-line-' + domainId).remove();
+        d3.selectAll('.domain-circle-' + domainId).remove();
       }
-    });
 
+      this.g.append('path')
+        .attr('id', 'domain-line-' + domainId)
+        .style("stroke", domainColor)
+        .style("fill", 'none')
+        .style("stroke-width", '2px')
+        .attr('d', domainLine(domain[domainName]));
+
+      this.g.selectAll('domainDots-' + domainId)
+        .data(domain[domainName])
+          .enter().append('circle')
+            .attr('class', 'domain-circle-' + domainId)
+            .attr('r', 6)
+            .attr('cx', (d) => { return xScale(new Date(d.date)); })
+            .attr('cy', (d) => { return yScale(d.count); })
+            .style('fill', domainColor)
+    }
 
   },
 
   destroy() {
-    this.domainCount = [2, 1, 0];
     this.svg.remove();
   },
+
+  checkDomainCount() {
+    return this.domainCount;
+  }
 
 }
 

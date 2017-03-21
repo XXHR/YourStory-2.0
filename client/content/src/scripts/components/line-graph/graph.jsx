@@ -14,16 +14,17 @@ class Graph extends React.Component {
     const el = ReactDOM.findDOMNode(this);
 
     const margin = { top: 20, right: 10, bottom: 20, left: 60 }
-    // const data = nextProps;
 
     d3LineGraph.create(el, margin, this.props);
   }
 
   shouldComponentUpdate(nextProps) {
     if (JSON.stringify(nextProps.selectedDomains) !== JSON.stringify(this.props.selectedDomains)) {
-      console.log('GRAPH COMP NEW PROPS: ', nextProps);
 
       console.log('GRAPH COMP UPDATED W NEW DOMAINS: ', nextProps.selectedDomains);
+
+      // if there are already 3 domain lines rendered, match domain select id to d3 domain id and replace 
+
 
       d3LineGraph.update(nextProps);
 

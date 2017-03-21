@@ -75,15 +75,15 @@ class LineGraphParent extends React.Component {
     }
 
     if (prevState.selectedDomain1 !== this.state.selectedDomain1) {
-      this.makeDataForDomainLines(this.state.selectedDomain1);
+      this.makeDataForDomainLines(this.state.selectedDomain1, 1);
     }
 
      if (prevState.selectedDomain2 !== this.state.selectedDomain2) {
-      this.makeDataForDomainLines(this.state.selectedDomain2);
+      this.makeDataForDomainLines(this.state.selectedDomain2, 2);
     }
 
      if (prevState.selectedDomain3 !== this.state.selectedDomain3) {
-      this.makeDataForDomainLines(this.state.selectedDomain3);
+      this.makeDataForDomainLines(this.state.selectedDomain3, 3);
     }
 
   }
@@ -229,11 +229,13 @@ class LineGraphParent extends React.Component {
 
   }
 
-  makeDataForDomainLines(selectedDomain) {
+  makeDataForDomainLines(selectedDomain, id) {
 
     // for any domain chosen from any dropdown menu, find associated data in historyByDate
     // push domain's object value into this.state.selectedDomains array
     let selectedDomains = [];
+
+    selectedDomains.push(id);
 
     for (let domain in this.state.historyByDate) {
         if (domain === selectedDomain) {

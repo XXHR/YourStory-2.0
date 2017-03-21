@@ -110,13 +110,15 @@ d3BarGraph.create = function (el, state) {
   const width = 425 - margin.left - margin.right;
   const height = 200 - margin.top - margin.bottom;
 
+  const translateLeftValue = 45;
+
   const svg = d3.select(el)
     .append('svg')
+      .attr('class', 'svg-container')
       .attr('width', 425)
-      .attr('height', 200)
+      .attr('height', 250)
     .append('g')
-      .attr('class', 'rectangles')
-      .attr('transform', "translate(" + margin.left + "," + margin.top + ")");
+      .attr('transform', "translate(" +  translateLeftValue + "," + margin.top + ")");
 
   this.createAxis(svg, { width, height, svg }, state);
 };
@@ -160,8 +162,15 @@ d3BarGraph.createAxis = function (el, properties, state) {
   properties.svg
     .append("g")
       .attr("class", "axis axis--x")
-      .attr("transform", "translate(" + 0 + "," + properties.height + ")")
-      .call(d3.axisBottom(x));
+      .attr("transform", "translate(0," + (properties.height) + ")")
+      .call(d3.axisBottom(x))
+      .selectAll("text")
+      .style("text-anchor", "end")
+      .attr("dx", "-.8em")
+      .attr("dy", ".15em")
+      .attr("transform", function (d) {
+        return "rotate(-30)";
+      });      
 
   properties.svg
     .append("g")

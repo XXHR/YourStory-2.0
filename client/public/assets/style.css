@@ -2,6 +2,7 @@ body {
   background-color: #FCFCFC;
 }
 
+
 .domain {
   font-size: 100%;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -52,8 +53,6 @@ rect {
 
 .tooltipD3 {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  /*background: #eee;*/
-/*  border-radius: 5px;*/
   color: #333;
   display: none;
   font-size: 11px;

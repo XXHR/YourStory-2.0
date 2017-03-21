@@ -13,7 +13,6 @@ d3BarGraph.create = function (el, props) {
   svg.append('g')
     .attr('class', 'rectangles')
     .attr("transform", "translate(" + 0 + "," + 200 + ")");
-
 };
 
 d3BarGraph.update = function (el, state) {
@@ -35,6 +34,19 @@ d3BarGraph._drawPoints = function (el, data) {
   const h = 100;
   const g = d3.select(el).selectAll('.rectangles');
   const spaceBetweenBars = 0;
+
+  let max = 0;
+  let maxSiteName = null;
+  data.map((site) => {
+    if (site.visits > max) {
+      max = site.visits;
+      maxSiteName = site.domain;
+    }
+    return max;
+  });
+
+  // max = getMax;
+  console.log("max: ", max, maxSiteName);
 
   const bars = g.selectAll('rect')
      .data(data)
@@ -75,6 +87,8 @@ d3BarGraph._drawPoints = function (el, data) {
   bars
     .on('mouseover', ((d) => {
       tooltipD3.select('.bar-domain-name').html(d.domain);
+      // let readableVisits;
+      // if(d.visits.length)
       tooltipD3.select('.bar-visits').html('visits: ' + d.visits);
       tooltipD3.style('display', 'block');
     }));

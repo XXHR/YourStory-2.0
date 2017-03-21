@@ -88,6 +88,7 @@ const d3LineGraph = {
 
     const domainLine = d3.line()
             .x((d) => {
+              console.log('d3 line graph d attr: ', d);
               return xScale(new Date(d.date));
              })
             .y((d) => {
@@ -104,9 +105,9 @@ const d3LineGraph = {
 
       for (let domainName in domain) {
 
-        let domainCount = this.domainCount.pop()
+        const domainCount = this.domainCount.pop();
 
-        let domainColor = domainStyling[domainCount];
+        const domainColor = domainStyling[domainCount];
 
         this.g.append('path')
           .attr('id', 'domain-line-' + domainCount)

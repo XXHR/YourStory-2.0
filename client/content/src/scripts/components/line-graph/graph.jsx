@@ -7,7 +7,7 @@ class Graph extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('initial props in Graph', props);
+    console.log('initial props in graph component', props);
   }
 
   componentDidMount() {
@@ -21,12 +21,15 @@ class Graph extends React.Component {
 
   shouldComponentUpdate(nextProps) {
     if (JSON.stringify(nextProps.selectedDomains) !== JSON.stringify(this.props.selectedDomains)) {
+      console.log('GRAPH COMP NEW PROPS: ', nextProps);
+
+      console.log('GRAPH COMP UPDATED W NEW DOMAINS: ', nextProps.selectedDomains);
 
       d3LineGraph.update(nextProps);
 
       return true;
     } else {
-      return;
+      return true;
     }
   }
 

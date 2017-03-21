@@ -32,10 +32,42 @@ class LineGraphParent extends React.Component {
 
   componentWillMount() {
     // make axios call to retrieve data from a week ago (default)
+    const today = new Date();
+
+    const startDateWeek = {
+      day: today.getDate(),
+      month: today.getMonth() + 1,
+      year: today.getFullYear()
+    }
+
+    console.log('startDateWeek: ', startDateWeek);
+
+    // const startDateTest = {
+    //   day: 19,
+    //   month: 3,
+    //   year: 2017
+    // }
+
+    const daysAgo = 6;
+
+    const reformattedDate = moment([startDateWeek.year, startDateWeek.month - 1, startDateWeek.day]).format().slice(0, 10);
+
+    console.log('reformattedDate: ', reformattedDate);
+
+    axios({
+      method: 'post',
+      url: `${HostPort}/api/historyByDate`,
+      data: { dateRange: { startDate: startDateWeek, daysAgo } }
+    }).then((response) => {
+      console.log('line graph parent response for initial default dispatch: ', response.data);
+      this.setState({ startDate: reformattedDate, daysAgo, historyByDate: response.data });
+    })
+
   }
 
 
   componentDidUpdate(prevProps, prevState) {
+    console.log('line graph component updated: ', prevState);
 
     if (JSON.stringify(prevState.historyByDate) !== JSON.stringify(this.state.historyByDate) && Object.keys(this.state.historyByDate).length !== 0) {
       this.makeDomainList();
@@ -123,33 +155,33 @@ class LineGraphParent extends React.Component {
     let min = 0;
     let totalDomainCount = [];
 
+    // calculate month based on startDate day and month
+    const date = this.state.startDate;
 
-      // calculate month based on startDate day and month
-      const date = this.state.startDate;
+    const startDate = {
+      day: parseInt(date.slice(8, 10), 10),
+      month: parseInt(date.slice(5, 7), 10),
+      year: parseInt(date.slice(0, 4), 10)
+    }
 
-      const startDate = {
-        day: parseInt(date.slice(8, 10), 10),
-        month: parseInt(date.slice(5, 7), 10),
-        year: parseInt(date.slice(0, 4), 10)
+    const endDate = {
+      day: startDate.day - this.state.daysAgo,
+      month: startDate.month,
+      year: startDate.year
+    }
+
+    for (let domain in data) {
+      for (let date of data[domain]) {
+        totalDomainCount.push(date.count);
       }
+    }
 
-      const endDate = {
-        day: startDate.day - this.state.daysAgo,
-        month: startDate.month,
-        year: startDate.year
-      }
+    max = Math.max(...totalDomainCount);
+    min = Math.min(...totalDomainCount);
 
-      for (let domain in data) {
-        for (let date of data[domain]) {
-          totalDomainCount.push(date.count);
-        }
-      }
+    // console.log('max: ', max, 'min: ', min);
 
-      max = Math.max(...totalDomainCount);
-      min = Math.min(...totalDomainCount);
-
-      this.setState({ startDate, endDate, max, min });
-    // }
+    this.setState({ startDate, endDate, max, min });
 
   }
 

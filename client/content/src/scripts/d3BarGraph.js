@@ -76,6 +76,7 @@ d3BarGraph.createAxis = function (el, properties, state) {
 };
 
 d3BarGraph.createBars = function (axis, height, x, y, data) {
+  const color = d3.scaleOrdinal(d3.schemeCategory20b);
   axis
       .selectAll('.bar')
       .data(data)
@@ -84,20 +85,21 @@ d3BarGraph.createBars = function (axis, height, x, y, data) {
       .attr('class', 'bar')
       .attr('x', d => x(d.domain))
       .attr('y', d => y(d.visits))
+      .attr('fill', ((d, i) => {
+        return color(d.domain);
+      }))
       .attr('width', x.bandwidth())
       .attr('height', d => height - y(d.visits));
 };
 
 d3BarGraph.update = function (el, state) {
-  // console.log('d3BarGraph.update (state)', state);
-  this._drawPoints(el, state);
+  console.log("updating");
+  this.create(el, state);
 };
 
 d3BarGraph.destroy = function (el) {
-  const g = d3.select(el).selectAll('.rectangles');
-  // console.log('d3BarGraph.destroy g', g);
-  const bars = g.selectAll('rect');
-  bars.remove();
+  const svgContainer = d3.select(el).selectAll('.svg-container');
+  svgContainer.remove();
 };
 
 d3BarGraph._drawPoints = function (el, data) {

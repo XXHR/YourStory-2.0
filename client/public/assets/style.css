@@ -188,12 +188,10 @@ rect {
 }
 
 /*bar graph styling*/
-.bar {
-  fill: steelblue;
-}
+
 
 .bar:hover {
-  fill: brown;
+  opacity: 0.5;
 }
 
 .axis--x path {

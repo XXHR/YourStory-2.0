@@ -30,14 +30,14 @@ d3PieChart.create = function (el, props) {
   const height = 260;
   const radius = Math.min(width, 320) / 2.5;
   const donutWidth = 60;
-  const colorArray = [
-    'rgb(84, 135, 182)',
-    'rgb(98, 140, 184)',
-    'rgb(155, 159, 191)',
-    'rgb(170, 163, 192)',
-    'rgb(227, 182, 199)',
-    'rgb(241, 187, 201)',
-    'rgb(255, 192, 203)'];
+  // const colorArray = [
+  //   'rgb(84, 135, 182)',
+  //   'rgb(98, 140, 184)',
+  //   'rgb(155, 159, 191)',
+  //   'rgb(170, 163, 192)',
+  //   'rgb(227, 182, 199)',
+  //   'rgb(241, 187, 201)',
+  //   'rgb(255, 192, 203)'];
   const color = d3.scaleOrdinal(d3.schemeCategory20b);
 
   const svg = d3.select(el)

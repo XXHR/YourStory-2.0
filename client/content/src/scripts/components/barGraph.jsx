@@ -20,8 +20,6 @@ class Chart extends React.Component {
   }
 
   componentDidMount() {
-    const el = ReactDom.findDOMNode(this);
-
     if (this.props.history !== null) {
       const el = ReactDom.findDOMNode(this);
       d3BarGraph.destroy(el);
@@ -29,20 +27,14 @@ class Chart extends React.Component {
     }
   }
 
-  // shouldComponentUpdate(nextProps) {
-  //   if (JSON.stringify(this.props.history) !== JSON.stringify(nextProps.history)) {      
-  //     const el = ReactDom.findDOMNode(this);
-  //     d3BarGraph.destroy(el);
-  //     d3BarGraph.update(el, nextProps.history);
-  //     return true;
-  //   }
-
-  //   return false;
-  // }
-
-  componentWillUnmount() {
-    const el = ReactDom.findDOMNode(this);
-    d3BarGraph.destroy(el);
+  shouldComponentUpdate(nextProps) {
+    if (this.props.timeHistoryLastFetched !== nextProps.timeHistoryLastFetched) {
+      const el = ReactDom.findDOMNode(this);
+      d3BarGraph.destroy(el);
+      d3BarGraph.update(el, nextProps.history);
+      return true;
+    }
+    return false;
   }
 
   render() {

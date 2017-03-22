@@ -2,10 +2,18 @@ body {
   background-color: #FCFCFC;
 }
 
+/* stary bar graph css*/
 .domain {
+  stroke: #eee;
   font-size: 100%;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+line {
+  stroke: #ccc;
+}
+
+/* end bar graph css*/
 
 #chart {
   height: 360px;
@@ -24,10 +32,14 @@ body {
   width: 450;
   position: relative;
 }
+.pieSlice:hover {
+  opacity: 0.7;
+}
 
 #refreshCatDataChart {
   float: right;
 }
+
 .graph-svg {
   padding-left: 50px;
 }
@@ -37,33 +49,50 @@ body {
   stroke: gray;
 }
 
-div{
-  margin: 0 auto;
-}
 path{
   cursor: pointer
 }
+
 rect {
   stroke-width: 2;
 }
+
 .logoImg {
   width: 125px
 }
 
 .tooltipD3 {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  /*background: #eee;*/
-/*  border-radius: 5px;*/
   color: #333;
   display: none;
   font-size: 11px;
-  left: 115px;
+  left: 77px;
   padding: 7px;
   position: absolute;
   text-align: center;
-  top: 155px;
+  top: 130px;
   width: 100px;
   z-index: 10;
+}
+
+.bar-graph-tooltipD3 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #eee;
+  color: #333;
+  display: none;
+  font-size: 11px;
+  /*left: 115px;*/
+  padding: 7px;
+  /*position: absolute;*/
+  text-align: left;
+  /*top: 155px;*/
+  width: 150px;
+  /*z-index: 10;*/
+}
+
+.bar-graph-fill:hover {
+  /*fill: red;*/
+  opacity: 0.5;
 }
 
 .graph-row {
@@ -156,4 +185,15 @@ rect {
 .domain-line {
   fill: none;
   stroke-width: 2px;
+}
+
+/*bar graph styling*/
+
+
+.bar:hover {
+  opacity: 0.5;
+}
+
+.axis--x path {
+  display: none;
 }

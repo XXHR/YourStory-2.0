@@ -38,7 +38,6 @@ const d3LineGraph = {
 
 
   renderAxis(el, properties, data) {
-
     const startDate = data.startDate;
     const endDate = data.endDate;
     const min = data.min;

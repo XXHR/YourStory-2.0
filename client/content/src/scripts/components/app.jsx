@@ -63,7 +63,6 @@ class App extends React.Component {
       return (
         <div>
           <br />
-          <br />
           <div className="row">
             <div className="col-sm-12">
               <div className="row">

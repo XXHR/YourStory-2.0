@@ -6,8 +6,6 @@ class Graph extends React.Component {
 
   constructor(props) {
     super(props);
-
-    console.log('initial props in graph component', props);
   }
 
   componentDidMount() {
@@ -20,8 +18,6 @@ class Graph extends React.Component {
 
   shouldComponentUpdate(nextProps) {
     if (JSON.stringify(nextProps.selectedDomains) !== JSON.stringify(this.props.selectedDomains)) {
-
-      console.log('GRAPH COMP UPDATED W NEW DOMAINS: ', nextProps.selectedDomains);
 
       // if there are already 3 domain lines rendered, match domain select id to d3 domain id and replace 
 

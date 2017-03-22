@@ -70,7 +70,7 @@ class LineGraphParent extends React.Component {
   }  
 
   handleSubmit(e) {
-
+    console.log("submitting", e);
     // this.props.dispatch(getHistoryByDate(this.state));
     e.preventDefault();
 
@@ -79,8 +79,8 @@ class LineGraphParent extends React.Component {
     const startDate = {
       day: parseInt(date.slice(8, 10), 10),
       month: parseInt(date.slice(5, 7), 10),
-      year: parseInt(date.slice(0, 4), 10)
-    }
+      year: parseInt(date.slice(0, 4), 10),
+    };
 
     axios({
       method: 'post',
@@ -90,7 +90,6 @@ class LineGraphParent extends React.Component {
       console.log('response from line graph parent: ', response);
       this.setState({ historyByDate: response.data });
     });
-
   }
 
   handleDomainListChange(e) {

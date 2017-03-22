@@ -8,6 +8,7 @@ import moment from 'moment';
 import DateRange from '../../../../../../server/routeHandlers/helpers/createDateArray';
 import HostPort from '../../../../../event/src/actions/hostPort';
 import axios from 'axios';
+import cloneObject from './cloneFunction';
 
 class LineGraphParent extends React.Component {
   constructor(props) {
@@ -67,7 +68,9 @@ class LineGraphParent extends React.Component {
 
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('line graph component updated: ', prevState);
+    console.log('LINE GRAPH PARENT PREVIOUS STATE: ', prevState.historyByDate);
+
+    console.log('LINE GRAPH PARENT CURRENT STATE: ', this.state.historyByDate);
 
     if (JSON.stringify(prevState.historyByDate) !== JSON.stringify(this.state.historyByDate) && Object.keys(this.state.historyByDate).length !== 0) {
       this.makeDomainList();
@@ -75,6 +78,7 @@ class LineGraphParent extends React.Component {
     }
 
     if (prevState.selectedDomain1 !== this.state.selectedDomain1) {
+      console.log('prevState selectedDomain1: ', prevState.selectedDomain1, 'current state selectedDomain1: ', this.state.selectedDomain1);
       this.makeDataForDomainLines(this.state.selectedDomain1, 1);
     }
 
@@ -187,6 +191,8 @@ class LineGraphParent extends React.Component {
 
   addMissingDates(domain) {
 
+   console.log('4. domain in addMissingDates: ', domain);
+
    let includedDates;
 
     for (let domainData in domain) {
@@ -224,12 +230,17 @@ class LineGraphParent extends React.Component {
 
     }
 
-
     return domain;
 
   }
 
   makeDataForDomainLines(selectedDomain, id) {
+
+    console.log('1. selected domain: ', selectedDomain);
+
+    console.log('2. selected domain in historyByDate: ', this.state.historyByDate[selectedDomain]);
+
+    const copyData = cloneObject(this.state.historyByDate);
 
     // for any domain chosen from any dropdown menu, find associated data in historyByDate
     // push domain's object value into this.state.selectedDomains array
@@ -237,12 +248,21 @@ class LineGraphParent extends React.Component {
 
     selectedDomains.push(id);
 
-    for (let domain in this.state.historyByDate) {
+    for (let domain in copyData) {
         if (domain === selectedDomain) {
           let domainObj = {};
-          domainObj[domain] = this.state.historyByDate[domain];
+          domainObj[domain] = copyData[domain];
 
-          selectedDomains.push(this.addMissingDates(domainObj));
+          console.log('3. domainObj: ', domainObj);
+
+          if (Object.keys(domainObj).length + 1 === this.state.daysAgo) {
+            selectedDomains.push(domainObj);
+          } else {
+          // console.log('addMissingDates: ', this.addMissingDates(domainObj));
+
+            selectedDomains.push(this.addMissingDates(domainObj));
+          }
+
         }
     }
 

@@ -109,10 +109,7 @@ const d3LineGraph = {
     for (let domainName in domain) {
 
       const domainColor = domainStyling[domainId];
-
-      // if domainId already exists, destroy path element then create again
-      console.log('DOMAIN ID LETS SEE IT BITCH: ', Boolean(d3.select('#domainId-' + domainId)));
-
+      
       d3.select('#domainId-' + domainId).remove();
 
       const domainG = this.g.append('g')

@@ -6,7 +6,6 @@ d3BarGraph.create = function (el, state) {
   const margin = { top: 20, right: 20, bottom: 30, left: 40 };
   const width = 425 - margin.left - margin.right;
   const height = 250 - margin.top - margin.bottom;
-
   const translateLeftValue = 45;
 
   const svg = d3.select(el)
@@ -15,7 +14,7 @@ d3BarGraph.create = function (el, state) {
       .attr('width', 425)
       .attr('height', 300)
     .append('g')
-      .attr('transform', "translate(" +  translateLeftValue + "," + margin.top + ")");
+      .attr('transform', 'translate(' + translateLeftValue + ',' + margin.top + ')');
 
   this.createAxis(svg, { width, height, svg }, state);
 };

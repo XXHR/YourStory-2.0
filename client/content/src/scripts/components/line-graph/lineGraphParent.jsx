@@ -120,7 +120,8 @@ class LineGraphParent extends React.Component {
     axios({
       method: 'post',
       url: `${HostPort}/api/historyByDate`,
-      data: { dateRange: { startDate, daysAgo: this.state.daysAgo } },
+      // url: 'http://localhost:5000/api/historyByDate', 
+      data: { dateRange: { startDate, daysAgo: this.state.daysAgo }, chromeID: this.props.chromeID },
     }).then((response) => {
       console.log('response after form: ', response.data);
       this.setState({ historyByDate: response.data });

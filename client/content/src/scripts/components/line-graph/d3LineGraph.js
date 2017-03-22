@@ -162,7 +162,7 @@ const d3LineGraph = {
 
       domainG.append('text')
           // .attr('id', domainName)
-          .attr('transform', 'translate(' + (this.width - 100) + ',' + yScale(domain[domainName][3].count) + ')')
+          .attr('transform', 'translate(' + (this.width - 100) + ',' + yScale(domain[domainName][domain[domainName].length - 1].count) + ')')
           .attr('dy', '.35em')
           .attr('text-anchor', 'start')
           .style('fill', domainColor)

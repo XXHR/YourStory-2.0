@@ -16,6 +16,7 @@ module.exports = (req, res) => {
   // console.log("encrypted username: ", username);
   // let decryptedUser = Encrypt.AES.decrypt(username, process.env.USERNAME).toString(Encrypt.enc.Base64);
   // console.log("decryptedUser: ", decryptedUser);
+
   User
   .findOrCreate({ where: { chromeID } })
   .then(() => {

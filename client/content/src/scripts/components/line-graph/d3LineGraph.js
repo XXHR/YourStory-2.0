@@ -6,11 +6,17 @@ const d3LineGraph = {
 
   svg: null,
 
-  g: null,
+  parentg: null,
+
+  axisg: null,
 
   width: null,
 
   height: null,
+
+  xScale: null,
+
+  yScale: null,
 
   create(el, properties, state) {
 
@@ -23,62 +29,98 @@ const d3LineGraph = {
       .attr('width', this.width + margin.left + margin.right)
       .attr('height', this.height + margin.top + margin.bottom);
 
-    this.g = this.svg.append('g')
+    this.parentg = this.svg.append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    const widthHeight = { width: this.width, height: this.height };
+    this.axisg = this.parentg.append('g')
+      .attr('class', 'axis-parent-g');
 
-    this.renderAxis(this.g, widthHeight, state);
+    // const widthHeight = { width: this.width, height: this.height };
+
+    // this.renderAxis(this.g, widthHeight, state);
+
+    this.renderXAxis(state.startDate, state.endDate);
+    this.renderYAxis(state.max, state.min);
   },
 
-  xScale: null,
-
-  yScale: null,
-
   update(state) {
-
+    this.renderYAxis(state.max, state.min);
     this.renderDomainLines(state.selectedDomains);
   },
 
+  renderYAxis(max, min) {
+    d3.select('.y').remove();
 
-  renderAxis(el, properties, data) {
-    const startDate = data.startDate;
-    const endDate = data.endDate;
-    const min = data.min;
-    const max = data.max;
+    if (max === min) {
+      min = 0;
+    }
 
+    this.yScale = d3.scaleLinear()
+      .domain([min, max])
+      .range([this.height, 0]);
+
+    const yAxis = d3.axisLeft(this.yScale);
+
+      // add y axis
+    this.axisg.append('g')
+      .attr('class', 'y axis')
+      .call(yAxis);
+  },
+
+  renderXAxis(startDate, endDate) {
     // [year-month-day]
     const minDate = new Date(endDate.year, endDate.month - 1, endDate.day);
     const maxDate = new Date(startDate.year, startDate.month - 1, startDate.day);
 
     this.xScale = d3.scaleTime()
       .domain([minDate, maxDate])
-      .range([0, properties.width]);
-
-    this.yScale = d3.scaleLinear()
-      .domain([min, max])
-      .range([properties.height, 0]);
+      .range([0, this.width]);
 
     const xAxis = d3.axisBottom(this.xScale)
       .tickFormat(d3.timeFormat('%Y-%m-%d'));
 
-    const yAxis = d3.axisLeft(this.yScale);
-
     // add x axis
-    el.append('g')
+    this.axisg.append('g')
       .attr('class', 'x axis')
-      .attr('transform', 'translate(0,' + properties.height + ')')
-      .call(xAxis)
-
-    // add y axis
-    el.append('g')
-      .attr('class', 'y axis')
-      .call(yAxis);
-
-    // return xAxis, yAxis
-    // return { xScale, yScale }
-    
+      .attr('transform', 'translate(0,' + this.height + ')')
+      .call(xAxis)    
   },
+
+  // renderAxis(el, properties, data) {
+  //   const startDate = data.startDate;
+  //   const endDate = data.endDate;
+  //   const min = data.min;
+  //   const max = data.max;
+
+  //   // [year-month-day]
+  //   const minDate = new Date(endDate.year, endDate.month - 1, endDate.day);
+  //   const maxDate = new Date(startDate.year, startDate.month - 1, startDate.day);
+
+  //   this.xScale = d3.scaleTime()
+  //     .domain([minDate, maxDate])
+  //     .range([0, properties.width]);
+
+  //   this.yScale = d3.scaleLinear()
+  //     .domain([min, max])
+  //     .range([properties.height, 0]);
+
+  //   const xAxis = d3.axisBottom(this.xScale)
+  //     .tickFormat(d3.timeFormat('%Y-%m-%d'));
+
+  //   const yAxis = d3.axisLeft(this.yScale);
+
+  //   // add x axis
+  //   el.append('g')
+  //     .attr('class', 'x axis')
+  //     .attr('transform', 'translate(0,' + properties.height + ')')
+  //     .call(xAxis)
+
+  //   // // add y axis
+  //   el.append('g')
+  //     .attr('class', 'y axis')
+  //     .call(yAxis);
+    
+  // },
 
   renderDomainLines(data) {
 
@@ -87,8 +129,6 @@ const d3LineGraph = {
 
     const xScale = this.xScale;
     const yScale = this.yScale;
-
-    const parseDate = d3.timeFormat('%d-%m-%Y');
 
     const domainLine = d3.line()
             .x((d) => {
@@ -104,14 +144,13 @@ const d3LineGraph = {
       3: '#DAB4C6'
     }
 
-
     for (let domainName in domain) {
 
       const domainColor = domainStyling[domainId];
       
       d3.select('#domainId-' + domainId).remove();
 
-      const domainG = this.g.append('g')
+      const domainG = this.parentg.append('g')
                       .attr('id', 'domainId-' + domainId);
 
       domainG.append('path')
@@ -123,7 +162,7 @@ const d3LineGraph = {
 
       domainG.append('text')
           // .attr('id', domainName)
-          .attr('transform', 'translate(' + (this.width - 100) + ',' + yScale(domain[domainName][3].count) + ')')
+          .attr('transform', 'translate(' + (this.width - 100) + ',' + yScale(domain[domainName][domain[domainName].length - 1].count) + ')')
           .attr('dy', '.35em')
           .attr('text-anchor', 'start')
           .style('fill', domainColor)

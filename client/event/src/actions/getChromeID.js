@@ -26,7 +26,6 @@ export default function getChromeID() {
       x.open('GET', 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + token);
       x.onload = function () {
         const userInfo = JSON.parse(x.response);
-        // console.log('User info from chrome: ', userInfo);
         axios({
           method: 'post',
           url: `${HostPort}/api/users`,

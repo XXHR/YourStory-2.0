@@ -17,10 +17,9 @@ class Graph extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    if (JSON.stringify(nextProps.selectedDomains) !== JSON.stringify(this.props.selectedDomains)) {
+    if (JSON.stringify(nextProps) !== JSON.stringify(this.props)) {
 
-      // if there are already 3 domain lines rendered, match domain select id to d3 domain id and replace 
-
+      console.log('Graph comp updated: ', nextProps);
 
       d3LineGraph.update(nextProps);
 

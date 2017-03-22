@@ -47,9 +47,11 @@ class LineGraphParent extends React.Component {
 
     axios({
       method: 'post',
-      url: `${HostPort}/api/historyByDate`,
-      data: { dateRange: { startDate: startDateWeek, daysAgo } }
+      // url: `${HostPort}/api/historyByDate`,
+      url: 'http://localhost:5000/api/historyByDate',
+      data: { dateRange: { startDate: startDateWeek, daysAgo }, chromeID: this.props.chromeID }
     }).then((response) => {
+      console.log('line graph parent default response: ', response.data);
       this.setState({ startDate: reformattedDate, daysAgo, historyByDate: response.data });
     })
 
@@ -75,14 +77,17 @@ class LineGraphParent extends React.Component {
 
     if (prevState.selectedDomain1 !== this.state.selectedDomain1) {
       this.makeDataForDomainLines(this.state.selectedDomain1, 1);
+      this.makeXAxis();
     }
 
      if (prevState.selectedDomain2 !== this.state.selectedDomain2) {
       this.makeDataForDomainLines(this.state.selectedDomain2, 2);
+      this.makeXAxis();
     }
 
      if (prevState.selectedDomain3 !== this.state.selectedDomain3) {
       this.makeDataForDomainLines(this.state.selectedDomain3, 3);
+      this.makeXAxis();
     }
 
   }
@@ -113,8 +118,10 @@ class LineGraphParent extends React.Component {
     axios({
       method: 'post',
       url: `${HostPort}/api/historyByDate`,
-      data: { dateRange: { startDate, daysAgo: this.state.daysAgo } },
+      // url: 'http://localhost:5000/api/historyByDate', 
+      data: { dateRange: { startDate, daysAgo: this.state.daysAgo }, chromeID: this.props.chromeID },
     }).then((response) => {
+      console.log('response after form: ', response.data);
       this.setState({ historyByDate: response.data });
     });
   }
@@ -142,12 +149,44 @@ class LineGraphParent extends React.Component {
     this.setState({ domains });
   }
 
+  makeXAxis() {
+    const data = this.state.historyByDate;
+    // find selected domains from historyByDate
+    // calculate max and min values, set state
+
+    const selectedDomains = [this.state.selectedDomain1, this.state.selectedDomain2, this.state.selectedDomain3];
+
+    // iterate through selected domains
+      // if not an empty string, find matching domain historyByDate data 
+        // push count into array 
+    // grab max and min values from array, set state
+
+    const totalDomainCount = [];
+
+    for (let domain in data) {
+      if (selectedDomains.includes(domain)) {
+        data[domain].forEach((countDate) => {
+          totalDomainCount.push(countDate.count);
+        })
+      }     
+    }
+
+    const max = Math.max(...totalDomainCount);
+    const min = Math.min(...totalDomainCount);
+
+    console.log('max: ', max, 'min: ', min);
+
+    this.setState({ max, min });
+
+  }
+
+
   makeDataForXYAxis() {
     let data = this.state.historyByDate;
 
     let max = 0;
     let min = 0;
-    let totalDomainCount = [];
+    const totalDomainCount = [];
 
     // calculate month based on startDate day and month
     const date = this.state.startDate;
@@ -236,7 +275,7 @@ class LineGraphParent extends React.Component {
         if (domain === selectedDomain) {
           let domainObj = {};
           domainObj[domain] = copyData[domain];
-          
+
           if (Object.keys(domainObj).length + 1 === this.state.daysAgo) {
             selectedDomains.push(domainObj);
           } else {
@@ -346,4 +385,12 @@ class LineGraphParent extends React.Component {
     }
 };
 
-export default LineGraphParent;
+const mapStateToProps = (state) => {
+  return {
+    chromeID: state.chromeID
+  };
+}
+
+export default connect(mapStateToProps)(LineGraphParent);
+
+// export default LineGraphParent;

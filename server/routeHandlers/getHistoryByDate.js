@@ -4,9 +4,7 @@ const readHistoryByDate = require('./helpers/readHistoryByDate');
 
 module.exports = (req, res) => {
 
-  console.log('DATES FROM CLIENT', req.body.dateRange);
-
-  const chromeID = req.session.chromeID;
+  const chromeID = req.body.chromeID || req.session.chromeID;
   const dateRange = req.body.dateRange;
 
   readHistoryByDate(chromeID, dateRange)

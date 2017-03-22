@@ -41,26 +41,15 @@ class LineGraphParent extends React.Component {
       year: today.getFullYear()
     }
 
-    console.log('startDateWeek: ', startDateWeek);
-
-    // const startDateTest = {
-    //   day: 19,
-    //   month: 3,
-    //   year: 2017
-    // }
-
     const daysAgo = 6;
 
     const reformattedDate = moment([startDateWeek.year, startDateWeek.month - 1, startDateWeek.day]).format().slice(0, 10);
-
-    console.log('reformattedDate: ', reformattedDate);
 
     axios({
       method: 'post',
       url: `${HostPort}/api/historyByDate`,
       data: { dateRange: { startDate: startDateWeek, daysAgo } }
     }).then((response) => {
-      console.log('line graph parent response for initial default dispatch: ', response.data);
       this.setState({ startDate: reformattedDate, daysAgo, historyByDate: response.data });
     })
 
@@ -68,9 +57,9 @@ class LineGraphParent extends React.Component {
 
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('LINE GRAPH PARENT PREVIOUS STATE: ', prevState.historyByDate);
+    // console.log('LINE GRAPH PARENT PREVIOUS STATE: ', prevState.historyByDate);
 
-    console.log('LINE GRAPH PARENT CURRENT STATE: ', this.state.historyByDate);
+    // console.log('LINE GRAPH PARENT CURRENT STATE: ', this.state.historyByDate);
 
     if (JSON.stringify(prevState.historyByDate) !== JSON.stringify(this.state.historyByDate) && Object.keys(this.state.historyByDate).length !== 0) {
       this.makeDomainList();
@@ -85,7 +74,6 @@ class LineGraphParent extends React.Component {
         // makeDataForXAxis(data) // based on form data
 
     if (prevState.selectedDomain1 !== this.state.selectedDomain1) {
-      console.log('prevState selectedDomain1: ', prevState.selectedDomain1, 'current state selectedDomain1: ', this.state.selectedDomain1);
       this.makeDataForDomainLines(this.state.selectedDomain1, 1);
     }
 
@@ -113,7 +101,6 @@ class LineGraphParent extends React.Component {
   }  
 
   handleSubmit(e) {
-    console.log("submitting", e);
     // this.props.dispatch(getHistoryByDate(this.state));
     e.preventDefault();
 
@@ -130,7 +117,6 @@ class LineGraphParent extends React.Component {
       url: `${HostPort}/api/historyByDate`,
       data: { dateRange: { startDate, daysAgo: this.state.daysAgo } },
     }).then((response) => {
-      console.log('response from line graph parent: ', response);
       this.setState({ historyByDate: response.data });
     });
   }
@@ -197,8 +183,6 @@ class LineGraphParent extends React.Component {
 
   addMissingDates(domain) {
 
-   console.log('4. domain in addMissingDates: ', domain);
-
    let includedDates;
 
     for (let domainData in domain) {
@@ -242,10 +226,6 @@ class LineGraphParent extends React.Component {
 
   makeDataForDomainLines(selectedDomain, id) {
 
-    console.log('1. selected domain: ', selectedDomain);
-
-    console.log('2. selected domain in historyByDate: ', this.state.historyByDate[selectedDomain]);
-
     const copyData = cloneObject(this.state.historyByDate);
 
     // for any domain chosen from any dropdown menu, find associated data in historyByDate
@@ -258,9 +238,7 @@ class LineGraphParent extends React.Component {
         if (domain === selectedDomain) {
           let domainObj = {};
           domainObj[domain] = copyData[domain];
-
-          console.log('3. domainObj: ', domainObj);
-
+          
           if (Object.keys(domainObj).length + 1 === this.state.daysAgo) {
             selectedDomains.push(domainObj);
           } else {

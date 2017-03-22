@@ -37,9 +37,13 @@ class Chart extends React.Component {
     return false;
   }
 
+  handleClick(first, second, third) {
+    console.log("event", third.target);
+  }
+
   render() {
     return (
-      <div className="Chart" />
+      <div className="Chart" onClick={this.handleClick.bind(this, 1, 3)} />
     );
   }
 }

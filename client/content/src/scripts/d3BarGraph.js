@@ -82,6 +82,7 @@ d3BarGraph.createBars = function (axis, height, x, y, data) {
       .enter()
     .append('rect')
       .attr('class', 'bar')
+      .attr('id', d => d.domain)
       .attr('width', x.bandwidth())
       .attr('x', d => x(d.domain))
     .attr("y", height)
@@ -91,7 +92,7 @@ d3BarGraph.createBars = function (axis, height, x, y, data) {
       .attr('y', d => y(d.visits))
       .attr('fill', ((d, i) => {
         return color(d.domain);
-      }))      
+      }))
       .attr('height', d => height - y(d.visits));
 
   // this.addTooltips(axis, data);

@@ -3,6 +3,8 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import { connect } from 'react-redux';
+import { DropdownButton } from 'react-bootstrap';
+import { MenuItem } from 'react-bootstrap';
 
 import d3BarGraph from '../d3BarGraph';
 
@@ -43,7 +45,13 @@ class Chart extends React.Component {
 
   render() {
     return (
-      <div className="Chart" onClick={this.handleClick.bind(this, 1, 3)} />
+      <div>
+        <DropdownButton bsSize="small" bsStyle="link" title="change date" id="bar-graph-dropdown">
+          <MenuItem eventKey="1" className="bar-graph-dropdown-menuItem">Dropdown link</MenuItem>
+          <MenuItem eventKey="2" className="bar-graph-dropdown-menuItem">Dropdown link</MenuItem>
+        </DropdownButton>
+        <div className="Chart" onClick={this.handleClick.bind(this, 1, 3)} />
+      </div>
     );
   }
 }

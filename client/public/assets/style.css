@@ -197,3 +197,20 @@ rect {
 .axis--x path {
   display: none;
 }
+
+#bar-graph-dropdown {
+  text-decoration: none; 
+}
+
+#bar-graph-dropdown:hover {
+  text-decoration: none; 
+}
+
+.bar-graph-dropdown-menuItem {
+ text-decoration: none;  
+}
+
+.bar-graph-dropdown-menuItem:hover {  
+  text-decoration: none;
+  opacity: 0.5;
+}

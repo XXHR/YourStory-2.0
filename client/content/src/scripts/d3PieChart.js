@@ -27,8 +27,8 @@ d3PieChart.create = function (el, props) {
 
   const dataset = datasetCreator(props);
   const width = 450;
-  const height = 320;
-  const radius = Math.min(width, height) / 2;
+  const height = 260;
+  const radius = Math.min(width, 320) / 2.5;
   const donutWidth = 60;
   const colorArray = [
     'rgb(84, 135, 182)',
@@ -46,8 +46,8 @@ d3PieChart.create = function (el, props) {
       .attr('height', height)
       .attr('id', 'catDataSVG')
     .append('g')
-      .attr('transform', 'translate(' + (width / 2.75) +
-        ',' + (height / 2 ) + ')');
+      .attr('transform', 'translate(' + (width / 3.5) +
+        ',' + (320 / 2.5 ) + ')');
 
   // create radius function
   const arc = d3.arc()
@@ -78,6 +78,7 @@ d3PieChart.create = function (el, props) {
     .data(pie(dataset))
     .enter()
     .append('path')
+    .attr('class', 'pieSlice')
     .attr('d', arc)
     .attr('fill', ((d, i) => {
       return color(d.data.label);
@@ -160,10 +161,11 @@ d3PieChart.create = function (el, props) {
     svg.selectAll('path').remove();
     d3.select('#catDataChart').selectAll('svg').remove();
     d3.select('.tooltipD3').remove();
-    d3.selectAll('text').remove();
+    d3.select('#catDataText').remove();
     const ele = d3.select('#catDataChart');    
     d3.select('#catDataChart')
       .append('text')
+      .attr('id', 'catDataText')
       .text('Category: ' + d.data.label);
     // console.log("ele", ele._groups[0][0]);
     d3PieChart.create(ele._groups[0][0], ['secondset', newDomainData]);
@@ -180,7 +182,7 @@ d3PieChart.destroy = function () {
   const oldTooltips = d3.select('.tooltipD3');
   el.remove();
   oldTooltips.remove();
-  d3.selectAll('text').remove();
+  d3.select('#catDataText').remove();
 };
 
 

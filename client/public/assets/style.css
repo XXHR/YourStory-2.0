@@ -2,10 +2,15 @@ body {
   background-color: #FCFCFC;
 }
 
-
+/*bar graph css*/
 .domain {
+  stroke: #eee;
   font-size: 100%;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+line {
+  stroke: #ccc;
 }
 
 #chart {
@@ -24,6 +29,9 @@ body {
   height: 320;
   width: 450;
   position: relative;
+}
+.pieSlice:hover {
+  opacity: 0.7;
 }
 
 #refreshCatDataChart {
@@ -56,11 +64,11 @@ rect {
   color: #333;
   display: none;
   font-size: 11px;
-  left: 115px;
+  left: 77px;
   padding: 7px;
   position: absolute;
   text-align: center;
-  top: 155px;
+  top: 130px;
   width: 100px;
   z-index: 10;
 }
@@ -80,13 +88,6 @@ rect {
   /*z-index: 10;*/
 }
 
-.bar-domain-name {
-
-}
-
-.bar-visits {
-
-}
 .bar-graph-fill:hover {
   /*fill: red;*/
   opacity: 0.5;

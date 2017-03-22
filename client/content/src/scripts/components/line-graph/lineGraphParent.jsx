@@ -87,8 +87,6 @@ class LineGraphParent extends React.Component {
 
   }
 
-
-
   handleStartDateChange(e) {
     e.preventDefault();
 

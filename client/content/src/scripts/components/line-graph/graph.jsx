@@ -6,15 +6,12 @@ class Graph extends React.Component {
 
   constructor(props) {
     super(props);
-
-    console.log('initial props in Graph', props);
   }
 
   componentDidMount() {
     const el = ReactDOM.findDOMNode(this);
 
     const margin = { top: 20, right: 10, bottom: 20, left: 60 }
-    // const data = nextProps;
 
     d3LineGraph.create(el, margin, this.props);
   }
@@ -22,11 +19,14 @@ class Graph extends React.Component {
   shouldComponentUpdate(nextProps) {
     if (JSON.stringify(nextProps.selectedDomains) !== JSON.stringify(this.props.selectedDomains)) {
 
+      // if there are already 3 domain lines rendered, match domain select id to d3 domain id and replace 
+
+
       d3LineGraph.update(nextProps);
 
       return true;
     } else {
-      return;
+      return true;
     }
   }
 

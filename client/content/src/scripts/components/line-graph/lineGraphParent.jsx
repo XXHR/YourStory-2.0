@@ -8,6 +8,7 @@ import moment from 'moment';
 import DateRange from '../../../../../../server/routeHandlers/helpers/createDateArray';
 import HostPort from '../../../../../event/src/actions/hostPort';
 import axios from 'axios';
+import cloneObject from './cloneFunction';
 
 class LineGraphParent extends React.Component {
   constructor(props) {
@@ -32,26 +33,56 @@ class LineGraphParent extends React.Component {
 
   componentWillMount() {
     // make axios call to retrieve data from a week ago (default)
+    const today = new Date();
+
+    const startDateWeek = {
+      day: today.getDate(),
+      month: today.getMonth() + 1,
+      year: today.getFullYear()
+    }
+
+    const daysAgo = 6;
+
+    const reformattedDate = moment([startDateWeek.year, startDateWeek.month - 1, startDateWeek.day]).format().slice(0, 10);
+
+    axios({
+      method: 'post',
+      url: `${HostPort}/api/historyByDate`,
+      data: { dateRange: { startDate: startDateWeek, daysAgo } }
+    }).then((response) => {
+      this.setState({ startDate: reformattedDate, daysAgo, historyByDate: response.data });
+    })
+
   }
 
 
   componentDidUpdate(prevProps, prevState) {
+    // console.log('LINE GRAPH PARENT PREVIOUS STATE: ', prevState.historyByDate);
+
+    // console.log('LINE GRAPH PARENT CURRENT STATE: ', this.state.historyByDate);
 
     if (JSON.stringify(prevState.historyByDate) !== JSON.stringify(this.state.historyByDate) && Object.keys(this.state.historyByDate).length !== 0) {
       this.makeDomainList();
       this.makeDataForXYAxis();
     }
 
+    // for each selected domain, pass selected domain string(s) into makeDataForXYAxis to re-calculate max and min values for y axis
+      // ** consider splitting xyaxis generator into separate functions
+        // makeDataForYAxis(selectedDomains)
+          // find selected domains from historyByDate data
+          // calculate max and min values, set state
+        // makeDataForXAxis(data) // based on form data
+
     if (prevState.selectedDomain1 !== this.state.selectedDomain1) {
-      this.makeDataForDomainLines(this.state.selectedDomain1);
+      this.makeDataForDomainLines(this.state.selectedDomain1, 1);
     }
 
      if (prevState.selectedDomain2 !== this.state.selectedDomain2) {
-      this.makeDataForDomainLines(this.state.selectedDomain2);
+      this.makeDataForDomainLines(this.state.selectedDomain2, 2);
     }
 
      if (prevState.selectedDomain3 !== this.state.selectedDomain3) {
-      this.makeDataForDomainLines(this.state.selectedDomain3);
+      this.makeDataForDomainLines(this.state.selectedDomain3, 3);
     }
 
   }
@@ -70,7 +101,6 @@ class LineGraphParent extends React.Component {
   }  
 
   handleSubmit(e) {
-    console.log("submitting", e);
     // this.props.dispatch(getHistoryByDate(this.state));
     e.preventDefault();
 
@@ -87,7 +117,6 @@ class LineGraphParent extends React.Component {
       url: `${HostPort}/api/historyByDate`,
       data: { dateRange: { startDate, daysAgo: this.state.daysAgo } },
     }).then((response) => {
-      console.log('response from line graph parent: ', response);
       this.setState({ historyByDate: response.data });
     });
   }
@@ -122,33 +151,33 @@ class LineGraphParent extends React.Component {
     let min = 0;
     let totalDomainCount = [];
 
+    // calculate month based on startDate day and month
+    const date = this.state.startDate;
 
-      // calculate month based on startDate day and month
-      const date = this.state.startDate;
+    const startDate = {
+      day: parseInt(date.slice(8, 10), 10),
+      month: parseInt(date.slice(5, 7), 10),
+      year: parseInt(date.slice(0, 4), 10)
+    }
 
-      const startDate = {
-        day: parseInt(date.slice(8, 10), 10),
-        month: parseInt(date.slice(5, 7), 10),
-        year: parseInt(date.slice(0, 4), 10)
+    const endDate = {
+      day: startDate.day - this.state.daysAgo,
+      month: startDate.month,
+      year: startDate.year
+    }
+
+    for (let domain in data) {
+      for (let date of data[domain]) {
+        totalDomainCount.push(date.count);
       }
+    }
 
-      const endDate = {
-        day: startDate.day - this.state.daysAgo,
-        month: startDate.month,
-        year: startDate.year
-      }
+    max = Math.max(...totalDomainCount);
+    min = Math.min(...totalDomainCount);
 
-      for (let domain in data) {
-        for (let date of data[domain]) {
-          totalDomainCount.push(date.count);
-        }
-      }
+    // console.log('max: ', max, 'min: ', min);
 
-      max = Math.max(...totalDomainCount);
-      min = Math.min(...totalDomainCount);
-
-      this.setState({ startDate, endDate, max, min });
-    // }
+    this.setState({ startDate, endDate, max, min });
 
   }
 
@@ -191,23 +220,33 @@ class LineGraphParent extends React.Component {
 
     }
 
-
     return domain;
 
   }
 
-  makeDataForDomainLines(selectedDomain) {
+  makeDataForDomainLines(selectedDomain, id) {
+
+    const copyData = cloneObject(this.state.historyByDate);
 
     // for any domain chosen from any dropdown menu, find associated data in historyByDate
     // push domain's object value into this.state.selectedDomains array
     let selectedDomains = [];
 
-    for (let domain in this.state.historyByDate) {
+    selectedDomains.push(id);
+
+    for (let domain in copyData) {
         if (domain === selectedDomain) {
           let domainObj = {};
-          domainObj[domain] = this.state.historyByDate[domain];
+          domainObj[domain] = copyData[domain];
+          
+          if (Object.keys(domainObj).length + 1 === this.state.daysAgo) {
+            selectedDomains.push(domainObj);
+          } else {
+          // console.log('addMissingDates: ', this.addMissingDates(domainObj));
 
-          selectedDomains.push(this.addMissingDates(domainObj));
+            selectedDomains.push(this.addMissingDates(domainObj));
+          }
+
         }
     }
 

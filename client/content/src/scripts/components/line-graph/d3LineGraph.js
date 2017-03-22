@@ -8,21 +8,25 @@ const d3LineGraph = {
 
   g: null,
 
+  width: null,
+
+  height: null,
+
   create(el, properties, state) {
 
     const margin = properties;
         
-    const width = 900;
-    const height = 400;
+    this.width = 900;
+    this.height = 400;
 
     this.svg = d3.select(el).append('svg')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom);
+      .attr('width', this.width + margin.left + margin.right)
+      .attr('height', this.height + margin.top + margin.bottom);
 
     this.g = this.svg.append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    const widthHeight = { width, height };
+    const widthHeight = { width: this.width, height: this.height };
 
     this.renderAxis(this.g, widthHeight, state);
   },
@@ -76,9 +80,10 @@ const d3LineGraph = {
     
   },
 
-  domainCount: [2, 1, 0],
-
   renderDomainLines(data) {
+
+    const domainId = data[0];
+    const domain = data[1];
 
     const xScale = this.xScale;
     const yScale = this.yScale;
@@ -94,44 +99,55 @@ const d3LineGraph = {
             });
 
     const domainStyling = {
-      0: '#909BBD',
-      1: '#8DB8CB',
-      2: '#DAB4C6'
+      1: '#909BBD',
+      2: '#8DB8CB',
+      3: '#DAB4C6'
     }
 
-    data.forEach((domain, index) => {
 
-      for (let domainName in domain) {
+    for (let domainName in domain) {
 
-        let domainCount = this.domainCount.pop()
+      const domainColor = domainStyling[domainId];
+      
+      d3.select('#domainId-' + domainId).remove();
 
-        let domainColor = domainStyling[domainCount];
+      const domainG = this.g.append('g')
+                      .attr('id', 'domainId-' + domainId);
 
-        this.g.append('path')
-          .attr('id', 'domain-line-' + domainCount)
-          .style("stroke", domainColor)
-          .style("fill", 'none')
-          .style("stroke-width", '2px')
-          .attr('d', domainLine(domain[domainName]));
+      domainG.append('path')
+        .attr('id', 'domain-line-' + domainId)
+        .style("stroke", domainColor)
+        .style("fill", 'none')
+        .style("stroke-width", '2px')
+        .attr('d', domainLine(domain[domainName]));
 
-        this.g.selectAll('domainDots-' + domainCount)
-          .data(domain[domainName])
-            .enter().append('circle')
-              .attr('class', 'domain-circle-' + domainCount)
-              .attr('r', 6)
-              .attr('cx', (d) => { return xScale(new Date(d.date)); })
-              .attr('cy', (d) => { return yScale(d.count); })
-              .style('fill', domainColor)
-      }
-    });
+      domainG.append('text')
+          // .attr('id', domainName)
+          .attr('transform', 'translate(' + (this.width - 100) + ',' + yScale(domain[domainName][3].count) + ')')
+          .attr('dy', '.35em')
+          .attr('text-anchor', 'start')
+          .style('fill', domainColor)
+          .text(domainName);
 
+      domainG.selectAll('domainDots-' + domainId)
+        .data(domain[domainName])
+          .enter().append('circle')
+            .attr('class', 'domain-circle-' + domainId)
+            .attr('r', 6)
+            .attr('cx', (d) => { return xScale(new Date(d.date)); })
+            .attr('cy', (d) => { return yScale(d.count); })
+            .style('fill', domainColor)
+    }
 
   },
 
   destroy() {
-    this.domainCount = [2, 1, 0];
     this.svg.remove();
   },
+
+  checkDomainCount() {
+    return this.domainCount;
+  }
 
 }
 

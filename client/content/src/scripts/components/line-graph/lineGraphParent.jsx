@@ -77,6 +77,13 @@ class LineGraphParent extends React.Component {
       this.makeDataForXYAxis();
     }
 
+    // for each selected domain, pass selected domain string(s) into makeDataForXYAxis to re-calculate max and min values for y axis
+      // ** consider splitting xyaxis generator into separate functions
+        // makeDataForYAxis(selectedDomains)
+          // find selected domains from historyByDate data
+          // calculate max and min values, set state
+        // makeDataForXAxis(data) // based on form data
+
     if (prevState.selectedDomain1 !== this.state.selectedDomain1) {
       console.log('prevState selectedDomain1: ', prevState.selectedDomain1, 'current state selectedDomain1: ', this.state.selectedDomain1);
       this.makeDataForDomainLines(this.state.selectedDomain1, 1);

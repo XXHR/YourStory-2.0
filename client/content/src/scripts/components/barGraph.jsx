@@ -17,6 +17,14 @@ const postHistoryFromBackground = (time) => {
 };
 
 class Chart extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selectedTimePeriod: 'All Time',
+    };
+  }
+
   componentWillMount() {
     this.props.dispatch(postHistoryFromBackground(this.props.timeHistoryLastFetched));
   }
@@ -39,18 +47,22 @@ class Chart extends React.Component {
     return false;
   }
 
-  handleClick(first, second, third) {
-    console.log("event", third.target);
+  handleTimePeriodClick(e) {
+    console.log("handleTimePeriodClick e - ", e.target );
+    
   }
 
   render() {
     return (
       <div>
-        <DropdownButton bsSize="small" bsStyle="link" title="change date" id="bar-graph-dropdown">
-          <MenuItem eventKey="1" className="bar-graph-dropdown-menuItem">Dropdown link</MenuItem>
-          <MenuItem eventKey="2" className="bar-graph-dropdown-menuItem">Dropdown link</MenuItem>
-        </DropdownButton>
-        <div className="Chart" onClick={this.handleClick.bind(this, 1, 3)} />
+        <div className="bar-graph-dropdown-conainer">
+          <DropdownButton bsSize="small" bsStyle="link" title={this.state.selectedTimePeriod} id="bar-graph-dropdown">
+            <MenuItem eventKey="1" className="bar-graph-dropdown-menuItem" onClick={this.handleTimePeriodClick.bind(this)}>All Time</MenuItem>
+            <MenuItem eventKey="2" className="bar-graph-dropdown-menuItem" onClick={this.handleTimePeriodClick.bind(this)} active>Past 7 Days</MenuItem>
+            <MenuItem eventKey="3" className="bar-graph-dropdown-menuItem" onClick={this.handleTimePeriodClick.bind(this)}>Today</MenuItem>
+          </DropdownButton>
+        </div>
+        <div className="chart" />
       </div>
     );
   }

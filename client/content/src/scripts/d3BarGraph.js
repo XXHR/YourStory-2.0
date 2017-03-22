@@ -10,7 +10,7 @@ d3BarGraph.create = function (el, state) {
   const height = svgContainerHeight - margin.top - margin.bottom - 50;
   const translateLeftValue = 45;
 
-  const svg = d3.select(el)
+  const svg = d3.select(el).select('.chart')
     .append('svg')
       .attr('class', 'svg-container')
       .attr('width', svgContainerWidth)
@@ -80,9 +80,10 @@ d3BarGraph.createBars = function (axis, height, x, y, data) {
       .selectAll('.bar')
       .data(data)
       .enter()
+      .append('a')
+      .attr('xlink:href', d => ('http://www.' + d.domain))
     .append('rect')
       .attr('class', 'bar')
-      .attr('id', d => d.domain)
       .attr('width', x.bandwidth())
       .attr('x', d => x(d.domain))
     .attr("y", height)

@@ -2,7 +2,7 @@ body {
   background-color: #FCFCFC;
 }
 
-/*bar graph css*/
+/* stary bar graph css*/
 .domain {
   stroke: #eee;
   font-size: 100%;
@@ -12,6 +12,8 @@ body {
 line {
   stroke: #ccc;
 }
+
+/* end bar graph css*/
 
 #chart {
   height: 360px;
@@ -37,6 +39,7 @@ line {
 #refreshCatDataChart {
   float: right;
 }
+
 .graph-svg {
   padding-left: 50px;
 }
@@ -46,15 +49,14 @@ line {
   stroke: gray;
 }
 
-div{
-  margin: 0 auto;
-}
 path{
   cursor: pointer
 }
+
 rect {
   stroke-width: 2;
 }
+
 .logoImg {
   width: 125px
 }

@@ -3,97 +3,89 @@ import * as d3 from 'd3';
 const d3BarGraph = {};
 
 d3BarGraph.create = function (el, state) {
+  const svgContainerWidth = 450;
+  const svgContainerHeight = 300;
   const margin = { top: 20, right: 20, bottom: 30, left: 40 };
-  const width = 425 - margin.left - margin.right;
-  const height = 250 - margin.top - margin.bottom;
+  const width = svgContainerWidth - margin.left - margin.right;
+  const height = svgContainerHeight - margin.top - margin.bottom - 50;
   const translateLeftValue = 45;
 
   const svg = d3.select(el)
     .append('svg')
       .attr('class', 'svg-container')
-      .attr('width', 425)
-      .attr('height', 300)
+      .attr('width', svgContainerWidth)
+      .attr('height', svgContainerHeight)
     .append('g')
       .attr('transform', 'translate(' + translateLeftValue + ',' + margin.top + ')');
 
   this.createAxis(svg, { width, height, svg }, state);
 };
 
+
 d3BarGraph.createAxis = function (el, properties, state) {
   console.log("properties", properties);
-  const yAxisStart = 0;
-  let yAxisEnd = 0;
+  const svgContainer = properties.svg;
+  const xAxisRangeEnd = properties.width;
+  const yAxisRangeEnd = properties.height;
+  let maxVisits = 0;
   let totalVisitCount = 0;
-  state.map((site) => {
-    totalVisitCount += site.visits;
-    if (site.visits > yAxisEnd) {
-      yAxisEnd = site.visits;
-    }
-    return yAxisEnd;
-  });
-  console.log("totalVisitCount", totalVisitCount);
-  const updatedState = [];
+  let data = null;
 
-  state.map((site) => {
-    let sites = site.visits / 510738;
-    if (sites > .01) {
-      updatedState.push({
-        domain: site.domain,
-        visits: site.visits,
-      });
-    }
-  });
+  const getMaxAndTotalVisitCountValues = () => {
+    return state.map((site) => {
+      totalVisitCount += site.visits;
+      if (site.visits > maxVisits) {
+        maxVisits = site.visits;
+      }
+      return maxVisits;
+    });
+  };
+  getMaxAndTotalVisitCountValues();
+  data = state.sort((a, b) => b.visits - a.visits).slice(0, 10);
 
+  const x = d3.scaleBand().rangeRound([0, xAxisRangeEnd]).padding(0.1);
+  const y = d3.scaleLinear().rangeRound([yAxisRangeEnd, 0]);
+  x.domain(data.map(d => d.domain));
+  y.domain([0, d3.max(data, d => d.visits)]);
 
-
-  const x = d3.scaleBand().rangeRound([0, properties.width]).padding(0.1);
-  const y = d3.scaleLinear().rangeRound([properties.height, 0]);
-
-  x.domain(updatedState.map(d => d.domain));
-  y.domain([0, d3.max(updatedState, (d) => {
-    console.log("d.visits", d.domain, d.visits);
-    return d.visits}
-    )]);
-
-  properties.svg
-    .append("g")
-      .attr("class", "axis axis--x")
-      .attr("transform", "translate(0," + (properties.height) + ")")
+  svgContainer
+    .append('g')
+      .attr('class', 'axis axis--x')
+      .attr('transform', 'translate(0,' + (properties.height) + ')')
       .call(d3.axisBottom(x))
-      .selectAll("text")
-      .style("text-anchor", "end")
-      .attr("dx", "-.8em")
-      .attr("dy", ".15em")
-      .attr("transform", function (d) {
-        return "rotate(-30)";
+      .selectAll('text')
+      .style('text-anchor', 'end')
+      .attr('dx', '-.8em')
+      .attr('dy', '.15em')
+      .attr('transform', function (d) {
+        return 'rotate(-30)';
       });
 
-  properties.svg
-    .append("g")
-      .attr("class", "axis axis--y")
-      .call(d3.axisLeft(y).ticks(10))      
-    .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", "0.71em")
-      .attr("text-anchor", "end")
-      .text("Frequency");
+  svgContainer
+    .append('g')
+      .attr('class', 'axis axis--y')
+      .call(d3.axisLeft(y).ticks(10))
+    .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('y', 6)
+      .attr('dy', '0.71em')
+      .attr('text-anchor', 'end')
+      .text('Frequency');
 
-  properties.svg
-      .selectAll(".bar")
-      .data(updatedState)
+  this.createBars(svgContainer, properties.height, x, y, data);
+};
+
+d3BarGraph.createBars = function (axis, height, x, y, data) {
+  axis
+      .selectAll('.bar')
+      .data(data)
       .enter()
-    .append("rect")
-      .attr("class", "bar")
-      .attr("x", d => x(d.domain))      
-      .attr("y", d => y(d.visits))      
-      .attr("width", x.bandwidth())
-      .attr("height", d => properties.height - y(d.visits));
-
-  const xScale = null;
-  const yScale = null;
-  console.log("axis percent - ", yAxisStart, " - ", yAxisEnd);
-  console.log("updatedState - ", updatedState);
+    .append('rect')
+      .attr('class', 'bar')
+      .attr('x', d => x(d.domain))
+      .attr('y', d => y(d.visits))
+      .attr('width', x.bandwidth())
+      .attr('height', d => height - y(d.visits));
 };
 
 d3BarGraph.update = function (el, state) {

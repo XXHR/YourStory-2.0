@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 const d3BarGraph = {};
 
 d3BarGraph.create = function (el, state) {
-  const svgContainerWidth = 450;
+  const svgContainerWidth = 385;
   const svgContainerHeight = 300;
   const margin = { top: 20, right: 20, bottom: 30, left: 40 };
   const width = svgContainerWidth - margin.left - margin.right;

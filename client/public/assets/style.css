@@ -229,3 +229,9 @@ a:hover {
 .dropdown-menu {
   padding: .25rem .55rem !important;
 }
+
+.row {
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
+

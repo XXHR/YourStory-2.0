@@ -114,6 +114,11 @@ class Chart extends React.Component {
         return true;
       }
       return true;
+    } else if ((this.props.history === null) && (nextProps.history !== null)) {
+      const el = ReactDom.findDOMNode(this);
+      d3BarGraph.destroy(el);
+      d3BarGraph.create(el, nextProps.history);
+      return true;
     }
 
     return false;

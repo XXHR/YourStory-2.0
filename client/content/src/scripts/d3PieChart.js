@@ -26,7 +26,7 @@ d3PieChart.create = function (el, props) {
   });
 
   const dataset = datasetCreator(props);
-  const width = 450;
+  const width = 385;
   const height = 260;
   const radius = Math.min(width, 320) / 2.5;
   const donutWidth = 60;
@@ -46,7 +46,7 @@ d3PieChart.create = function (el, props) {
       .attr('height', height)
       .attr('id', 'catDataSVG')
     .append('g')
-      .attr('transform', 'translate(' + (width / 3.5) +
+      .attr('transform', 'translate(' + (width / 3) +
         ',' + (320 / 2.5 ) + ')');
 
   // create radius function
@@ -95,7 +95,7 @@ d3PieChart.create = function (el, props) {
     .attr('transform', (d, i) => {
       const height = legendRectSize + legendSpacing;
       const offset =  height * color.domain().length / 2;
-      const horz = 18 * legendRectSize;
+      const horz = 18 * legendRectSize - 30;
       const vert = i * height - offset;
       return 'translate(' + horz + ',' + vert + ')';
     });

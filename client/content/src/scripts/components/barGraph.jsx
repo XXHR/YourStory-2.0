@@ -143,6 +143,7 @@ const mapStateToProps = (state) => {
   return {
     history: state.history,
     timeHistoryLastFetched: state.timeHistoryLastFetched,
+    chromeID: state.chromeID,
   };
 };
 

@@ -47,8 +47,7 @@ class LineGraphParent extends React.Component {
 
     axios({
       method: 'post',
-      // url: `${HostPort}/api/historyByDate`,
-      url: 'http://localhost:5000/api/historyByDate',
+      url: `${HostPort}/api/historyByDate`,
       data: { dateRange: { startDate: startDateWeek, daysAgo }, chromeID: this.props.chromeID }
     }).then((response) => {
       console.log('line graph parent default response: ', response.data);

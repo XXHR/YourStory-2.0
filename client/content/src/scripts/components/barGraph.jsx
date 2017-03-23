@@ -21,9 +21,9 @@ class Chart extends React.Component {
     super(props);
     this.state = {
       chromeID: this.props.chromeID,
-      selectedTimePeriod: 'All Time',
-      sevenDaysAgoHistory: [],
-      todayHistory: [],
+      activeSelectedPeriod: 'All Time',
+      weekHistory: [],
+      dayHistory: [],
     };
   }
 
@@ -37,9 +37,9 @@ class Chart extends React.Component {
       year: today.getFullYear(),
     };
 
-    // if (this.state.selectedTimePeriod === 'Past 7 Days') {
+    // if (this.state.activeSelectedPeriod === 'Past 7 Days') {
     //   daysAgo = 7;
-    // } else if (this.state.selectedTimePeriod === 'Today') {
+    // } else if (this.state.activeSelectedPeriod === 'Today') {
     //   daysAgo = 1;
     // }
 
@@ -61,9 +61,9 @@ class Chart extends React.Component {
         }
       }
       // if (daysAgo === 7) {
-        this.setState({ sevenDaysAgoHistory: history });
+        this.setState({ weekHistory: history });
       // } else if (daysAgo === 1) {
-        // this.setState({ todayHistory: history });
+        // this.setState({ dayHistory: history });
       // }
     });   
 
@@ -85,9 +85,9 @@ class Chart extends React.Component {
         }
       }
       // if (daysAgo === 7) {
-        // this.setState({ sevenDaysAgoHistory: history });
+        // this.setState({ weekHistory: history });
       // } else if (daysAgo === 1) {
-        this.setState({ todayHistory: history });
+        this.setState({ dayHistory: history });
       // }
     });            
   }
@@ -111,53 +111,53 @@ class Chart extends React.Component {
     //   return true;
     // } 
     // else 
-    // if (this.state.selectedTimePeriod !== nextState.selectedTimePeriod) {
+    // if (this.state.activeSelectedPeriod !== nextState.activeSelectedPeriod) {
     //   console.log('component should update...');
-    //   console.log("this.state.selectedTimePeriod: ", this.state);
-    //   console.log("nextState.selectedTimePeriod: ", nextState);
-    //   // if (nextState.selectedTimePeriod === 'All Time') {
+    //   console.log("this.state.activeSelectedPeriod: ", this.state);
+    //   console.log("nextState.activeSelectedPeriod: ", nextState);
+    //   // if (nextState.activeSelectedPeriod === 'All Time') {
     //   //   // console.log('...for All Time');
     //   //   d3BarGraph.destroy(el);
     //   //   d3BarGraph.update(el, this.props.history);
     //   //   return true;
-    //   // } else if (nextState.selectedTimePeriod === 'Past 7 Days' ) {
+    //   // } else if (nextState.activeSelectedPeriod === 'Past 7 Days' ) {
     //   //   console.log('...for Past 7 Days', nextState, this.state);
     //   //   d3BarGraph.destroy(el);
-    //   //   d3BarGraph.update(el, this.state.sevenDaysAgoHistory);
+    //   //   d3BarGraph.update(el, this.state.weekHistory);
     //   //   return true;
-    //   // } else if (nextState.selectedTimePeriod === 'Today') {
+    //   // } else if (nextState.activeSelectedPeriod === 'Today') {
     //   //   // console.log('...for Today');
     //   //   d3BarGraph.destroy(el);
-    //   //   d3BarGraph.update(el, this.state.todayHistory);
+    //   //   d3BarGraph.update(el, this.state.dayHistory);
     //   //   return true;
     //   // }
     //   return true;
     // } else 
-    if (this.state.sevenDaysAgoHistory !== nextState.sevenDaysAgoHistory) {
+    if (this.state.weekHistory !== nextState.weekHistory) {
       console.log('...for Past 7 Days');
-      console.log("this.state todayHistory", this.state.todayHistory);
-      console.log("Next todayHistory", nextState.todayHistory);
+      console.log("this.state dayHistory", this.state.dayHistory);
+      console.log("Next dayHistory", nextState.dayHistory);
       d3BarGraph.destroy(el);
       d3BarGraph.update(el, this.props.history);
-      d3BarGraph.update(el, nextState.sevenDaysAgoHistory);
-      d3BarGraph.update(el, nextState.todayHistory);
+      d3BarGraph.update(el, nextState.weekHistory);
+      d3BarGraph.update(el, nextState.dayHistory);
       return true;
     } 
-    // else if (this.state.todayHistory !== nextState.todayHistory) {
+    // else if (this.state.dayHistory !== nextState.dayHistory) {
 
     // }
     return false;
   }
 
   handleTimePeriodClick(e) {
-    this.setState({ selectedTimePeriod: e.target.innerText });    
+    this.setState({ activeSelectedPeriod: e.target.innerText });    
   }
 
   render() {
     return (
       <div>
         <div className="bar-graph-dropdown-conainer">
-          <DropdownButton bsSize="small" bsStyle="link" title={this.state.selectedTimePeriod} id="bar-graph-dropdown">
+          <DropdownButton bsSize="small" bsStyle="link" title={this.state.activeSelectedPeriod} id="bar-graph-dropdown">
             <MenuItem eventKey="1" className="bar-graph-dropdown-menuItem" onClick={this.handleTimePeriodClick.bind(this)}>All Time</MenuItem>
             <MenuItem eventKey="2" className="bar-graph-dropdown-menuItem" onClick={this.handleTimePeriodClick.bind(this)}>Past 7 Days</MenuItem>
             <MenuItem eventKey="3" className="bar-graph-dropdown-menuItem" onClick={this.handleTimePeriodClick.bind(this)}>Today</MenuItem>

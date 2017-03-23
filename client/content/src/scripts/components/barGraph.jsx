@@ -4,7 +4,6 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import { connect } from 'react-redux';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
-import moment from 'moment';
 import axios from 'axios';
 
 import d3BarGraph from '../d3BarGraph';
@@ -20,19 +19,62 @@ const postHistoryFromBackground = (time) => {
 class Chart extends React.Component {
   constructor(props) {
     super(props);
-    console.log("props: ", this.props.chromeID);
     this.state = {
       chromeID: this.props.chromeID,
-      selectedTimePeriod: 'All Time',
-      sevenDaysAgoHistory: null,
-      todayHistory: null,
+      activeSelectedPeriod: 'All Time',
+      weekHistory: null,
+      dayHistory: null,
     };
   }
 
   componentWillMount() {
     this.props.dispatch(postHistoryFromBackground(this.props.timeHistoryLastFetched));
-    //get week history and save to state
-    //get day history and save to state
+    const today = new Date();
+    const startDateWeek = {
+      day: today.getDate(),
+      month: today.getMonth() + 1,
+      year: today.getFullYear(),
+    };
+
+    axios({
+      method: 'post',
+      url: 'https://getyourstory.us/api/historyByDate',
+      data: { dateRange: { startDate: startDateWeek, daysAgo: 1 }, chromeID: this.state.chromeID },
+    }).then((response) => {
+      const history = [];
+      for (let key in response.data) {
+        if (response.data[key].length === 1) {
+          history.push({ domain: key, visits: response.data[key][0].count });
+        } else {
+          let historyItem = { domain: key, visits: 0 };
+          for (let i = 0; i < response.data[key].length; i++) {
+            historyItem.visits += response.data[key][i].count;
+          }
+          history.push(historyItem);
+        }
+      }
+      this.setState({ dayHistory: history });
+    });
+
+    axios({
+      method: 'post',
+      url: 'https://getyourstory.us/api/historyByDate',
+      data: { dateRange: { startDate: startDateWeek, daysAgo: 7 }, chromeID: this.state.chromeID },
+    }).then((response) => {
+      const history = [];
+      for (let key in response.data) {
+        if (response.data[key].length === 1) {
+          history.push({ domain: key, visits: response.data[key][0].count });
+        } else {
+          let historyItem = { domain: key, visits: 0 };
+          for (let i = 0; i < response.data[key].length; i++) {
+            historyItem.visits += response.data[key][i].count;
+          }
+          history.push(historyItem);
+        }
+      }
+      this.setState({ weekHistory: history });
+    });
   }
 
   componentDidMount() {
@@ -41,71 +83,51 @@ class Chart extends React.Component {
       d3BarGraph.destroy(el);
       d3BarGraph.create(el, this.props.history);
     }
+    // const el = ReactDom.findDOMNode(this);
+    // if (this.state.dayHistory !== null) {
+    //   d3BarGraph.destroy(el);
+    //   d3BarGraph.create(el, this.state.dayHistory);
+    // }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    // console.log("nextState: ", nextState);
-    // console.log("nextProps: ", nextProps);
-
     const el = ReactDom.findDOMNode(this);
-    if (this.props.timeHistoryLastFetched !== nextProps.timeHistoryLastFetched) {
-      d3BarGraph.destroy(el);
-      d3BarGraph.update(el, nextProps.history);
-      return true;
-    } else if (this.state.selectedTimePeriod !== nextState.selectedTimePeriod) {
-      // console.log('component should update...');
 
-      if (nextState.selectedTimePeriod === 'All Time') {
-        // console.log('...for All Time');
+    if (this.state.activeSelectedPeriod !== nextState.activeSelectedPeriod) {
+      console.log('Bar Graph Component Updating...');
+      console.log("this.state.activeSelectedPeriod: ", this.state);
+      console.log("nextState.activeSelectedPeriod: ", nextState);
+      if ((nextState.activeSelectedPeriod === 'All Time') && (this.props.history !== null)) {
+        console.log('all history');
         d3BarGraph.destroy(el);
         d3BarGraph.update(el, this.props.history);
-      } else if (nextState.selectedTimePeriod === 'Past 7 Days') {
-        // console.log('...for Past 7 Days');
+        return true;
+      } else if ((nextState.activeSelectedPeriod === 'Past 7 Days') && (this.state.weekHistory !== null)) {
+        console.log('Past 7 Days', nextState, this.state);
         d3BarGraph.destroy(el);
-        d3BarGraph.update(el, this.state.sevenDaysAgoHistory);
-      } else if (nextState.selectedTimePeriod === 'Today') {
-        // console.log('...for Today');
+        d3BarGraph.update(el, this.state.weekHistory);
+        return true;
+      } else if ((nextState.activeSelectedPeriod === 'Today') && (this.state.dayHistory !== null)) {
+        console.log('Today');
         d3BarGraph.destroy(el);
-        d3BarGraph.update(el, this.state.todayHistory);
+        d3BarGraph.update(el, this.state.dayHistory);
+        return true;
       }
-
       return true;
     }
+
     return false;
   }
 
   handleTimePeriodClick(e) {
-    this.setState({ selectedTimePeriod: e.target.innerText });
-    const today = new Date();
-    const startDateWeek = {
-      day: today.getDate(),
-      month: today.getMonth() + 1,
-      year: today.getFullYear(),
-    };
-
-    let daysAgo = 10;
-    if (e.target.innerText === 'Past 7 Days') {
-      daysAgo = 7;
-    } else if ( e.target.innerText === 'Today') {
-      daysAgo = 1;
-    }
-    console.log("this.state.chromeID", this.state.chromeID, startDateWeek, daysAgo);
-
-    axios({
-      method: 'post',
-      url: 'https://getyourstory.us/api/historyByDate',
-      data: { dateRange: { startDate: startDateWeek, daysAgo }, chromeID: this.state.chromeID },
-    }).then((response) => {
-      console.log("historyByDate response -- ", response);
-      this.setState({ sevenDaysAgoHistory: response.data });
-    });
+    this.setState({ activeSelectedPeriod: e.target.innerText });    
   }
 
   render() {
     return (
       <div>
         <div className="bar-graph-dropdown-conainer">
-          <DropdownButton bsSize="small" bsStyle="link" title={this.state.selectedTimePeriod} id="bar-graph-dropdown">
+          <DropdownButton bsSize="small" bsStyle="link" title={this.state.activeSelectedPeriod} id="bar-graph-dropdown">
             <MenuItem eventKey="1" className="bar-graph-dropdown-menuItem" onClick={this.handleTimePeriodClick.bind(this)}>All Time</MenuItem>
             <MenuItem eventKey="2" className="bar-graph-dropdown-menuItem" onClick={this.handleTimePeriodClick.bind(this)}>Past 7 Days</MenuItem>
             <MenuItem eventKey="3" className="bar-graph-dropdown-menuItem" onClick={this.handleTimePeriodClick.bind(this)}>Today</MenuItem>
@@ -121,6 +143,7 @@ const mapStateToProps = (state) => {
   return {
     history: state.history,
     timeHistoryLastFetched: state.timeHistoryLastFetched,
+    chromeID: state.chromeID,
   };
 };
 

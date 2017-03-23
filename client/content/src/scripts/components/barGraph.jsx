@@ -22,50 +22,19 @@ class Chart extends React.Component {
     this.state = {
       chromeID: this.props.chromeID,
       activeSelectedPeriod: 'All Time',
-      weekHistory: [],
-      dayHistory: [],
+      weekHistory: null,
+      dayHistory: null,
     };
   }
 
   componentWillMount() {
     this.props.dispatch(postHistoryFromBackground(this.props.timeHistoryLastFetched));
-
     const today = new Date();
     const startDateWeek = {
       day: today.getDate(),
       month: today.getMonth() + 1,
       year: today.getFullYear(),
     };
-
-    // if (this.state.activeSelectedPeriod === 'Past 7 Days') {
-    //   daysAgo = 7;
-    // } else if (this.state.activeSelectedPeriod === 'Today') {
-    //   daysAgo = 1;
-    // }
-
-    axios({
-      method: 'post',
-      url: 'https://getyourstory.us/api/historyByDate',
-      data: { dateRange: { startDate: startDateWeek, daysAgo: 7 }, chromeID: this.state.chromeID },
-    }).then((response) => {
-      const history = [];
-      for (let key in response.data) {
-        if (response.data[key].length === 1) {
-          history.push({ domain: key, visits: response.data[key][0].count });
-        } else {
-          let historyItem = { domain: key, visits: 0 };
-          for (let i = 0; i < response.data[key].length; i++) {
-            historyItem.visits += response.data[key][i].count;
-          }
-          history.push(historyItem);
-        }
-      }
-      // if (daysAgo === 7) {
-        this.setState({ weekHistory: history });
-      // } else if (daysAgo === 1) {
-        // this.setState({ dayHistory: history });
-      // }
-    });   
 
     axios({
       method: 'post',
@@ -84,12 +53,28 @@ class Chart extends React.Component {
           history.push(historyItem);
         }
       }
-      // if (daysAgo === 7) {
-        // this.setState({ weekHistory: history });
-      // } else if (daysAgo === 1) {
-        this.setState({ dayHistory: history });
-      // }
-    });            
+      this.setState({ dayHistory: history });
+    });
+
+    axios({
+      method: 'post',
+      url: 'https://getyourstory.us/api/historyByDate',
+      data: { dateRange: { startDate: startDateWeek, daysAgo: 7 }, chromeID: this.state.chromeID },
+    }).then((response) => {
+      const history = [];
+      for (let key in response.data) {
+        if (response.data[key].length === 1) {
+          history.push({ domain: key, visits: response.data[key][0].count });
+        } else {
+          let historyItem = { domain: key, visits: 0 };
+          for (let i = 0; i < response.data[key].length; i++) {
+            historyItem.visits += response.data[key][i].count;
+          }
+          history.push(historyItem);
+        }
+      }
+      this.setState({ weekHistory: history });
+    });
   }
 
   componentDidMount() {
@@ -98,54 +83,39 @@ class Chart extends React.Component {
       d3BarGraph.destroy(el);
       d3BarGraph.create(el, this.props.history);
     }
+    // const el = ReactDom.findDOMNode(this);
+    // if (this.state.dayHistory !== null) {
+    //   d3BarGraph.destroy(el);
+    //   d3BarGraph.create(el, this.state.dayHistory);
+    // }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    // console.log("nextState: ", nextState);
-    // console.log("nextProps: ", nextProps);
-
     const el = ReactDom.findDOMNode(this);
-    // if (this.props.timeHistoryLastFetched !== nextProps.timeHistoryLastFetched) {
-    //   d3BarGraph.destroy(el);
-    //   d3BarGraph.update(el, nextProps.history);
-    //   return true;
-    // } 
-    // else 
-    // if (this.state.activeSelectedPeriod !== nextState.activeSelectedPeriod) {
-    //   console.log('component should update...');
-    //   console.log("this.state.activeSelectedPeriod: ", this.state);
-    //   console.log("nextState.activeSelectedPeriod: ", nextState);
-    //   // if (nextState.activeSelectedPeriod === 'All Time') {
-    //   //   // console.log('...for All Time');
-    //   //   d3BarGraph.destroy(el);
-    //   //   d3BarGraph.update(el, this.props.history);
-    //   //   return true;
-    //   // } else if (nextState.activeSelectedPeriod === 'Past 7 Days' ) {
-    //   //   console.log('...for Past 7 Days', nextState, this.state);
-    //   //   d3BarGraph.destroy(el);
-    //   //   d3BarGraph.update(el, this.state.weekHistory);
-    //   //   return true;
-    //   // } else if (nextState.activeSelectedPeriod === 'Today') {
-    //   //   // console.log('...for Today');
-    //   //   d3BarGraph.destroy(el);
-    //   //   d3BarGraph.update(el, this.state.dayHistory);
-    //   //   return true;
-    //   // }
-    //   return true;
-    // } else 
-    if (this.state.weekHistory !== nextState.weekHistory) {
-      console.log('...for Past 7 Days');
-      console.log("this.state dayHistory", this.state.dayHistory);
-      console.log("Next dayHistory", nextState.dayHistory);
-      d3BarGraph.destroy(el);
-      d3BarGraph.update(el, this.props.history);
-      d3BarGraph.update(el, nextState.weekHistory);
-      d3BarGraph.update(el, nextState.dayHistory);
-      return true;
-    } 
-    // else if (this.state.dayHistory !== nextState.dayHistory) {
 
-    // }
+    if (this.state.activeSelectedPeriod !== nextState.activeSelectedPeriod) {
+      console.log('Bar Graph Component Updating...');
+      console.log("this.state.activeSelectedPeriod: ", this.state);
+      console.log("nextState.activeSelectedPeriod: ", nextState);
+      if ((nextState.activeSelectedPeriod === 'All Time') && (this.props.history !== null)) {
+        console.log('all history');
+        d3BarGraph.destroy(el);
+        d3BarGraph.update(el, this.props.history);
+        return true;
+      } else if ((nextState.activeSelectedPeriod === 'Past 7 Days') && (this.state.weekHistory !== null)) {
+        console.log('Past 7 Days', nextState, this.state);
+        d3BarGraph.destroy(el);
+        d3BarGraph.update(el, this.state.weekHistory);
+        return true;
+      } else if ((nextState.activeSelectedPeriod === 'Today') && (this.state.dayHistory !== null)) {
+        console.log('Today');
+        d3BarGraph.destroy(el);
+        d3BarGraph.update(el, this.state.dayHistory);
+        return true;
+      }
+      return true;
+    }
+
     return false;
   }
 
